@@ -82,7 +82,7 @@ class Voiture{
              $this->vitesseActuelle -= $ralenti;
              return "La voiture ralenti de ".$ralenti." km/h<br>";
         } else {
-            return "Il faut démarrer la voiture<br>";
+            return "Pour ralentir la voiture doit rouler<br>";
         }
     }
 

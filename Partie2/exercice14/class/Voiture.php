@@ -1,8 +1,8 @@
 <?php
 
 class Voiture{
-    public $marque;
-    public $modele;
+    private $marque;
+    private $modele;
 
 
     public function __construct($marque, $modele){
@@ -38,11 +38,10 @@ class Voiture{
 }
 
 class VoitureElec extends Voiture{
-    public $autonomie;
+    private $autonomie;
 
     public function __construct($marque, $modele, $autonomie){
-        $this->marque = $marque;
-        $this->modele = $modele;
+        parent::__construct($marque, $modele);
         $this->autonomie = $autonomie;
     }
 

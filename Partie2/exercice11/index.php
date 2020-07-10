@@ -1,15 +1,16 @@
 <?php
 
-$date = new DateTime("1999-08-31");
-echo formaterDateFr($date);
 
 
-function formaterDateFr($date){
-    setlocale(LC_TIME, "fr_FR");
 
-    return strftime("%l %d %F %Y", $date);
+
+function formaterDateFr($date = "now"){
+    setlocale(LC_TIME, "fr_FR.utf-8");
+
+    return strftime("%A %d %B %Y", strtotime($date));
 }
 
 
 
 
+echo formaterDateFr("31-08-1997");

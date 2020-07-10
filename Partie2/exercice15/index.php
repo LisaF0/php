@@ -4,7 +4,7 @@ $email = "elan@elan-formation.fr";
 
 
 
-function validate_email($email){
+function validate_email(string $email = 'contact@exemple.com'){
     if (filter_var($email, FILTER_VALIDATE_EMAIL)){
         return "L'adresse ".$email." est une adresse e-mail valide";
     } else {
