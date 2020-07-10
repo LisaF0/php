@@ -90,7 +90,7 @@ class Titulaire{
     //         echo $compte->getLibelle();
     //     }
         
-    }
+    
 
     public function __toString(){
         $info = "Nom : ".$this->nom.

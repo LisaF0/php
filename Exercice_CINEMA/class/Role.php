@@ -2,14 +2,9 @@
 
 class Role{
     private $nomRole;
-    private $acteur;
-    private $film;
 
-    public function __construt(string $nomRole = "N/A", Acteur $acteur, Film $film){
+    public function __construct(string $nomRole = "N/A"){
         $this->nomRole = $nomRole;
-        $this->acteur = $acteur;
-        $this->film = $film;
-
     }
 
         /**
@@ -32,43 +27,10 @@ class Role{
                 return $this;
         }
 
-        /**
-         * Get the value of acteur
-         */ 
-        public function getActeur()
-        {
-                return $this->acteur;
-        }
-
-        /**
-         * Set the value of acteur
-         *
-         * @return  self
-         */ 
-        public function setActeur($acteur)
-        {
-                $this->acteur = $acteur;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of film
-         */ 
-        public function getFilm()
-        {
-                return $this->film;
-        }
-
-        /**
-         * Set the value of film
-         *
-         * @return  self
-         */ 
-        public function setFilm($film)
-        {
-                $this->film = $film;
-
-                return $this;
-        }
+        
+        public function __toString() {
+                return $this->nomRole;
+                        
+            }
+        
 }

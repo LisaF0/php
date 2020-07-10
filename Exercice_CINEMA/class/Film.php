@@ -13,11 +13,13 @@ class Film{
                          Genre $genre)
     {
         $this->titre = $titre;
-        $this->anneeSortieFR = new DateTime($anneeSortieFR);
+        $this->anneeSortieFR = $anneeSortieFR;
         $this->duree = $duree;
         $this->synopsis = $synopsis;
         $this->realisateur = $realisateur;
+        $realisateur->addFilms($this);
         $this->genre = $genre;
+        $genre->addGenre($this);
     }
 
         /**
@@ -139,4 +141,21 @@ class Film{
 
                 return $this;
         }
+
+        
+
+        public function getInfos(){
+                return "Film : ".$this->titre."<br><ul>
+                <li>Année de sortie :  ".$this->anneeSortieFR."</li><br>
+                <li>Durée : ".$this->duree."</li><br>
+                <li>Synopsis : ".$this->synopsis."</li><br>
+                <li>Réalisateur : ".$this->realisateur."</li><br>
+                <li>Genre : ".$this->genre."</li></ul><br><br>"
+                ;
+        }
+        
+        public function __toString()
+        {
+                return $this->titre." (".$this->getAnneeSortieFR()." ".$this->duree." minutes )";
+        } 
 }
