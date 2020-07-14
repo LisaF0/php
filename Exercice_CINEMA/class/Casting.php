@@ -10,9 +10,10 @@ class Casting{
         $this->role = $role;
         $this->film = $film;
         $this->acteur = $acteur;
+        $acteur->addCasting($this);
+        $film->addCasting($this);
+        $role->addCasting($this);
     }
-
-    
 
         /**
          * Get the value of role

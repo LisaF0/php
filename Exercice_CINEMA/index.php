@@ -25,8 +25,8 @@ $rw = new Acteur("Robin Wright", "Robin", "30-01-1978");
 $comedie = new Genre("comedie");
 $sf = new Genre("science fiction");
 // Role
-$roleA = new Role("Aa");
-$roleB = new Role("Bbbbb");
+$roleA = new Role("roleA");
+$roleB = new Role("roleB");
 
 
 
@@ -41,9 +41,13 @@ $cast1 = new Casting($roleA, $film1, $th);
 $cast2 = new Casting($roleA, $film1, $rw);
 $cast3 = new Casting($roleB, $film2, $th);
 
-echo $cast1;
-echo $cast2;
-echo $cast3;
+echo $realisateur1->getFilms();
+echo $th->getCastings();
+echo $th->getRoleListe();
+
+echo $film1->getInfos();
+
+echo $roleA->getRoleActeurs();
 
 
 

@@ -2,9 +2,10 @@
 
 class Role{
     private $nomRole;
-
+    private $castings;
     public function __construct(string $nomRole = "N/A"){
         $this->nomRole = $nomRole;
+        $this->castings = [];
     }
 
         /**
@@ -25,6 +26,17 @@ class Role{
                 $this->nomRole = $nomRole;
 
                 return $this;
+        }
+
+        public function addCasting($casting){
+            array_push($this->castings, $casting);
+        }
+        public function getRoleActeurs(){
+            $totalRoleActeurs = "";
+            foreach($this->castings as $casting){
+                $totalRoleActeurs .="<ul><li>".$casting->getActeur()."</li></ul>";
+            }
+            return $this." a eu pour acteur : ".$totalRoleActeurs;
         }
 
         

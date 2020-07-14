@@ -7,6 +7,7 @@ class Film{
     private $synopsis;
     private $realisateur;
     private $genre;
+    private $castings;
 
     public function __construct(string $titre = "N/A", string $anneeSortieFR = "N/A",
                         int $duree = 0, string $synopsis = "N/A", Realisateur $realisateur,
@@ -20,6 +21,7 @@ class Film{
         $realisateur->addFilms($this);
         $this->genre = $genre;
         $genre->addGenre($this);
+        $this->castings = [];
     }
 
         /**
@@ -146,16 +148,27 @@ class Film{
 
         public function getInfos(){
                 return "Film : ".$this->titre."<br><ul>
-                <li>Année de sortie :  ".$this->anneeSortieFR."</li><br>
-                <li>Durée : ".$this->duree."</li><br>
-                <li>Synopsis : ".$this->synopsis."</li><br>
-                <li>Réalisateur : ".$this->realisateur."</li><br>
-                <li>Genre : ".$this->genre."</li></ul><br><br>"
-                ;
+                <li>Année de sortie :  ".$this->anneeSortieFR."</li>
+                <li>Durée : ".$this->duree."</li>
+                <li>Genre : ".$this->genre."</li>
+                <li>Liste des acteurs :".$this->getCastings()."</li>
+                <li>Réalisateur : ".$this->realisateur."</li></ul><br><br>";
         }
+
+        public function addCasting($casting){
+                array_push($this->castings, $casting);
+            }
+
+            public function getCastings(){
+                $totalActeurs = "";
+                foreach($this->castings as $casting){
+                    $totalActeurs .="<ul><li>".$casting->getActeur()."</li></ul>";
+                }
+                return $this." <br>Acteurs :".$totalActeurs;
+            }
         
         public function __toString()
         {
-                return $this->titre." (".$this->getAnneeSortieFR()." ".$this->duree." minutes )";
+                return $this->titre;
         } 
 }
