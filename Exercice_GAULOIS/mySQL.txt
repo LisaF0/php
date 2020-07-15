@@ -1,0 +1,64 @@
+	1)Nb de Gaulois par lieu (trié par nb de gualois décroisant)
+SELECT nom_lieu, COUNT(*) AS total
+FROM villageois v, lieu l
+WHERE v.ID_LIEU = l.ID_LIEU
+GROUP BY nom_lieu
+ORDER BY total DESC
+
+	2)Nom des gaulois + spécialité + village
+SELECT nom, nom_specialite, nom_lieu
+FROM villageois v, lieu l, specialite s
+WHERE v.ID_LIEU = l.ID_LIEU
+AND v.ID_SPECIALITE = s.ID_SPECIALITE
+
+	3)Nom des spécialité avec nomdre de gaulois par spécialité (trié par nb de gaulois décroissant)
+SELECT nom_specialite, COUNT(*) AS nb
+FROM villageois v, specialite s
+WHERE v.ID_SPECIALITE = s.ID_SPECIALITE
+GROUP BY nom_specialite
+ORDER BY nb DESC
+
+	4)Nom des batailles + lieu de la plus récente à la plus ancienne (dates au format jj/mm/aaa)
+SELECT nom_bataille, DATE_FORMAT(date_bataille,"%d/%c/%Y"), nom_lieu
+FROM bataille b, lieu l
+WHERE b.ID_LIEU = l.ID_LIEU
+ORDER BY date_bataille DESC
+
+	5)Nom des potions + coût de réalisation de la potion (trié par coût décroissant)
+SELECT nom_potion, SUM(cout_ingredient * QTE) AS prix_total
+FROM potion p, ingredient i, compose c
+WHERE p.ID_POTION = c.ID_POTION
+AND c.ID_INGREDIENT = i.ID_INGREDIENT
+GROUP BY nom_potion
+ORDER BY prix_total DESC
+
+	6)Nom des ingrédients + coût + quantité de chaque ingrédient qui composent la potion 'Potion V'
+SELECT nom_ingredient, cout_ingredient, QTE, nom_potion
+FROM potion p, ingredient i, compose c	WHERE p.NOM_POTION = 'Potion V'
+AND p.ID_POTION = c.ID_POTION
+AND c.ID_INGREDIENT = i.ID_INGREDIENT
+
+	7)Nom du ou des villageois qui ont pris le plus de casques dans la bataille 'Babaorum'
+SELECT nom, nom_bataille, MAX(QTE)
+FROM villageois v, bataille b, prise_casque pc
+WHERE b.NOM_BATAILLE = 'Babaorum'
+AND v.ID_VILLAGEOIS = pc.ID_VILLAGEOIS
+AND pc.ID_BATAILLE = b.ID_BATAILLE
+PAS LE BON NOM, doit afficher obélix
+
+	8)Nom des villageois et la quantité de potion bue (en les classant du plus grand buveur au plus petit)
+SELECT nom, dose
+FROM villageois v, boit b
+WHERE v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
+ORDER BY dose DESC
+
+	9)Nom de la bataille où le nombre de casques pris a été le plus important
+SELECT nom_bataille, MAX(SUM(QTE)) AS MAXQTE
+FROM bataille b, prise_casque pc
+WHERE pc.ID_BATAILLE = b.ID_BATAILLE
+GROUP BY nom_bataille
+NE FONCTIONNE PAS
+
+	10)Combien existe-t-il de casques de chaque type et quel est leur coût total ? (classés par nombre décroissant)
+
+	
