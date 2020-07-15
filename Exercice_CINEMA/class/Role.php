@@ -36,7 +36,7 @@ class Role{
             foreach($this->castings as $casting){
                 $totalRoleActeurs .="<ul><li>".$casting->getActeur()."</li></ul>";
             }
-            return $this." a eu pour acteur : ".$totalRoleActeurs;
+            return "Les acteurs de ".$this." dans ".$casting->getFilm()." sont : ".$totalRoleActeurs;
         }
 
         

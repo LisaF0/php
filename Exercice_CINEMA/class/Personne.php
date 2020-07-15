@@ -80,7 +80,7 @@ class Personne{
 
           public function __toString()
           {
-              return $this->prenom." ".$this->nom." (".$this->getAge()." ans)"; 
+              return $this->prenom." ".$this->nom; 
           }
 }
 

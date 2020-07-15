@@ -25,10 +25,4 @@ class Acteur extends Personne{
         }
         return "Listes des rôles(+Film) de ".$this." : ".$totalRoles;
     }
-
-    
-
-
-
-
 }

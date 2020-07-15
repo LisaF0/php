@@ -19,7 +19,7 @@ $realisateur2 = new Realisateur("DARABONT", "Frank", "22-08-1960");
 
 // Acteurs
 $th = new Acteur("Hanks","Tom", "02-12-1965");
-$rw = new Acteur("Robin Wright", "Robin", "30-01-1978");
+$rw = new Acteur("Wright", "Robin", "30-01-1978");
 
 // Genres
 $comedie = new Genre("comedie");

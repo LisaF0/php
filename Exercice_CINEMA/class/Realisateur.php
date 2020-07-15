@@ -23,7 +23,7 @@ class Realisateur extends Personne{
     }
 
     public function getInfos(){
-        return $this->getNom()." ".$this->getPrenom()." (".$this->getAge()." ans)";
+        return $this->getNom()." ".$this->getPrenom();
     }
 
     public function __toString()
