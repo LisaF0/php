@@ -10,8 +10,8 @@ class Film{
     private $castings;
 
     public function __construct(string $titre = "N/A", string $anneeSortieFR = "N/A",
-                        int $duree = 0, string $synopsis = "N/A", Realisateur $realisateur,
-                         Genre $genre)
+                        int $duree = 0, string $synopsis = "N/A", Realisateur $realisateur = null,
+                         Genre $genre = null)
     {
         $this->titre = $titre;
         $this->anneeSortieFR = $anneeSortieFR;

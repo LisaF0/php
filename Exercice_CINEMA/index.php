@@ -41,15 +41,20 @@ $cast1 = new Casting($roleA, $film1, $th);
 $cast2 = new Casting($roleA, $film1, $rw);
 $cast3 = new Casting($roleB, $film2, $th);
 
+
+
+
 echo $realisateur1->getFilms();
 echo $th->getCastings();
+echo $sf->getFilms();
 echo $th->getRoleListe();
-
 echo $film1->getInfos();
-
 echo $roleA->getRoleActeurs();
 
 
+
+// data.php contient toutes les instanciations
+// index.php contient toutes les méthodes que l'on peut utiliser +include = data/data.php
 
 
 

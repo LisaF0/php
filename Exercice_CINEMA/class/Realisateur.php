@@ -9,8 +9,8 @@ class Realisateur extends Personne{
     }
     
 
-    public function addFilms($film){
-        array_push($this->films, $film);
+    public function addFilms(Film $film){
+        $this->films[] = $film;// == array_push($this->films, $film);  
     }
 
     public function getFilms(){

@@ -81,6 +81,4 @@ class Casting{
                     Film : ".$this->getFilm()."<br>
                     Acteur : ".$this->getActeur()."<br><br>";
         }
-
-
 }

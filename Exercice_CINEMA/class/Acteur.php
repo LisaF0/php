@@ -8,8 +8,8 @@ class Acteur extends Personne{
     }
 
 
-    public function addCasting($casting){
-        array_push($this->castings, $casting);
+    public function addCasting(Casting $casting){ // j'attend un objet de type casting
+        $this->castings[] = $casting; // === array_push($this->castings, $casting);
     }
     public function getCastings(){
         $totalCastings = "";

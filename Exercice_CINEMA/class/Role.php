@@ -34,9 +34,9 @@ class Role{
         public function getRoleActeurs(){
             $totalRoleActeurs = "";
             foreach($this->castings as $casting){
-                $totalRoleActeurs .="<ul><li>".$casting->getActeur()."</li></ul>";
+                $totalRoleActeurs .="<ul><li>".$casting->getActeur()." (".$casting->getFilm().")</li></ul>";
             }
-            return "Les acteurs de ".$this." dans ".$casting->getFilm()." sont : ".$totalRoleActeurs;
+            return "Les acteurs de ".$this." sont : ".$totalRoleActeurs;
         }
 
         
