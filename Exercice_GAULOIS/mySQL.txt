@@ -1,15 +1,17 @@
-	1)Nb de Gaulois par lieu (trié par nb de gualois décroisant)
+	1)Nb de Gaulois par lieu (trié par nb de gaulois décroisant)
 SELECT nom_lieu, COUNT(*) AS total
 FROM villageois v, lieu l
 WHERE v.ID_LIEU = l.ID_LIEU
 GROUP BY nom_lieu
 ORDER BY total DESC
 
+
 	2)Nom des gaulois + spécialité + village
 SELECT nom, nom_specialite, nom_lieu
 FROM villageois v, lieu l, specialite s
 WHERE v.ID_LIEU = l.ID_LIEU
 AND v.ID_SPECIALITE = s.ID_SPECIALITE
+
 
 	3)Nom des spécialité avec nomdre de gaulois par spécialité (trié par nb de gaulois décroissant)
 SELECT nom_specialite, COUNT(*) AS nb
@@ -18,11 +20,13 @@ WHERE v.ID_SPECIALITE = s.ID_SPECIALITE
 GROUP BY nom_specialite
 ORDER BY nb DESC
 
+
 	4)Nom des batailles + lieu de la plus récente à la plus ancienne (dates au format jj/mm/aaa)
 SELECT nom_bataille, DATE_FORMAT(date_bataille,"%d/%c/%Y"), nom_lieu
 FROM bataille b, lieu l
 WHERE b.ID_LIEU = l.ID_LIEU
 ORDER BY date_bataille DESC
+
 
 	5)Nom des potions + coût de réalisation de la potion (trié par coût décroissant)
 SELECT nom_potion, SUM(cout_ingredient * QTE) AS prix_total
@@ -32,33 +36,112 @@ AND c.ID_INGREDIENT = i.ID_INGREDIENT
 GROUP BY nom_potion
 ORDER BY prix_total DESC
 
+
 	6)Nom des ingrédients + coût + quantité de chaque ingrédient qui composent la potion 'Potion V'
 SELECT nom_ingredient, cout_ingredient, QTE, nom_potion
 FROM potion p, ingredient i, compose c	WHERE p.NOM_POTION = 'Potion V'
 AND p.ID_POTION = c.ID_POTION
 AND c.ID_INGREDIENT = i.ID_INGREDIENT
 
+
 	7)Nom du ou des villageois qui ont pris le plus de casques dans la bataille 'Babaorum'
-SELECT nom, nom_bataille, MAX(QTE)
+SELECT nom, nom_bataille, QTE
 FROM villageois v, bataille b, prise_casque pc
 WHERE b.NOM_BATAILLE = 'Babaorum'
 AND v.ID_VILLAGEOIS = pc.ID_VILLAGEOIS
 AND pc.ID_BATAILLE = b.ID_BATAILLE
-PAS LE BON NOM, doit afficher obélix
+ORDER BY QTE DESC
+LIMIT 1
+
+--------------OU----------------
+
+SELECT nom, nom_bataille, SUM(QTE) AS maxQTE
+FROM villageois v, bataille b, prise_casque pc
+WHERE b.NOM_BATAILLE = 'Babaorum'
+AND v.ID_VILLAGEOIS = pc.ID_VILLAGEOIS
+AND pc.ID_BATAILLE = b.ID_BATAILLE
+AND QTE = (SELECT MAX(QTE) FROM prise_casque)
+GROUP BY nom
+
 
 	8)Nom des villageois et la quantité de potion bue (en les classant du plus grand buveur au plus petit)
-SELECT nom, dose
+SELECT nom, SUM(dose) AS dose_total
 FROM villageois v, boit b
 WHERE v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
-ORDER BY dose DESC
+GROUP BY nom
+ORDER BY dose_total DESC
+
 
 	9)Nom de la bataille où le nombre de casques pris a été le plus important
-SELECT nom_bataille, MAX(SUM(QTE)) AS MAXQTE
+SELECT nom_bataille, SUM(QTE)
 FROM bataille b, prise_casque pc
 WHERE pc.ID_BATAILLE = b.ID_BATAILLE
 GROUP BY nom_bataille
-NE FONCTIONNE PAS
+LIMIT 1---- babaorum 62
+------------------------------
+SELECT nom_bataille, SUM(QTE) AS maxQTE
+FROM bataille b, prise_casque pc
+WHERE pc.ID_BATAILLE = b.ID_BATAILLE
+AND QTE = (SELECT MAX(QTE) FROM prise_casque)
+GROUP BY nom_bataille
+
 
 	10)Combien existe-t-il de casques de chaque type et quel est leur coût total ? (classés par nombre décroissant)
+SELECT SUM(QTE) AS totalcasque, nom_casque
+FROM prise_casque pc, casque c
+WHERE c.ID_CASQUE = pc.ID_CASQUE
+GROUP BY nom_casque
+AFFICHE le nb total de casque par nom de casque
+
+
+	11)Noms des potions dont un des ingrédients est la cerise
+SELECT nom_potion, nom_ingredient
+FROM potion p, ingredient i, compose c
+WHERE nom_ingredient LIKE 'Cerise'
+AND p.ID_POTION = c.ID_POTION
+AND c.ID_INGREDIENT = i.ID_INGREDIENT
+
+--------------------------------- OU
+SELECT nom_potion, nom_ingredient
+FROM potion p, ingredient i, compose c
+WHERE nom_ingredient IN ( 'Cerise' )
+AND p.ID_POTION = c.ID_POTION
+AND c.ID_INGREDIENT = i.ID_INGREDIENT
+
+
+	12)Nom du / des village(s) possédant le plus d'habitants
+
+	13)Noms des villageois qui n'ont jamais bu de potion
+
+SELECT nom
+FROM villageois v
+LEFT JOIN boit b
+	ON v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
+WHERE b.ID_VILLAGEOIS IS NULL
+
+	14)Noms des villages qui contiennent la particule 'um'
+
+SELECT nom
+FROM villageois v
+WHERE v.NOM LIKE '%um%'
+
+	15)Nom du / des villageois qui n'ont pas le droit de boire la potion 'Rajeunissement II'
+
+SELECT nom, nom_potion, a_le_droit
+FROM villageois v, potion po, peut pe
+WHERE v.ID_VILLAGEOIS = pe.ID_VILLAGEOIS
+AND po.NOM_POTION = 'Rajeunissement II'
+AND pe.A_LE_DROIT = 0
+
+
+
+
+
+
+
+
+
+
+
 
 	
