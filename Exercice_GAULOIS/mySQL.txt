@@ -92,14 +92,24 @@ ORDER BY dose_total DESC
 
 
 	9)Nom de la bataille où le nombre de casques pris a été le plus important
-SELECT nom_bataille, SUM(QTE)
+SELECT nom_bataille, SUM(QTE) AS total
 FROM  prise_casque pc, bataille b
 WHERE b.ID_BATAILLE = pc.ID_BATAILLE
 GROUP BY nom_bataille
-HAVING SUM(QTE) >= ALL (SELECT SUM(QTE)
+HAVING total >= ALL (SELECT SUM(QTE)
 			FROM prise_casque pc, bataille b
 			WHERE b.ID_BATAILLE = pc.ID_BATAILLE
 			GROUP BY pc.ID_BATAILLE
+			)
+----------HAVING TOTAL >= ALL (SELECT SUM(QTE)---> on compare toujours un item contre un autre item du meme type
+---- pour alléger : 
+SELECT nom_bataille, SUM(QTE) AS total
+FROM  prise_casque pc, bataille b
+WHERE b.ID_BATAILLE = pc.ID_BATAILLE
+GROUP BY nom_bataille
+HAVING total >= ALL (SELECT SUM(QTE)
+			FROM prise_casque pc
+			GROUP BY ID_BATAILLE
 			)
 
 
@@ -142,50 +152,57 @@ SELECT nom
 FROM villageois v
 LEFT JOIN boit b
 	ON v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
-WHERE dose IS NULL
-(25)
-----------------------------
+WHERE b.ID_VILLAGEOIS IS NULL
+------------------- OU ---------
 SELECT nom
 FROM villageois v
-WHERE nom = (
-	SELECT nom
-	FROM villageois v, boit b
-	WHERE v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
-	AND b.ID_VILLAGEOIS IS NULL
+WHERE v.ID_VILLAGEOIS NOT IN (
+	SELECT b.ID_VILLAGEOIS
+	FROM boit b
 	)
---------------
-SELECT nom
-FROM villageois v, boit b
-WHERE v.ID_VILLAGEOIS = b.ID_VILLAGEOIS
-AND nom = ALL (
-	SELECT  nom
-	FROM boit b, villageois v
-	WHERE  DOSE IS NULL
-	)
-GROUP BY nom
+------- OU -------------
+WHERE NOT EXISTS (select dose
+		from boit b
+
+
+On sélectionne tout les villageois qui ont bu dans la sous requete puis dans la requette principal
+on dit qu'on veut récup tout les noms des villageois qui ne sont pas dans ceux qui ont bu
+
 
 
 	14)Noms des villages qui contiennent la particule 'um'
-SELECT nom
-FROM villageois v
-WHERE v.NOM LIKE '%um%'
+SELECT nom_lieu
+FROM lieu l
+WHERE nom_lieu LIKE '%um%'
 
 	15)Nom du / des villageois qui n'ont pas le droit de boire la potion 'Rajeunissement II'
-SELECT nom, nom_potion, a_le_droit
+SELECT nom
 FROM villageois v, potion po, peut pe
 WHERE v.ID_VILLAGEOIS = pe.ID_VILLAGEOIS
+AND po.ID_POTION = pe.ID_POTION
 AND po.NOM_POTION = 'Rajeunissement II'
 AND pe.A_LE_DROIT = 0
 
+Pour tout les villageois générer une adresse mail
+--> les 2 premiere lettre du prénom du villageois puis un point puis les 2premiere lettre du lieu d'habitation 
+puis @gaulois.fr EN MINUSCULE
+SELECT LOWER(CONCAT(LEFT(nom,2),
+		'.',
+		LEFT(nom_lieu, 2),
+		'@gaulois.fr'						
+		))					
+FROM villageois v, lieu l
+WHERE v.ID_LIEU = l.ID_LIEU
 
 
+Nb de jour écoulé entre la bataille babaorum et la bataille vikings
+SELECT DISTINCT (DATEDIFF((SELECT date_bataille
+		FROM bataille b
+		WHERE NOM_BATAILLE = 'babaorum'),
+		(SELECT date_bataille
+		FROM bataille b
+	WHERE NOM_BATAILLE = 'vikings')
 
+	)) AS Diff
+FROM bataille b
 
-
-
-
-
-
-
-
-	
