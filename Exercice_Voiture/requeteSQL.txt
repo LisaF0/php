@@ -15,7 +15,6 @@ WHERE v.id_modele = mo.id_modele
 AND mo.id_marque = ma.id_marque
 GROUP BY nom_marque
 ORDER BY nbVoitures DESC
-
 --------------------- + afficher les marques qui ont 0 véhicule
 SELECT nom_marque, COUNT(v.id_voiture) AS nbVoiture
 FROM marque ma
@@ -23,6 +22,7 @@ LEFT JOIN modele mo ON ma.id_marque = mo.id_marque
 LEFT JOIN voitures v ON mo.id_modele = v.id_modele
 GROUP BY nom_marque
 ORDER BY nbVoiture DESC
+
 
 	c. Nombre de véhicules par motorisation (même tri que la 2)
 SELECT COUNT(id_voiture) AS nbVoitures, nom_motorisation
@@ -36,7 +36,6 @@ FROM motorisation m
 LEFT JOIN voitures v ON m.id_motorisation = v.id_motorisation
 GROUP BY nom_motorisation
 ORDER BY nbVoiture DESC
-
 
 
 	d. Nombre de véhicules de chaque nationalité (même tri que la 2)
@@ -61,33 +60,48 @@ ORDER BY nbVoiture DESC
 
 SELECT plaque_immatriculation
 FROM voitures v, couleur cou, colorer co
-WHERE v.id_voiture = co.id_voiture
-AND co.id_couleur = cou.id_couleur
-AND cou.nom_couleur = 'Rouge'
-rajouter une condition cou.nom_couleur = 'Gris'
---------------------------------------
-SELECT plaque_immatriculation
-FROM voitures v, couleur cou, colorer co
-WHERE EXISTS ( SELECT plaque_immatriculation
+WHERE v.id_voiture IN (
+	SELECT v.id_voiture 
 	FROM voitures v, couleur cou, colorer co
-	WHERE v.id_voiture = co.id_voiture
+	WHERE v.id_voiture IN (
+		SELECT id_voiture
+		FROM colorer c
+		GROUP BY id_voiture
+		HAVING COUNT(*) > 1
+	)
+	AND v.id_voiture = co.id_voiture
 	AND co.id_couleur = cou.id_couleur
-	AND cou.nom_couleur = 'Gris')
+	AND cou.nom_couleur = 'Rouge')
+	
 AND v.id_voiture = co.id_voiture
 AND co.id_couleur = cou.id_couleur
-AND cou.nom_couleur = 'Rouge'
-----------------------------------------
+AND cou.nom_couleur = 'Gris'
+
+--------------------------------------
+SELECT plaque_immatriculation
+FROM voitures v
+WHERE id_voiture IN (
+	SELECT id_voiture
+	FROM colorer c
+	GROUP BY id_voiture
+	HAVING COUNT(*) > 1
+)
+
+-----------------------------TRUE----------------
 SELECT plaque_immatriculation
 FROM voitures v, couleur cou, colorer co
-WHERE cou.nom_couleur IN (SELECT plaque_immatriculation
+WHERE v.id_voiture IN (
+	SELECT v.id_voiture 
 	FROM voitures v, couleur cou, colorer co
 	WHERE v.id_voiture = co.id_voiture
 	AND co.id_couleur = cou.id_couleur
 	AND cou.nom_couleur = 'Rouge')
+	
 AND v.id_voiture = co.id_voiture
 AND co.id_couleur = cou.id_couleur
 AND cou.nom_couleur = 'Gris'
---------------------------------------
+
+
 
 	f. Lister les véhicules Essence et dont l’origine est allemande
 
