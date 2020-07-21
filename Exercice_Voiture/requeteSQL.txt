@@ -1,0 +1,101 @@
+	a. Lister les véhicules (plaque immatriculation + modèle + marque) de marque française
+SELECT plaque_immatriculation, nom_modele, nom_marque
+FROM voitures v, modele mo, marque ma, origine o
+WHERE v.id_modele = mo.id_modele
+AND mo.id_marque = ma.id_marque
+AND ma.id_pays = o.id_pays
+AND o.pays = "France"
+
+
+	b. Nombre de véhicules par marque (trié par nombre de véhicules décroissant) 
+	+ afficher les marques qui ont 0 véhicule
+SELECT COUNT(id_voiture) AS nbVoitures, nom_marque
+FROM voitures v, marque ma, modele mo
+WHERE v.id_modele = mo.id_modele
+AND mo.id_marque = ma.id_marque
+GROUP BY nom_marque
+ORDER BY nbVoitures DESC
+
+--------------------- + afficher les marques qui ont 0 véhicule
+SELECT nom_marque, COUNT(v.id_voiture) AS nbVoiture
+FROM marque ma
+LEFT JOIN modele mo ON ma.id_marque = mo.id_marque
+LEFT JOIN voitures v ON mo.id_modele = v.id_modele
+GROUP BY nom_marque
+ORDER BY nbVoiture DESC
+
+	c. Nombre de véhicules par motorisation (même tri que la 2)
+SELECT COUNT(id_voiture) AS nbVoitures, nom_motorisation
+FROM voitures v, motorisation mo
+WHERE v.id_motorisation = mo.id_motorisation
+GROUP BY nom_motorisation
+ORDER BY nbVoitures DESC
+----------------------- + afficher les pays qui ont 0 véhicules
+SELECT nom_motorisation, COUNT(v.id_voiture) AS nbVoiture
+FROM motorisation m
+LEFT JOIN voitures v ON m.id_motorisation = v.id_motorisation
+GROUP BY nom_motorisation
+ORDER BY nbVoiture DESC
+
+
+
+	d. Nombre de véhicules de chaque nationalité (même tri que la 2)
+SELECT COUNT(id_voiture) AS nbVoitures, pays
+FROM voitures v, origine o, modele mo, marque ma
+WHERE v.id_modele = mo.id_modele
+AND mo.id_marque = ma.id_marque
+AND ma.id_pays = o.id_pays
+GROUP BY pays
+ORDER BY nbVoitures DESC
+----------------------- + afficher les pays qui ont 0 véhicules
+SELECT pays, COUNT(v.id_voiture) AS nbVoiture
+FROM origine o
+LEFT JOIN marque ma ON o.id_pays = ma.id_pays
+LEFT JOIN modele mo ON ma.id_marque = mo.id_marque
+LEFT JOIN voitures v ON mo.id_modele = v.id_modele
+GROUP BY pays
+ORDER BY nbVoiture DESC
+
+
+	e. Lister les véhicules de couleur grises ET rouge
+
+SELECT plaque_immatriculation
+FROM voitures v, couleur cou, colorer co
+WHERE v.id_voiture = co.id_voiture
+AND co.id_couleur = cou.id_couleur
+AND cou.nom_couleur = 'Rouge'
+rajouter une condition cou.nom_couleur = 'Gris'
+--------------------------------------
+SELECT plaque_immatriculation
+FROM voitures v, couleur cou, colorer co
+WHERE EXISTS ( SELECT plaque_immatriculation
+	FROM voitures v, couleur cou, colorer co
+	WHERE v.id_voiture = co.id_voiture
+	AND co.id_couleur = cou.id_couleur
+	AND cou.nom_couleur = 'Gris')
+AND v.id_voiture = co.id_voiture
+AND co.id_couleur = cou.id_couleur
+AND cou.nom_couleur = 'Rouge'
+----------------------------------------
+SELECT plaque_immatriculation
+FROM voitures v, couleur cou, colorer co
+WHERE cou.nom_couleur IN (SELECT plaque_immatriculation
+	FROM voitures v, couleur cou, colorer co
+	WHERE v.id_voiture = co.id_voiture
+	AND co.id_couleur = cou.id_couleur
+	AND cou.nom_couleur = 'Rouge')
+AND v.id_voiture = co.id_voiture
+AND co.id_couleur = cou.id_couleur
+AND cou.nom_couleur = 'Gris'
+--------------------------------------
+
+	f. Lister les véhicules Essence et dont l’origine est allemande
+
+
+SELECT plaque_immatriculation
+FROM voitures v, motorisation mot, origine o, modele mo, marque ma
+WHERE o.pays = 'allemagne'
+AND mot.nom_motorisation = 'essence'
+AND v.id_modele = mo.id_modele
+AND mo.id_marque = ma.id_marque
+AND ma.id_pays = o.id_pays
