@@ -1,0 +1,111 @@
+	a. Informations d’un film (id_film) : titre, année, 
+	durée (au format HH:MM) et réalisateur
+SELECT titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60), "%H:%i") AS duree, nom_realisateur, prenom_realisateur
+FROM film f, realisateur r
+WHERE f.id_realisateur = r.id_realisateur
+
+
+	b. Liste des films dont la durée excède 2h15 classés par durée 
+	(du plus long au plus court
+SELECT titre, annee_sortie,SEC_TO_TIME(duree*60) AS duree, nom_realisateur, prenom_realisateur
+FROM film f, realisateur r
+WHERE f.id_realisateur = r.id_realisateur
+AND duree > 135
+ORDER BY duree DESC
+
+
+	c. Liste des films d’un réalisateur (en précisant l’année de sortie)
+SELECT titre, annee_sortie
+FROM film f, realisateur r
+WHERE r.id_realisateur = 2
+AND r.id_realisateur = f.id_realisateur
+
+
+	d. Nombre de films par genre (classés dans l’ordre décroissant)
+SELECT COUNT(*) AS nbFilm, libelle
+FROM film f, genre g, posseder_genre pg
+WHERE pg.id_genre = g.id_genre
+AND pg.id_film = f.id_film
+GROUP BY libelle
+ORDER BY nbFilm DESC
+
+
+	e. Nombre de films par réalisateur (classés dans l’ordre décroissant)
+SELECT COUNT(*) AS nbFilm, nom_realisateur
+FROM film f, realisateur r
+WHERE r.id_realisateur = f.id_realisateur
+GROUP BY r.id_realisateur
+ORDER BY nbFilm DESC
+
+
+	f. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe
+SELECT nom_acteur, prenom_acteur, sexe_acteur
+FROM casting c, film f, role r, acteur a
+WHERE c.id_film = f.id_film
+AND c.id_role = r.id_role
+AND c.id_acteur = a.id_acteur
+AND f.id_film = 1
+
+
+	g. Films tournés par un acteur en particulier (id_acteur) 
+	avec leur rôle et l’année de sortie (du film le plus récent au plus ancien)
+SELECT titre, annee_sortie, nom_role
+FROM acteur a, film f, casting c, role r
+WHERE c.id_role = r.id_role
+AND a.id_acteur = c.id_acteur
+AND c.id_film = f.id_film
+AND a.id_acteur = 1
+ORDER BY annee_sortie DESC
+
+
+	h. Listes des personnes qui sont à la fois acteurs et réalisateurs
+SELECT nom_acteur, prenom_acteur
+FROM acteur a
+INNER JOIN realisateur r
+ON a.prenom_acteur = r.prenom_realisateur
+AND a.nom_acteur = r.nom_realisateur
+
+
+	i. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)
+SELECT titre, YEAR(CURDATE())-annee_sortie AS sortie_il_y_a
+FROM film f
+HAVING sortie_il_y_a <= 5
+ORDER BY sortie_il_y_a DESC
+
+
+	j. Nombre d’hommes et de femmes parmi les acteurs
+SELECT COUNT(nom_acteur), sexe_acteur
+FROM acteur a
+GROUP BY sexe_acteur
+
+
+	k. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)
+SELECT nom_acteur, YEAR(CURDATE())-YEAR(birthday_acteur) AS age
+FROM acteur a
+HAVING age >= 50
+------------------------- TIMESTAMPDIFF permet d'avoir la différence EXACT
+---- Permet de ne pas avoir ceux qui sont dans l'année de leur 50ans et qui n'ont pas encore 50ans
+SELECT nom_acteur,  TIMESTAMPDIFF(YEAR , birthday_acteur,CURDATE()) AS age
+FROM acteur a
+HAVING age >=50
+
+	l. Acteurs ayant joué dans 3 films ou plus
+SELECT  nom_acteur, COUNT(titre) AS nbFilm
+FROM acteur a, casting c, film f
+WHERE a.id_acteur = c.id_acteur
+AND c.id_film = f.id_film
+GROUP BY nom_acteur
+HAVING nbFilm >= 3
+
+
+------------------------------
+-------------------------------------------------
+SELECT nom_acteur, MONTH(birthday_acteur) AS mois
+FROM acteur a
+HAVING mois >= MONTH(CURDATE())
+-------------------------------------------------
+SELECT nom_acteur, DAY(birthday_acteur) AS jour
+FROM acteur a
+HAVING jour >= DAY(CURDATE())
+-------------
+ DATE_FORMAT((CURDATE()), "%Y")-DATE_FORMAT(birthday_acteur, "%Y")
