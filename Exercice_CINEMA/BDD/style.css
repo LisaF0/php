@@ -1,0 +1,28 @@
+table{
+    width: 100%;
+    text-align: left;
+}
+a{
+    text-decoration: none;
+    color: rgb(84, 122, 245);
+}
+a:hover {
+    color:rgb(53, 74, 144);
+}
+td, th{
+    padding: 10px;
+    border-bottom: 1px solid rgb(182, 182, 182);
+}
+tr:nth-child(even){
+    background-color: rgb(231, 231, 231);
+}
+.etoiles{
+    color: rgb(79, 180, 248);
+}
+.fa-arrow-circle-left{
+    color: rgb(79, 180, 248);
+    font-size: 3em;
+}
+.fa-arrow-circle-left:hover{
+    color: rgb(57, 121, 163);
+}

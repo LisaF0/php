@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
+<a href="index.php"><i class="fas fa-arrow-circle-left"></i></a>
 <?php
 try
 {
@@ -16,40 +17,4 @@ $reponse = $bdd->query('SELECT titre, nom_realisateur, note, annee_sortie, TIME_
                         AND g.id_genre = pg.id_genre
                         GROUP BY f.id_film 
                         ORDER BY annee_sortie DESC'); // on recupere le contenu de la table
-$etoile = "<i class='fas fa-star'></i>";
-$etoileVide = "<i class='far fa-star'></i>";
-
-
-
-
-echo "<table>
-<tr>
-    <th>TITRE</th>
-    <th>NOTE</th>
-    <th>REALISATEUR</th>
-    <th>ANNEE</th>
-    <th>DUREE</th>
-    <th>GENRES</th>
-</tr>";
-while ($donnees = $reponse->fetch()) // on affiche chaque entrée une à une
-{
-
-$noteInverse = 5-$donnees['note'];
-echo  "
-        <tr>
-            <td><a href='pageFilm.php'>".$donnees['titre']."</a></td>
-            <td class='etoiles'>".str_repeat($etoile, $donnees['note']).str_repeat($etoileVide, $noteInverse)."</td>
-            <td>".$donnees['nom_realisateur']."</td>
-            <td>".$donnees['annee_sortie']."</td>
-            <td>".$donnees['duree']."</td>
-            <td>".$donnees['libelle']."</td>
-        </tr>"
-        ;
-    
-}
-echo "</table>";
-
-$reponse->closeCursor(); // termine le traitement de la requete
-
-?>
-
+                        
