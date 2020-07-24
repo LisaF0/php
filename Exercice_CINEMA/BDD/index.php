@@ -10,9 +10,10 @@ catch (Exception $e)
     die('Erreur : '. $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT titre, nom_realisateur, note, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60), "%H:%i") AS duree, GROUP_CONCAT(libelle SEPARATOR ",  ") AS libelle
+$reponse = $bdd->query('SELECT f.id_film, titre, nom_realisateur, note, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60), "%H:%i") AS duree, GROUP_CONCAT(libelle SEPARATOR ",  ") AS libelle
                         FROM film f, realisateur r, genre g, posseder_genre pg 
-                        WHERE r.id_realisateur = f.id_realisateur AND pg.id_film = f.id_film 
+                        WHERE r.id_realisateur = f.id_realisateur 
+                        AND pg.id_film = f.id_film 
                         AND g.id_genre = pg.id_genre
                         GROUP BY f.id_film 
                         ORDER BY annee_sortie DESC'); // on recupere le contenu de la table
@@ -35,17 +36,17 @@ while ($donnees = $reponse->fetch()) // on affiche chaque entrée une à une
 {
 
 $noteInverse = 5-$donnees['note'];
-echo  "
+?>
         <tr>
-            <td><a href='pageFilm.php'>".$donnees['titre']."</a></td>
-            <td class='etoiles'>".str_repeat($etoile, $donnees['note']).str_repeat($etoileVide, $noteInverse)."</td>
-            <td>".$donnees['nom_realisateur']."</td>
-            <td>".$donnees['annee_sortie']."</td>
-            <td>".$donnees['duree']."</td>
-            <td>".$donnees['libelle']."</td>
-        </tr>"
-        ;
-    
+            <td><a href="pageFilm.php?id=<?= $donnees['id_film']?>"><?= $donnees['titre']?></a></td>
+            <td class='etoiles'><?php echo str_repeat($etoile, $donnees['note']).str_repeat($etoileVide, $noteInverse) ?></td>
+            <td><?php echo $donnees['nom_realisateur']?></td>
+            <td><?php echo $donnees['annee_sortie']?></td>
+            <td><?php echo $donnees['duree']?></td>
+            <td><?php echo $donnees['libelle']?></td>
+        </tr>
+        
+ <?php   
 }
 echo "</table>";
 

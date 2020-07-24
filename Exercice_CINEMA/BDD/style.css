@@ -16,13 +16,6 @@ td, th{
 tr:nth-child(even){
     background-color: rgb(231, 231, 231);
 }
-.etoiles{
+svg:not(:root).svg-inline--fa {
     color: rgb(79, 180, 248);
-}
-.fa-arrow-circle-left{
-    color: rgb(79, 180, 248);
-    font-size: 3em;
-}
-.fa-arrow-circle-left:hover{
-    color: rgb(57, 121, 163);
 }

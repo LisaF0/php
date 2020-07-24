@@ -1,0 +1,15 @@
+.fa-arrow-circle-left{
+    color: rgb(79, 180, 248);
+    font-size: 3em;
+    float: right;
+}
+.fa-arrow-circle-left:hover{
+    color: rgb(57, 121, 163);
+}
+img{
+    width: 50vw;
+    float: left;
+}
+.etoiles{
+    color: rgb(79, 180, 248);
+}
