@@ -1,9 +1,10 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
 <?php
+require "DAO.php";
 try
 {
-$bdd = new PDO('mysql:host=localhost;dbname=cinema_dl8_lf;charset=utf8','root','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+$bdd = connect();
 }
 catch (Exception $e)
 {
@@ -24,14 +25,16 @@ $etoileVide = "<i class='far fa-star'></i>";
 
 
 echo "<table>
-<tr>
-    <th>TITRE</th>
-    <th>NOTE</th>
-    <th>REALISATEUR</th>
-    <th>ANNEE</th>
-    <th>DUREE</th>
-    <th>GENRES</th>
-</tr>";
+    <thead>
+        <tr>
+            <th>TITRE</th>
+            <th>NOTE</th>
+            <th>REALISATEUR</th>
+            <th>ANNEE</th>
+            <th>DUREE</th>
+            <th>GENRES</th>
+        </tr>
+    </thead>";
 while ($donnees = $reponse->fetch()) // on affiche chaque entrée une à une
 {
 
@@ -48,7 +51,7 @@ $noteInverse = 5-$donnees['note'];
         
  <?php   
 }
-echo "</table>";
+echo "</table><a href='form_addFilm.php'>Ajouter un nouveau film</a>";
 
 $reponse->closeCursor(); // termine le traitement de la requete
 

@@ -16,7 +16,7 @@ $query = $bdd->query("SELECT titre, affiche, annee_sortie, note, synopsis
     FROM film f
     WHERE f.id_film = ".$_GET['id']);
 
-$requete = $bdd->query("SELECT nom_acteur, prenom_acteur, nom_role
+$requete = $bdd->query("SELECT a.id_acteur, nom_acteur, prenom_acteur, nom_role
 FROM casting c, film f, acteur a, role r
 WHERE f.id_film = c.id_film
 AND c.id_acteur = a.id_acteur
@@ -37,10 +37,13 @@ while ($donnees = $query->fetch())
     Note : ".str_repeat($etoile, $donnees['note']).str_repeat($etoileVide, $noteInverse)."</br></br>".
     $donnees['synopsis']."</br></br>
     Casting</br><ul>"?><?php while($infocast = $requete->fetch()){
-        echo "<li>".$infocast['nom_acteur']." ".$infocast['prenom_acteur']." (".$infocast['nom_role'].")</li>";
+        ?><li><a href="pageActeur.php?id1=<?= $infocast['id_acteur']?>">
+        <?= $infocast['nom_acteur']." ".$infocast['prenom_acteur']."</a> (".$infocast['nom_role'].")</li>";
     }
     "</ul>";
 }
+$requete->closeCursor(); // termine le traitement de la requete
+?>
     
 
 
