@@ -1,0 +1,57 @@
+table{
+    width: 100%;
+    text-align: left;
+}
+a{
+    text-decoration: none;
+    color: rgb(84, 122, 245);
+}
+a:hover {
+    color:rgb(53, 74, 144);
+}
+td, th{
+    padding: 10px;
+    border-bottom: 1px solid rgb(182, 182, 182);
+}
+tr:nth-child(even){
+    background-color: rgb(231, 231, 231);
+}
+svg:not(:root).svg-inline--fa {
+    color: rgb(79, 180, 248);
+}
+img{
+    width: 50vw;
+    float: left;
+}
+
+button{
+    color: white;
+    padding: 10px;
+    border: none; 
+}
+
+.edit{
+    background-color: rgb(79, 180, 248);
+}
+.edit:hover{
+    background-color: rgb(53, 74, 144);
+}
+
+.delete{
+    background-color: rgb(248, 79, 79);
+}
+.delete:hover{
+    background-color: rgb(173, 48, 48);
+}
+.addFilm{
+    color: white;
+    background-color: rgb(84, 122, 245);
+    padding: 10px;
+    border: 1px solid rgb(84, 122, 245);
+}
+
+.addFilm:hover{
+    background-color:rgb(53, 74, 144);
+    color: white;
+    border: 1px solid rgb(53, 74, 144);
+}

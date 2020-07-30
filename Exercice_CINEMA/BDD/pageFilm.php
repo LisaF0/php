@@ -30,7 +30,7 @@ while ($donnees = $query->fetch())
 {
     $noteInverse = 5-$donnees['note'];
     echo 
-    "<img src='".
+    "<img src='img/".
     $donnees['affiche']."'</br>".
     $donnees['titre']."</br></br>
     Année : ".$donnees['annee_sortie']."</br></br>

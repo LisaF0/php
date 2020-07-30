@@ -40,10 +40,24 @@
             <label for="affiche">Affiche</label>
             <input type="text" name="affiche">
         </p>
-        <p>
-            <label for="genre">Genre</label>
-            <input type="text" name="genre">
-        </p>
+        <!-- Faire un formulaire GENRE de type checkbox avec tout les types de genre + un nouveau formulaire pour ajouter un nouveau GENRE -->
+       
+            <p>GENRE : 
+                <input type="checkbox" name="sf">
+                <label for="sf">Science-Fiction</label>
+                <input type="checkbox" name="fantastique">
+                <label for="fantastique">Fantastique</label>
+                <input type="checkbox" name="espionnage">
+                <label for="espionnage">Espionnage</label>
+                <input type="checkbox" name="aventure">
+                <label for="aventure">Aventure</label>
+            </p>
+            <p><input type='submit' value="Soumettre"></p>
+        
+
+
+        
+        <!-- Faire un formulaire REALISATEUR de type radio OU liste déroulante + un nouveau formulaire pour ajouter un nouveau realisateur  -->
         <!-- <p>
             <label for="realisateur">Réalisateur</label>
             <input type="text" name="realisateur">
