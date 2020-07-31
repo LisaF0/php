@@ -40,27 +40,25 @@
             <label for="affiche">Affiche</label>
             <input type="text" name="affiche">
         </p>
-        <!-- Faire un formulaire GENRE de type checkbox avec tout les types de genre + un nouveau formulaire pour ajouter un nouveau GENRE -->
-       
-            <p>GENRE : 
-                <input type="checkbox" name="sf">
-                <label for="sf">Science-Fiction</label>
-                <input type="checkbox" name="fantastique">
-                <label for="fantastique">Fantastique</label>
-                <input type="checkbox" name="espionnage">
-                <label for="espionnage">Espionnage</label>
-                <input type="checkbox" name="aventure">
-                <label for="aventure">Aventure</label>
-            </p>
-            <p><input type='submit' value="Soumettre"></p>
-        
-
-
-        
-        <!-- Faire un formulaire REALISATEUR de type radio OU liste déroulante + un nouveau formulaire pour ajouter un nouveau realisateur  -->
         <!-- <p>
-            <label for="realisateur">Réalisateur</label>
-            <input type="text" name="realisateur">
+            
+            <label for="genre">Genre:</label>
+            <select name="genre" id="genre" multiple>
+            <?php while($genre = $genres->fetch(PDO::FETCH_ASSOC)) 
+                { ?>
+            <option value="<?php $genre['libelle']?>"><?= $genre['libelle']?></option>
+                <?php } ?>
+            </select>
+        
+        </p>
+        <p>
+            <label for="realisateur">Réalisateur:</label>
+            <select name="realisateur" id="realisateur"><?php
+                while($realisateur = $realisateurs->fetch(PDO::FETCH_ASSOC))
+                {?>
+                    <option value="<?php $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?>"><?= $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?></option>
+                <?php } ?>
+            </select>
         </p> -->
         <p>
             <input type='submit' value="Soumettre">

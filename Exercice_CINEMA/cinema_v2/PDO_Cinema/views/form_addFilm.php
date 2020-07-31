@@ -6,7 +6,7 @@
 
 <h2>Ajouter un nouveau film</h2>
 
-<form action="addFilm.php" method="post">
+<form action="index.php?action=addForm" method="post">
         <p>
             <label for="titre">Titre:</label>
             <input type="text" name="titre" required>
@@ -27,23 +27,13 @@
             <label for="note">Note:</label>
             <input type="int" name="note">
         </p>
-        <p>
-            
-            <label for="genre">Genre:</label>
-            <select name="genre" id="genre" multiple>
-                <?php while($genre = $genres->fetch(PDO::FETCH_ASSOC)) 
-                { ?>
-            <option value="<?php $genre['libelle']?>"><?= $genre['libelle']?></option>
-                <?php } ?>
-            </select>
-        
-        </p>
+       
         <p>
             <label for="realisateur">Réalisateur:</label>
             <select name="realisateur" id="realisateur"><?php
                 while($realisateur = $realisateurs->fetch(PDO::FETCH_ASSOC))
                 {?>
-                    <option value="<?php $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?>"><?= $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?></option>
+                    <option value="<?php $realisateur['id_realisateur'] ?>"><?= $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?></option>
                 <?php } ?>
             </select>
         </p>
@@ -59,3 +49,4 @@
 $titre = "Ajout film";
 $contenu = ob_get_clean();
 require "template.php";
+?>
