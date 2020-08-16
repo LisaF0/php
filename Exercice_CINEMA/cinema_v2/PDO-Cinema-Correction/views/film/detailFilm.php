@@ -3,14 +3,13 @@
     $detailFilm = $film->fetch();
 ?>
 
-
-<h2><?= $detailFilm["titre_film"]." ".$detailFilm["dureeHM"] ?></h2>
+<h2><?= $detailFilm["titre"]." ".$detailFilm["dureeHM"] ?></h2>
 <p>
-    <?= $detailFilm["resume_film"] ?>
+    <?= $detailFilm["synopsis"] ?>
 </p>
 
 <?php
 
 $titre = "Détail d'un film";
 $contenu = ob_get_clean();
-require "template.php";
+require "views/template.php";
