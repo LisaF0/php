@@ -1,12 +1,16 @@
 <?php
 
-require_once "controllers/FilmController.php";
-require_once "controllers/RealisateurController.php";
-require_once "controllers/GenreController.php";
+// require_once "controllers/FilmController.php";
+// require_once "controllers/RealisateurController.php";
+// require_once "controllers/GenreController.php";
+spl_autoload_register(function ($class_name) {
+    require_once 'controllers/'.$class_name . '.php';
+});
 
 $ctrlFilm = new FilmController(); 
 $ctrlRealisateur = new RealisateurController();
 $ctrlGenre = new GenreController();
+$ctrlActeur = new ActeurController();
 
 if(isset($_GET['action'])){
 
@@ -28,6 +32,9 @@ if(isset($_GET['action'])){
         case "deleteGenre": $ctrlGenre->deleteGenre($_GET['id']); break;
         case "addFilm" : $ctrlFilm->formAddFilm(); break;
         case "addFilmOK": $ctrlFilm->addFilm($_POST); break;
+        case "detailFilm" : $ctrlFilm->findOneById($_GET['id']); break;
+        case "detailActeur" : $ctrlActeur->findOneById($_GET['id']); break;
+        case "listActeur" : $ctrlActeur->findAll(); break;
     }
 }else {
     $ctrlFilm->findAll();

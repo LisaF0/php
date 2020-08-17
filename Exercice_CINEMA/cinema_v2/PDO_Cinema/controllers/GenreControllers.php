@@ -11,8 +11,5 @@ class GenreControllers{
         FROM genre g
         ";
         return $genres = $dao->executerRequete($sql);
-
-    
     }
-
 }

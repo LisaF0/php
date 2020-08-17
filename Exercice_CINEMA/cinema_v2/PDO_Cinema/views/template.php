@@ -8,8 +8,15 @@
     <title><?= $titre ?></title>
 </head>
 <body>
-    <h1>Gestion films avec PDO</h1>
-    <div>
+<nav class="uk-navbar-container" uk-navbar>
+        <ul class="uk-navbar-nav">
+            <li><a href="index.php?action=listFilms">Liste des films</a></li>        
+            <li><a href="index.php?action=listReal">Liste des réalisateurs</a></li>
+            <li><a href="index.php?action=listGenre">Liste des genres</a></li>
+        </ul>
+    </nav>
+    <div class="uk-container uk-container-expand">
+        <h1>Gestion films avec PDO</h1>
         <?= $contenu ?>
     </div>
 </body>

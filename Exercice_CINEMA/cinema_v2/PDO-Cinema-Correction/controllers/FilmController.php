@@ -13,7 +13,7 @@ class FilmController {
     public function findAll() {
 
         $dao = new DAO();
-        $sql = "SELECT f.id_film, titre, annee_sortie, GROUP_CONCAT(libelle SEPARATOR ', ') AS genres, 
+        $sql = "SELECT f.id_film, titre, annee_sortie, note, TIME_FORMAT(SEC_TO_TIME(duree*60), '%H:%i') AS dureeHM, GROUP_CONCAT(libelle SEPARATOR ', ') AS genres, 
             CONCAT(prenom_realisateur,' ',nom_realisateur) AS rea
                     FROM film f, genre g, posseder_genre gf, realisateur r
                     WHERE f.id_film = gf.id_film 
@@ -34,13 +34,29 @@ class FilmController {
     public function findOneById($id) {
 
         $dao = new DAO();
-        $sql = "SELECT titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60),'%H:%i') AS dureeHM,
-                    synopsis
-                    FROM film  WHERE id_film = :id 
+        $sql = "SELECT affiche, titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60),'%H:%i') AS dureeHM, note, synopsis
+                    FROM film  
+                    WHERE id_film = :id 
                     ORDER BY titre";
         $film = $dao->executerRequete($sql, [":id" => $id]);
+        $casting = $this->getCasting($id);
         require 'views/film/detailFilm.php';
     }
+
+    public function getCasting($id){
+
+        $dao = new DAO;
+        $sql = "SELECT a.id_acteur AS id_a, nom_acteur, prenom_acteur, nom_role
+        FROM casting c, film f, acteur a, role r
+        WHERE f.id_film = c.id_film
+        AND c.id_acteur = a.id_acteur
+        AND r.id_role = c.id_role
+        AND f.id_film = :id"
+                ;
+        return $casting = $dao->executerRequete($sql, [":id" => $id]);
+    }
+
+
 
     public function formAddFilm(){
         $ctrlRealisateur = new RealisateurController();
@@ -63,15 +79,15 @@ class FilmController {
             if($titre && $annee_sortie){
                 $dao = new DAO;
                 $sql = 'INSERT INTO film (titre, annee_sortie, id_realisateur) '.
-                "VALUES (:titre, :annee_sortie, :realisateur)";
+                "VALUES (:titre, :annee_sortie, :id_realisateur)";
                 $array = [":titre" => $titre,
                 ":annee_sortie" => $annee_sortie,
                 ":id_realisateur" => $id_realisateur,
-                // ":genre" => $genre,
+                //":genre" => $genre,
                 ];
                 
 
-                $addFilm = $dao->executerRequete($sql, [":array" => $array]);
+                $addFilm = $dao->executerRequete($sql, $array);
                 var_dump($_POST);
                 
                 // header("Location: index.php?action=listFilms");

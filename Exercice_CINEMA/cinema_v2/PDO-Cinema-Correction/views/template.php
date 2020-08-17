@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/css/uikit.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <title><?= $titre ?></title>
 </head>
@@ -15,6 +16,7 @@
             <li><a href="index.php?action=listFilms">Liste des films</a></li>        
             <li><a href="index.php?action=listReal">Liste des réalisateurs</a></li>
             <li><a href="index.php?action=listGenre">Liste des genres</a></li>
+            <li><a href="index.php?action=listActeur">Liste des Acteurs</a></li>
         </ul>
     </nav>
     <div class="uk-container uk-container-expand">

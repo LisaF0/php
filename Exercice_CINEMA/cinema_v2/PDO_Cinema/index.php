@@ -1,10 +1,13 @@
 <?php
+spl_autoload_register(function ($class_name) {
+    require_once 'controllers/'.$class_name . '.php';
+});
 
-require_once "controllers/FilmControllers.php";
-require_once "controllers/ActeurControllers.php";
-require_once "controllers/RealisateurControllers.php";
-require_once "controllers/GenreControllers.php";
-require_once "controllers/formControllers.php";
+// require_once "controllers/FilmControllers.php";
+// require_once "controllers/ActeurControllers.php";
+// require_once "controllers/RealisateurControllers.php";
+// require_once "controllers/GenreControllers.php";
+// require_once "controllers/formControllers.php";
 require 'bdd/DAO.php';
 
 
