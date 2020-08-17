@@ -145,4 +145,13 @@ class RealisateurController {
 
         header("Location: index.php?action=listReal");
     }
+
+    public function getRealisateurs(){
+
+        $dao = new DAO();
+        $sql = "SELECT nom_realisateur, prenom_realisateur, id_realisateur
+        FROM realisateur r
+        ";
+        return $realisateurs = $dao->executerRequete($sql);
+    }
 }

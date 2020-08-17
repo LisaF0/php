@@ -1,6 +1,7 @@
 <?php
 
 require 'bdd/DAO.php';
+require 'controllers/RealisateurController.php';
 
 class FilmController {
     
@@ -41,51 +42,41 @@ class FilmController {
         require 'views/film/detailFilm.php';
     }
 
-    /**
-     * formAddFilm
-     *
-     * @return void
-     */
-    public function formAddFilm() {
+    public function formAddFilm(){
+        $ctrlRealisateur = new RealisateurController();
+        $realisateurs = $ctrlRealisateur->getRealisateurs();
 
-        require "views/film/addFilm.php";
+        $ctrlGenre = new GenreController();
+        $genres = $ctrlGenre->getGenres();
+
+        require 'views/film/addFilm.php';
     }
 
-    /**
-     * addRealisateur
-     *
-     * @param  mixed $array
-     * @return void
-     */
-    public function addFilm($array) {
+    public function addFilm($array){
+        if(!empty($_POST)){
+            $titre = "titre";
+            $annee_sortie = filter_input(INPUT_POST, 'annee_sortie', FILTER_SANITIZE_NUMBER_INT);
+            $id_realisateur = "id_realisateur";
+            $genre = "libelle";
+            
 
-        $titre = "titre";
-        $annee_sortie = filter_input(INPUT_POST, 'annee_sortie', FILTER_SANITIZE_NUMBER_INT);
-        $realisateur = "realisateur";
+            if($titre && $annee_sortie){
+                $dao = new DAO;
+                $sql = 'INSERT INTO film (titre, annee_sortie, id_realisateur) '.
+                "VALUES (:titre, :annee_sortie, :realisateur)";
+                $array = [":titre" => $titre,
+                ":annee_sortie" => $annee_sortie,
+                ":id_realisateur" => $id_realisateur,
+                // ":genre" => $genre,
+                ];
+                
 
-        $dao = new DAO();
-        
-        $sql = 'INSERT INTO film (titre, annee_sortie, duree, synopsis, noten id_realisateur) '.
-        "VALUES (:titre, :annee_sortie, :duree, :synopsis, :note, :realisateur)";
-        $array = [":titre" => $titre,
-        ":annee_sortie" => $annee_sortie,
-        ":duree" =>$duree,
-        ":synopsis" => $synopsis,
-        ":note" => $note,
-        ":realisateur" => $realisateur,
-        ];
-
-        // header("Location: index.php?action=listReal");
+                $addFilm = $dao->executerRequete($sql, [":array" => $array]);
+                var_dump($_POST);
+                
+                // header("Location: index.php?action=listFilms");
+                // require 'views/film/listFilms.php';
+            }
+        }
     }
-    // recuperer la variable realisateur 
 }
-
-// public function afficherForm(){
-//     $ctrlRealisateur = new RealisateurControllers();
-//     $realisateurs = $ctrlRealisateur->getRealisateur();
-
-//     $ctrlGenre = new GenreControllers();
-//     $genres = $ctrlGenre->getGenre();
-
-//     require 'views/form_addFilm.php';
-// }

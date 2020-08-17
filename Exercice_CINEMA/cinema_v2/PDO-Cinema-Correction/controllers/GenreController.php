@@ -127,4 +127,13 @@ class GenreController {
 
         header("Location: index.php?action=listGenre");
     }
+
+    public function getGenres(){
+
+        $dao = new DAO();
+        $sql = "SELECT libelle, id_genre
+        FROM genre
+        ";
+        return $genres = $dao->executerRequete($sql);
+    }
 }

@@ -26,7 +26,8 @@ if(isset($_GET['action'])){
         case "editGenre": $ctrlGenre->formEditGenre($_GET['id']); break;
         case "editGenreOK": $ctrlGenre->editGenre($_GET['id'], $_POST); break;
         case "deleteGenre": $ctrlGenre->deleteGenre($_GET['id']); break;
-        case "addFilm": $ctrlFilm->formAddFilm(); break;
+        case "addFilm" : $ctrlFilm->formAddFilm(); break;
+        case "addFilmOK": $ctrlFilm->addFilm($_POST); break;
     }
 }else {
     $ctrlFilm->findAll();
