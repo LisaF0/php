@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 
 <h2>Liste des films</h2>
+<a class="uk-button uk-button-primary" href="index.php?action=addFilm">Ajouter un film</a>
 
 <table class="uk-table uk-table-striped">
     <thead>

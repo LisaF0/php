@@ -2,9 +2,11 @@
 
 require_once "controllers/FilmController.php";
 require_once "controllers/RealisateurController.php";
+require_once "controllers/GenreController.php";
 
 $ctrlFilm = new FilmController(); 
 $ctrlRealisateur = new RealisateurController();
+$ctrlGenre = new GenreController();
 
 if(isset($_GET['action'])){
 
@@ -18,6 +20,13 @@ if(isset($_GET['action'])){
         case "editRealisateur": $ctrlRealisateur->formEditRealisateur($_GET['id']); break;
         case "editRealisateurOK": $ctrlRealisateur->editRealisateur($_GET['id'], $_POST); break;
         case "deleteRealisateur": $ctrlRealisateur->deleteRealisateur($_GET['id']); break;
+        case "listGenre" : $ctrlGenre->findAll(); break;
+        case "addGenre": $ctrlGenre->formAddGenre(); break;
+        case "addGenreOK": $ctrlGenre->addGenre($_POST); break;
+        case "editGenre": $ctrlGenre->formEditGenre($_GET['id']); break;
+        case "editGenreOK": $ctrlGenre->editGenre($_GET['id'], $_POST); break;
+        case "deleteGenre": $ctrlGenre->deleteGenre($_GET['id']); break;
+        case "addFilm": $ctrlFilm->formAddFilm(); break;
     }
 }else {
     $ctrlFilm->findAll();

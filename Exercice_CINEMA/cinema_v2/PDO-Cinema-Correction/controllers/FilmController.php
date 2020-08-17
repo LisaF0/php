@@ -40,4 +40,52 @@ class FilmController {
         $film = $dao->executerRequete($sql, [":id" => $id]);
         require 'views/film/detailFilm.php';
     }
+
+    /**
+     * formAddFilm
+     *
+     * @return void
+     */
+    public function formAddFilm() {
+
+        require "views/film/addFilm.php";
+    }
+
+    /**
+     * addRealisateur
+     *
+     * @param  mixed $array
+     * @return void
+     */
+    public function addFilm($array) {
+
+        $titre = "titre";
+        $annee_sortie = filter_input(INPUT_POST, 'annee_sortie', FILTER_SANITIZE_NUMBER_INT);
+        $realisateur = "realisateur";
+
+        $dao = new DAO();
+        
+        $sql = 'INSERT INTO film (titre, annee_sortie, duree, synopsis, noten id_realisateur) '.
+        "VALUES (:titre, :annee_sortie, :duree, :synopsis, :note, :realisateur)";
+        $array = [":titre" => $titre,
+        ":annee_sortie" => $annee_sortie,
+        ":duree" =>$duree,
+        ":synopsis" => $synopsis,
+        ":note" => $note,
+        ":realisateur" => $realisateur,
+        ];
+
+        // header("Location: index.php?action=listReal");
+    }
+    // recuperer la variable realisateur 
 }
+
+// public function afficherForm(){
+//     $ctrlRealisateur = new RealisateurControllers();
+//     $realisateurs = $ctrlRealisateur->getRealisateur();
+
+//     $ctrlGenre = new GenreControllers();
+//     $genres = $ctrlGenre->getGenre();
+
+//     require 'views/form_addFilm.php';
+// }
