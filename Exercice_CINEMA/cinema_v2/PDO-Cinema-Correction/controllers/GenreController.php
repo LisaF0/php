@@ -136,4 +136,18 @@ class GenreController {
         ";
         return $genres = $dao->executerRequete($sql);
     }
+
+    public function getFilms(){
+        $dao = new DAO();
+        $sql = "SELECT titre
+                FROM film f, genre g, posseder_genre pg
+                WHERE f.id_film = pg.id_film
+                AND g.id_genre = pg.id_genre
+                AND g.id_genre = :id
+        ";
+        return $films = $dao->executerRequete($sql, [
+            ":id" => $id
+        ]);
+        
+    }
 }
