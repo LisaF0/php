@@ -101,8 +101,8 @@ class GenreController {
 
         $dao = new DAO();
         $sql = "UPDATE genre 
-                    SET libelle = :libelle
-                    WHERE id_genre = :id";
+                SET libelle = :libelle
+                WHERE id_genre = :id";
         $dao->executerRequete($sql, [
             ":id" => $id,
             ":libelle" => $libelle

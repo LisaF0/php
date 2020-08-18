@@ -15,7 +15,8 @@
         <?php 
             while($genre = $genres->fetch()){ ?>
                 <tr>
-                    <td><?= $genre["libelle"] ?></td>
+                    
+                    <td> <a href="index.php?action=detailGenre&id=<?= $genre["libelle"] ?>"><?= $genre["libelle"] ?></a></td>
                     <td>
                         <a href="index.php?action=editGenre&id=<?= $genre["id_genre"] ?>">Editer</a>
                         <a href="index.php?action=deleteGenre&id=<?= $genre["id_genre"] ?>">Supprimer</a>

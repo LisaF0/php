@@ -35,6 +35,9 @@ if(isset($_GET['action'])){
         case "detailFilm" : $ctrlFilm->findOneById($_GET['id']); break;
         case "detailActeur" : $ctrlActeur->findOneById($_GET['id']); break;
         case "listActeur" : $ctrlActeur->findAll(); break;
+        case "deleteFilm": $ctrlFilm->deleteFilm($_GET['id']); break;
+        case "editFilm": $ctrlFilm->formEditFilm($_GET['id']); break;
+        case "editFilmOK": $ctrlFilm->editFilm($_GET['id'], $_POST); break;
     }
 }else {
     $ctrlFilm->findAll();
