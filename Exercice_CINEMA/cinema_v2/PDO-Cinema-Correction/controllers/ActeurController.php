@@ -12,10 +12,11 @@ class ActeurController{
     public function findAll() {
 
         $dao = new DAO();
-        $sql = "SELECT nom_acteur, prenom_acteur
+        $sql = "SELECT nom_acteur, prenom_acteur, id_acteur
                 FROM acteur a
                 ";
         $acteurs = $dao->executerRequete($sql);
+        
         require 'views/acteur/listActeur.php';
     }
 
@@ -27,13 +28,13 @@ class ActeurController{
         WHERE  a.id_acteur = :id";
         $acteur = $dao->executerRequete($sql, [":id" => $id]);
         
-        $films = $this->getFilms($id);
+        $casting = $this->getCasting($id);
 
 
         require 'views/acteur/detailActeur.php';
     }
 
-    public function getFilms($id){
+    public function getCasting($id){
         $dao = new DAO();
         $sql = "SELECT nom_role, titre, a.id_acteur AS id_a, f.id_film AS id_f , annee_sortie, f.id_film
         FROM casting c, film f, acteur a, role r
@@ -42,7 +43,7 @@ class ActeurController{
         AND r.id_role = c.id_role
         AND a.id_acteur = :id ";
 
-        return $films = $dao->executerRequete($sql, [":id" => $id]);
+    return $casting = $dao->executerRequete($sql, [":id" => $id]);
 
     }
 

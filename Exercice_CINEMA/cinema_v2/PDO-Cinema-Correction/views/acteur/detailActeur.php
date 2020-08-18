@@ -7,7 +7,7 @@
 
 <p>Filmographie: </p>
 <ul>
-    <?php while ($detailFilms = $films->fetch(PDO::FETCH_ASSOC)){
+    <?php while ($detailFilms = $casting->fetch(PDO::FETCH_ASSOC)){
         ?>
     <li><?=$detailFilms["nom_role"]." ("?>
     <a href='index.php?action=detailFilm&id=<?= $detailFilms["id_f"] ?>'>

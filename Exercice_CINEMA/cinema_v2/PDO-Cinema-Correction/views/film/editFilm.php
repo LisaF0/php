@@ -17,7 +17,7 @@
 
     <label for="id_realisateur">Réalisateur</label>
     <select class="uk-input" 
-            ame="id_realisateur" 
+            name="id_realisateur" 
             id="id_realisateur"
             value=' <?= $detailFilm['nom_realisateur']." ".$detailFilm['prenom_realisateur'] ?>'>
             <?php 
@@ -30,7 +30,7 @@
     </select>
 
 <label for="annee_sortie">Année</label>
-<input class="uk-input" type="int" name="annee_sortie" id="titre" value='<?= $detailFilm["annee_sortie"]?>' required>
+<input class="uk-input" type="number" name="annee_sortie" id="annee_sortie" value='<?= $detailFilm["annee_sortie"]?>' required>
 
 
 <input class="uk-button uk-margin-top" type="submit" value="Modifier">

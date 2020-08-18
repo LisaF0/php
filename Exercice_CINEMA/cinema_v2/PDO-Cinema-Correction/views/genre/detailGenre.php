@@ -1,15 +1,15 @@
 <?php 
     ob_start(); 
     $detailGenre = $genre->fetch();
-?>
-<h2><?= $detailGenre["libelle"] ?></h2>
+    //var_dump($film);?>
+<h2><?= $detailGenre["libelle"]  ?></h2>
 
 <ul>
-    <?php while ($detailGenre = $filmsGenre->fetch(PDO::FETCH_ASSOC)){
+    <?php while ($detailFilm = $film->fetch(PDO::FETCH_ASSOC)){
         ?>
-    <li><?=$detailGenre["titre"]." ("?>
-    <a href='index.php?action=detailGenre&id=<?= $detailGenre["id_film"] ?>'>
-    <?= $detailGenre ["titre"]?></a>)</li>
+    <li><?=$detailFilm["titre"]." ("?>
+    <a href='index.php?action=detailFilm&id=<?= $detailFilm["id_film"] ?>'>
+    <?= $detailFilm ["titre"]?></a>)</li>
     <?php } ?>
 </ul>
 

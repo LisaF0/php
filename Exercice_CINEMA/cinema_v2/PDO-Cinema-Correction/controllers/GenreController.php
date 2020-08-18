@@ -137,17 +137,18 @@ class GenreController {
         return $genres = $dao->executerRequete($sql);
     }
 
-    public function getFilms(){
+    public function getFilms($id){
         $dao = new DAO();
-        $sql = "SELECT titre
+        $sql = "SELECT titre, libelle, g.id_genre, f.id_film
                 FROM film f, genre g, posseder_genre pg
                 WHERE f.id_film = pg.id_film
                 AND g.id_genre = pg.id_genre
                 AND g.id_genre = :id
         ";
-        return $films = $dao->executerRequete($sql, [
-            ":id" => $id
-        ]);
+        $film = $dao->executerRequete($sql, [":id" => $id]);
+        $genre = $this->findOneById($id, true);
+        require 'views/genre/detailGenre.php';
+        
         
     }
 }

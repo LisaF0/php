@@ -34,7 +34,7 @@ class FilmController {
     public function findOneById($id, $edit = false) {
 
         $dao = new DAO();
-        $sql = "SELECT affiche, titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60),'%H:%i') AS dureeHM, note, synopsis
+        $sql = "SELECT id_film, affiche, titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60),'%H:%i') AS dureeHM, note, synopsis
                     FROM film  
                     WHERE id_film = :id 
                     ORDER BY titre";
@@ -104,6 +104,10 @@ class FilmController {
         $dao->executerRequete($sql, [
                 ":id" => $id
             ]);
+        $sql2 = "DELETE FROM posseder_film WHERE id_film = :id";
+        $dao->executerRequete($sql2, [
+            ":id" => $id
+        ]);
 
         header("Location: index.php?action=listFilms");
     }
@@ -116,6 +120,7 @@ class FilmController {
      * @return void
      */
     public function editFilm($id, $array) {
+        
 
         $titre = filter_input (INPUT_POST, "titre", FILTER_SANITIZE_STRING);
         $id_realisateur = $array["id_realisateur"];
@@ -126,10 +131,11 @@ class FilmController {
         $sql = "UPDATE film 
                     SET titre = :titre,
                     id_realisateur = :id_realisateur,
-                    annee_sortie = :annee_sortie,
+                    annee_sortie = :annee_sortie
                     -- genres = :genres
-                    -- WHERE id_film = :id
+                    WHERE id_film = :id
                     ";
+
         $dao->executerRequete($sql, [
             ":id" => $id,
             ":titre" => $titre,
@@ -137,6 +143,7 @@ class FilmController {
             ":annee_sortie" => $annee_sortie,
             // ":genres" => $genres
         ]);
+        
         
         header("Location: index.php?action=listFilms");
     }
@@ -156,14 +163,18 @@ class FilmController {
                 $array = [":titre" => $titre,
                 ":annee_sortie" => $annee_sortie,
                 ":id_realisateur" => $id_realisateur,
-                ":genre" => $genre,
                 ];
-                
-                
-
                 $dao->executerRequete($sql, $array);
-                var_dump($_POST);
-                
+
+                $dernierFilm = $dao->getBDD()->lastInsertID();
+
+                $sql2 = 'INSERT INTO posseder_genre (id_film, id_genre)'.
+                "VALUES (:id_film, :id_genre)";
+                foreach($genres AS $genre){
+                    $dao->executerRequete($sql2, [":id_film" => $dernierFilm,
+                                                ":id_genre" => $genre]);
+                }
+
                 header("Location: index.php?action=listFilms");
                 
             }

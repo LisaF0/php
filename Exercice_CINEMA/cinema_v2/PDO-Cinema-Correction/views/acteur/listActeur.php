@@ -7,8 +7,6 @@
     <thead>
         <tr>
             <th>NOM PRENOM</th>
-            <th>ROLES</th>
-            <th>FILM</th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +18,7 @@
             <td>
                 <a href="index.php?action=detailActeur&id=<?= $acteur["id_acteur"] ?>"><?= $acteur["nom_acteur"]." ".$acteur["prenom_acteur"] ?></a>
             </td>
-            <td><?= $acteur["nom_role"] ?></td>
-            <td><?= $acteur["id_film"] ?></td>
+            
         </tr>
 
 <?php }
