@@ -1,8 +1,4 @@
 <?php
-
-// require_once "controllers/FilmController.php";
-// require_once "controllers/RealisateurController.php";
-// require_once "controllers/GenreController.php";
 spl_autoload_register(function ($class_name) {
     require_once 'controllers/'.$class_name . '.php';
 });

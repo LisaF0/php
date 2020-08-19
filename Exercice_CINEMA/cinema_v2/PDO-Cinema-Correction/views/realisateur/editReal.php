@@ -22,6 +22,23 @@
         id="prenom_realisateur"
         value=<?= $detailRealisateur["prenom_realisateur"] ?>
     >
+    <p>Sexe:<br>
+        <input  type="radio"
+                name="sexe_realisateur" 
+                id="sexe_realisateur" 
+                value=<?=$detailRealisateur["sexe_realisateur"] ?>
+        >
+        <label for="masculin">Masculin</label><br>
+        <input  type="radio" name="sexe_realisateur" id="féminin" value="féminin">
+        <label for="féminin">Féminin</label>
+    </p>
+    <label for="birthday_realisateur">Date de naissance</label>
+    <input class="uk-input" 
+            type="date" 
+            id="birthday_realisateur" 
+            name="birthday_realisateur"
+            value='<?= $detailRealisateur["birthday_realisateur"]?>'
+    >
     <input class="uk-button uk-margin-top" type="submit" value="Modifier">
 </form>
 

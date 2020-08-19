@@ -33,13 +33,26 @@ class RealisateurController {
                     FROM realisateur
                     WHERE id_realisateur = :id";
         $realisateur = $dao->executerRequete($sql, [":id" => $id]);
-        $filmographie = $this->getFilmographie($id);
+        $casting = $this->getCasting($id);
 
         if(!$edit){
             require 'views/realisateur/detailReal.php';
         } else {
             return $realisateur;
         }
+    }
+
+    public function getCasting($id){
+        $dao = new DAO();
+        $sql = "SELECT titre, f.id_film AS id_f , annee_sortie
+        FROM casting c, film f, acteur a, role r
+        WHERE f.id_film = c.id_film
+        AND c.id_acteur = a.id_acteur
+        AND r.id_role = c.id_role
+        AND a.id_acteur = :id ";
+
+    return $casting = $dao->executerRequete($sql, [":id" => $id]);
+
     }
     
     /**

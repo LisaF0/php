@@ -22,6 +22,24 @@
         id="prenom_acteur"
         value=<?= $detailActeur["prenom_acteur"] ?>
     >
+    <p>Sexe:<br>
+        <input  type="radio"
+                name="sexe_acteur" 
+                id="sexe_acteur" 
+                value=<?=$detailActeur["sexe_acteur"] ?>
+        >
+        <label for="masculin">Masculin</label><br>
+        <input  type="radio" name="sexe_acteur" id="féminin" value="féminin">
+        <label for="féminin">Féminin</label>
+    </p>
+    <label for="birthday_acteur">Date de naissance</label>
+    <input class="uk-input" 
+            type="date" 
+            id="birthday_acteur" 
+            name="birthday_acteur"
+            value='<?= $detailActeur["birthday_acteur"]?>'
+    >
+
     <input class="uk-button uk-margin-top" type="submit" value="Modifier">
 </form>
 

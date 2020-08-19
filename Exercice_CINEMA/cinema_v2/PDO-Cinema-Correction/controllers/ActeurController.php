@@ -34,10 +34,7 @@ class ActeurController{
             require 'views/acteur/detailActeur.php';
         } else {
             return $acteur;
-        }
-
-
-        
+        }      
     }
 
     public function getCasting($id){
@@ -71,15 +68,20 @@ class ActeurController{
      */
     public function addActeur($array) {
 
-        $nom_acteur = filter_var ($array["nom_acteur"], FILTER_SANITIZE_STRING);
-        $prenom_acteur = filter_var ($array["prenom_acteur"], FILTER_SANITIZE_STRING);
+        $nom_acteur = filter_var($array["nom_acteur"], FILTER_SANITIZE_STRING);
+        $prenom_acteur = filter_var($array["prenom_acteur"], FILTER_SANITIZE_STRING);
+        $sexe_acteur = filter_input(INPUT_POST, 'sexe_acteur');
+        $birthday_acteur = filter_input(INPUT_POST, 'birthday_acteur');
+
         
         $dao = new DAO();
-        $sql = "INSERT INTO acteur(nom_acteur, prenom_acteur) 
-                    VALUES (:nom_acteur, :prenom_acteur)";
+        $sql = "INSERT INTO acteur(nom_acteur, prenom_acteur, sexe_acteur, birthday_acteur) 
+                    VALUES (:nom_acteur, :prenom_acteur, :sexe_acteur, :birthday_acteur)";
         $dao->executerRequete($sql, [
                 ":nom_acteur" => $nom_acteur,
-                ":prenom_acteur" => $prenom_acteur
+                ":prenom_acteur" => $prenom_acteur,
+                ":sexe_acteur" => $sexe_acteur,
+                ":birthday_acteur" => $birthday_acteur
             ]);
 
         header("Location: index.php?action=listActeur");
@@ -108,16 +110,22 @@ class ActeurController{
 
         $nom_acteur = filter_var ($array["nom_acteur"], FILTER_SANITIZE_STRING);
         $prenom_acteur = filter_var ($array["prenom_acteur"], FILTER_SANITIZE_STRING);
+        $sexe_acteur = filter_input(INPUT_POST, 'sexe_acteur');
+        $birthday_acteur = filter_input(INPUT_POST, 'birthday_acteur');
 
         $dao = new DAO();
         $sql = "UPDATE acteur 
                     SET nom_acteur = :nom_acteur,
-                    prenom_acteur = :prenom_acteur
+                    prenom_acteur = :prenom_acteur,
+                    sexe_acteur = :sexe_acteur,
+                    birthday_acteur = :birthday_acteur
                     WHERE id_acteur = :id";
         $dao->executerRequete($sql, [
             ":id" => $id,
             ":nom_acteur" => $nom_acteur,
-            ":prenom_acteur" => $prenom_acteur
+            ":prenom_acteur" => $prenom_acteur,
+            ":sexe_acteur" => $sexe_acteur,
+            "birthday_acteur" => $birthday_acteur
         ]);
 
         header("Location: index.php?action=listActeur");
