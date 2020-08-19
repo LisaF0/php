@@ -25,11 +25,18 @@
     <p>Sexe:<br>
         <input  type="radio"
                 name="sexe_acteur" 
-                id="sexe_acteur" 
-                value=<?=$detailActeur["sexe_acteur"] ?>
+                id="sexe_acteur"
+                <?= $detailActeur["sexe_acteur"] === "masculin" ? 'checked' : '' ?>
+                value="masculin"
         >
         <label for="masculin">Masculin</label><br>
-        <input  type="radio" name="sexe_acteur" id="féminin" value="féminin">
+
+        <input  type="radio" 
+                name="sexe_acteur" 
+                id="féminin"
+                <?= $detailActeur["sexe_acteur"] === "féminin" ? 'checked' : '' ?> 
+                value="féminin"
+        >
         <label for="féminin">Féminin</label>
     </p>
     <label for="birthday_acteur">Date de naissance</label>

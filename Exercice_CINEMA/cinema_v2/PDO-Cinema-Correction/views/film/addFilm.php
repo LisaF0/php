@@ -15,12 +15,18 @@
     
         while($realisateur = $realisateurs->fetch(PDO::FETCH_ASSOC))
         {?>
-            <option value="<?= $realisateur['id_realisateur'] ?>"><?= $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?></option>
+            <option value="<?= $realisateur['id_realisateur'] ?>" ><?= $realisateur['nom_realisateur']." ".$realisateur['prenom_realisateur'] ?></option>
         <?php } ?>
     </select>
 
     <label for="annee_sortie">Année</label>
     <input class="uk-input" type="int" name="annee_sortie" required>
+
+    <label for="duree">Durée (min)</label>
+    <input class="uk-input" type="int" name="duree" required>
+
+    <label for="note">Note</label>
+    <input class="uk-input" type="int" name="note" >
 
     <label for="id_genre">Genre</label>
     <select class="uk-select" name="id_genre[]" id="id_genre" multiple><?php 
@@ -32,6 +38,10 @@
             <?php } ?>
     </select>
 
+    <label for="synopsis">Synopsis</label>
+    <textarea class="uk-input"  name="synopsis"></textarea>
+
+<!-- INPUT affiche URL-->
     <input class="uk-button uk-margin-top" type="submit" value="Ajouter">
 </form>
 

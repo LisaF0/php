@@ -9,6 +9,7 @@
             <th>TITRE</th>
             <th>REALISATEUR</th>
             <th>ANNEE</th>
+            <th>DUREE</th>
             <th>GENRES</th>
             <th>ACTIONS</th>
         </tr>
@@ -24,6 +25,7 @@
             </td>
             <td><?= $film["rea"] ?></td>
             <td><?= $film["annee_sortie"] ?></td>
+            <td><?= $film["dureeHM"] ?></td>
             <td><?= $film["genres"] ?></td>
             <td>
                 <a href="index.php?action=editFilm&id=<?= $film["id_film"] ?>">Editer</a>

@@ -23,7 +23,7 @@ class ActeurController{
     public function findOneById($id, $edit = false){
 
         $dao = new DAO();
-        $sql = "SELECT id_acteur, nom_acteur, prenom_acteur, sexe_acteur, YEAR(CURDATE())-YEAR(birthday_acteur) AS age
+        $sql = "SELECT id_acteur, nom_acteur, prenom_acteur, sexe_acteur, YEAR(CURDATE())-YEAR(birthday_acteur) AS age, birthday_acteur
         FROM acteur a
         WHERE  a.id_acteur = :id";
         $acteur = $dao->executerRequete($sql, [":id" => $id]);

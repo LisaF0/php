@@ -13,7 +13,7 @@ class FilmController {
     public function findAll() {
 
         $dao = new DAO();
-        $sql = "SELECT f.id_film, titre, annee_sortie, note, TIME_FORMAT(SEC_TO_TIME(duree*60), '%H:%i') AS dureeHM, GROUP_CONCAT(libelle SEPARATOR ', ') AS genres, 
+        $sql = "SELECT f.id_film, titre, annee_sortie, note, TIME_FORMAT(SEC_TO_TIME(duree*60), '%Hh%i') AS dureeHM, GROUP_CONCAT(libelle SEPARATOR ', ') AS genres, 
                 CONCAT(prenom_realisateur,' ',nom_realisateur) AS rea
                 FROM film f
                 LEFT JOIN posseder_genre pg ON f.id_film = pg.id_film
@@ -34,7 +34,7 @@ class FilmController {
     public function findOneById($id, $edit = false) {
 
         $dao = new DAO();
-        $sql = "SELECT id_film, affiche, titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60),'%H:%i') AS dureeHM, note, synopsis
+        $sql = "SELECT id_film, affiche, titre, annee_sortie, TIME_FORMAT(SEC_TO_TIME(duree*60),'%H:%i') AS dureeHM, note, synopsis, duree, id_realisateur
                     FROM film  
                     WHERE id_film = :id 
                     ORDER BY titre";
@@ -84,11 +84,11 @@ class FilmController {
         $ctrlRealisateur = new RealisateurController();
         $realisateurs = $ctrlRealisateur->getRealisateurs();
 
+        $ctrlGenre = new GenreController();
+        $genres = $ctrlGenre->getGenres();
+
         $film = $this->findOneById($id, true);
         require "views/film/editFilm.php";
-        
-       
-
     }
 
     /**
@@ -100,15 +100,14 @@ class FilmController {
     public function deleteFilm($id) {
 
         $dao = new DAO();
-        $sql = "DELETE FROM film WHERE id_film = :id";
-        $dao->executerRequete($sql, [
-                ":id" => $id
-            ]);
         $sql2 = "DELETE FROM posseder_film WHERE id_film = :id";
         $dao->executerRequete($sql2, [
             ":id" => $id
         ]);
-
+        $sql = "DELETE FROM film WHERE id_film = :id";
+        $dao->executerRequete($sql, [
+                ":id" => $id
+            ]);
         header("Location: index.php?action=listFilms");
     }
 
@@ -125,13 +124,19 @@ class FilmController {
         $titre = filter_input (INPUT_POST, "titre", FILTER_SANITIZE_STRING);
         $id_realisateur = $array["id_realisateur"];
         $annee_sortie = filter_input(INPUT_POST, 'annee_sortie', FILTER_SANITIZE_NUMBER_INT);
+        $duree = filter_input(INPUT_POST, 'duree', FILTER_SANITIZE_NUMBER_INT);
+        $note = filter_input(INPUT_POST, 'note', FILTER_SANITIZE_NUMBER_INT);
+        $synopsis = filter_input (INPUT_POST, "synopsis", FILTER_SANITIZE_STRING);
         // $genres = $array["id_genre"];
 
         $dao = new DAO();
         $sql = "UPDATE film 
                     SET titre = :titre,
                     id_realisateur = :id_realisateur,
-                    annee_sortie = :annee_sortie
+                    annee_sortie = :annee_sortie,
+                    duree = :duree,
+                    note = :note,
+                    synopsis = :synopsis
                     -- genres = :genres
                     WHERE id_film = :id
                     ";
@@ -141,8 +146,14 @@ class FilmController {
             ":titre" => $titre,
             ":id_realisateur" => $id_realisateur,
             ":annee_sortie" => $annee_sortie,
+            ":duree" => $duree,
+            ":note" => $note,
+            ":synopsis" => $synopsis
             // ":genres" => $genres
         ]);
+        
+    
+                
         
         
         header("Location: index.php?action=listFilms");
@@ -152,17 +163,23 @@ class FilmController {
         if(!empty($_POST)){
             $titre = filter_input (INPUT_POST, "titre", FILTER_SANITIZE_STRING);
             $annee_sortie = filter_input(INPUT_POST, 'annee_sortie', FILTER_SANITIZE_NUMBER_INT);
+            $duree = filter_input(INPUT_POST, 'duree', FILTER_SANITIZE_NUMBER_INT);
+            $note = filter_input(INPUT_POST, 'note', FILTER_SANITIZE_NUMBER_INT);
             $id_realisateur = $array["id_realisateur"];
             $genres = $array["id_genre"];
+            $synopsis = filter_input (INPUT_POST, "synopsis", FILTER_SANITIZE_STRING);
             
 
             if($titre && $annee_sortie){
                 $dao = new DAO;
-                $sql = 'INSERT INTO film (titre, annee_sortie, id_realisateur) '.
-                "VALUES (:titre, :annee_sortie, :id_realisateur)";
+                $sql = 'INSERT INTO film (titre, annee_sortie, id_realisateur, duree, note, synopsis) '.
+                "VALUES (:titre, :annee_sortie, :id_realisateur, :duree, :note, :synopsis)";
                 $array = [":titre" => $titre,
                 ":annee_sortie" => $annee_sortie,
                 ":id_realisateur" => $id_realisateur,
+                ":duree" => $duree,
+                ":note" => $note,
+                ":synopsis" => $synopsis
                 ];
                 $dao->executerRequete($sql, $array);
 
