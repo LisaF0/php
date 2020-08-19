@@ -29,7 +29,7 @@ class RealisateurController {
     public function findOneById($id, $edit = false) {
 
         $dao = new DAO();
-        $sql = "SELECT id_realisateur, prenom_realisateur, nom_realisateur 
+        $sql = "SELECT id_realisateur, prenom_realisateur, nom_realisateur, sexe_realisateur, YEAR(CURDATE())-YEAR(birthday_realisateur) AS age
                     FROM realisateur
                     WHERE id_realisateur = :id";
         $realisateur = $dao->executerRequete($sql, [":id" => $id]);
@@ -100,7 +100,7 @@ class RealisateurController {
                 ":prenom_realisateur" => $prenom_realisateur
             ]);
 
-        header("Location: index.php?action=listReal");
+        header("Location: index.php?action=listRealisateur");
     }
     
     /**
@@ -126,7 +126,7 @@ class RealisateurController {
             ":prenom_realisateur" => $prenom_realisateur
         ]);
 
-        header("Location: index.php?action=listReal");
+        header("Location: index.php?action=listRealisateur");
     }
     
     /**
@@ -143,7 +143,7 @@ class RealisateurController {
                 ":id" => $id
             ]);
 
-        header("Location: index.php?action=listReal");
+        header("Location: index.php?action=listRealisateur");
     }
 
     public function getRealisateurs(){

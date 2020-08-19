@@ -20,18 +20,24 @@ class ActeurController{
         require 'views/acteur/listActeur.php';
     }
 
-    public function findOneById($id){
+    public function findOneById($id, $edit = false){
 
         $dao = new DAO();
-        $sql = "SELECT nom_acteur, prenom_acteur, sexe_acteur, YEAR(CURDATE())-YEAR(birthday_acteur) AS age
+        $sql = "SELECT id_acteur, nom_acteur, prenom_acteur, sexe_acteur, YEAR(CURDATE())-YEAR(birthday_acteur) AS age
         FROM acteur a
         WHERE  a.id_acteur = :id";
         $acteur = $dao->executerRequete($sql, [":id" => $id]);
         
         $casting = $this->getCasting($id);
 
+        if(!$edit){
+            require 'views/acteur/detailActeur.php';
+        } else {
+            return $acteur;
+        }
 
-        require 'views/acteur/detailActeur.php';
+
+        
     }
 
     public function getCasting($id){
@@ -45,6 +51,93 @@ class ActeurController{
 
     return $casting = $dao->executerRequete($sql, [":id" => $id]);
 
+    }
+
+    /**
+     * formAddActeur
+     *
+     * @return void
+     */
+    public function formAddActeur() {
+
+        require "views/acteur/addActeur.php";
+    }
+
+    /**
+     * addActeur
+     *
+     * @param  mixed $array
+     * @return void
+     */
+    public function addActeur($array) {
+
+        $nom_acteur = filter_var ($array["nom_acteur"], FILTER_SANITIZE_STRING);
+        $prenom_acteur = filter_var ($array["prenom_acteur"], FILTER_SANITIZE_STRING);
+        
+        $dao = new DAO();
+        $sql = "INSERT INTO acteur(nom_acteur, prenom_acteur) 
+                    VALUES (:nom_acteur, :prenom_acteur)";
+        $dao->executerRequete($sql, [
+                ":nom_acteur" => $nom_acteur,
+                ":prenom_acteur" => $prenom_acteur
+            ]);
+
+        header("Location: index.php?action=listActeur");
+    }
+
+    /**
+     * formEditActeur
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function formEditActeur($id) {
+
+        $acteur = $this->findOneById($id, true);
+        require "views/acteur/editActeur.php";
+    }
+
+    /**
+     * editActeur
+     *
+     * @param  mixed $id
+     * @param  mixed $array
+     * @return void
+     */
+    public function editActeur($id, $array) {
+
+        $nom_acteur = filter_var ($array["nom_acteur"], FILTER_SANITIZE_STRING);
+        $prenom_acteur = filter_var ($array["prenom_acteur"], FILTER_SANITIZE_STRING);
+
+        $dao = new DAO();
+        $sql = "UPDATE acteur 
+                    SET nom_acteur = :nom_acteur,
+                    prenom_acteur = :prenom_acteur
+                    WHERE id_acteur = :id";
+        $dao->executerRequete($sql, [
+            ":id" => $id,
+            ":nom_acteur" => $nom_acteur,
+            ":prenom_acteur" => $prenom_acteur
+        ]);
+
+        header("Location: index.php?action=listActeur");
+    }
+    
+    /**
+     * deleteActeur
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function deleteActeur($id) {
+
+        $dao = new DAO();
+        $sql = "DELETE FROM acteur WHERE id_acteur = :id";
+        $dao->executerRequete($sql, [
+                ":id" => $id
+            ]);
+
+        header("Location: index.php?action=listActeur");
     }
 
 

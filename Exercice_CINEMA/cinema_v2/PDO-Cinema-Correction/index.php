@@ -17,8 +17,8 @@ if(isset($_GET['action'])){
     switch($_GET['action']){
         case "listFilms" : $ctrlFilm->findAll(); break;
         case "detailFilm" : $ctrlFilm->findOneById($_GET['id']); break;
-        case "listReal" : $ctrlRealisateur->findAll(); break;
-        case "detailReal" : $ctrlRealisateur->findOneById($_GET['id']); break;
+        case "listRealisateur" : $ctrlRealisateur->findAll(); break;
+        case "detailRealisateur" : $ctrlRealisateur->findOneById($_GET['id']); break;
         case "addRealisateur": $ctrlRealisateur->formAddRealisateur(); break;
         case "addRealisateurOK": $ctrlRealisateur->addRealisateur($_POST); break;
         case "editRealisateur": $ctrlRealisateur->formEditRealisateur($_GET['id']); break;
@@ -39,6 +39,11 @@ if(isset($_GET['action'])){
         case "deleteFilm": $ctrlFilm->deleteFilm($_GET['id']); break;
         case "editFilm": $ctrlFilm->formEditFilm($_GET['id']); break;
         case "editFilmOK": $ctrlFilm->editFilm($_GET['id'], $_POST); break;
+        case "addActeur": $ctrlActeur->formAddActeur(); break;
+        case "addActeurOK": $ctrlActeur->addActeur($_POST); break;
+        case "editActeur": $ctrlActeur->formEditActeur($_GET['id']); break;
+        case "editActeurOK": $ctrlActeur->editActeur($_GET['id'], $_POST); break;
+        case "deleteActeur": $ctrlActeur->deleteActeur($_GET['id']); break;
     }
 }else {
     $ctrlFilm->findAll();

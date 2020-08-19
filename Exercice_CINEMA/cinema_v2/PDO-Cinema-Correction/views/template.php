@@ -14,7 +14,7 @@
     <nav class="uk-navbar-container" uk-navbar>
         <ul class="uk-navbar-nav">
             <li><a href="index.php?action=listFilms">Liste des films</a></li>        
-            <li><a href="index.php?action=listReal">Liste des réalisateurs</a></li>
+            <li><a href="index.php?action=listRealisateur">Liste des réalisateurs</a></li>
             <li><a href="index.php?action=listGenre">Liste des genres</a></li>
             <li><a href="index.php?action=listActeur">Liste des Acteurs</a></li>
         </ul>

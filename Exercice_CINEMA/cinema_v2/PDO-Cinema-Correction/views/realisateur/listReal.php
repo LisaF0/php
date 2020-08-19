@@ -7,8 +7,7 @@
 <table class="uk-table uk-table-striped">
     <thead>
         <tr>
-            <th>NOM</th>
-            <th>PRENOM</th>
+            <th>NOM PRENOM</th>
             <th>ACTIONS</th>
         </tr>
     </thead>
@@ -16,8 +15,7 @@
         <?php 
             while($realisateur = $realisateurs->fetch()){ ?>
                 <tr>
-                    <td><?= $realisateur["nom_realisateur"] ?></td>
-                    <td><?= $realisateur["prenom_realisateur"] ?></td>
+                    <td><a href="index.php?action=detailRealisateur&id=<?= $realisateur["id_realisateur"] ?>"><?= $realisateur["nom_realisateur"]." ".$realisateur["prenom_realisateur"] ?></a></td>
                     <td>
                         <a href="index.php?action=editRealisateur&id=<?= $realisateur["id_realisateur"] ?>">Editer</a>
                         <a href="index.php?action=deleteRealisateur&id=<?= $realisateur["id_realisateur"] ?>">Supprimer</a>
