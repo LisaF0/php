@@ -1,0 +1,39 @@
+find all sujet
+
+SELECT titre, date_sujet, pseudo
+FROM sujet s, utilisateur u
+WHERE s.id_utilisateur  = u.id_utilisateur 
+ORDER BY date_sujet DESC 
+
+
+
+Liste des messages + titre par date de création
+
+SELECT titre, date_sujet, texte, date_message, pseudo
+FROM sujet s, utilisateur u, message m
+WHERE m.id_utilisateur = u.id_utilisateur
+AND m.id_sujet = s.id_sujet
+AND s.id_utilisateur = u.id_utilisateur
+AND s.id_sujet = :id
+++count nb msg
+
+
+DELETE message
+DELETE FROM message WHERE id_message = :id";
+
+DELETE sujet
+sql1 = DELETE FROM message m WHERE m.id_sujet = :id";
+sql2 = DELETE FROM sujet s WHERE s.id_sujet = :id";
+
+INFO user
+SELECT pseudo, mail, mdp
+FROM utilisateur u 
+
+
+MESSAGE d'un user
+SELECT titre, date_sujet, texte, date_message
+FROM sujet s, utilisateur u, message m
+WHERE m.id_utilisateur = u.id_utilisateur
+AND m.id_sujet = s.id_sujet
+AND s.id_utilisateur = u.id_utilisateur
+AND u.id_utilisateur = :id
