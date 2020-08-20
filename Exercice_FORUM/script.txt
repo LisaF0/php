@@ -1,0 +1,53 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: user
+#------------------------------------------------------------
+
+CREATE TABLE user(
+        id_user          Int  Auto_increment  NOT NULL ,
+        pseudo           Varchar (25) NOT NULL ,
+        mail             Varchar (50) NOT NULL ,
+        password         Varchar (100) NOT NULL ,
+        date_inscription Date NOT NULL ,
+        role             Varchar (50) NOT NULL
+	,CONSTRAINT user_PK PRIMARY KEY (id_user)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: sujet
+#------------------------------------------------------------
+
+CREATE TABLE sujet(
+        id_sujet   Int  Auto_increment  NOT NULL ,
+        titre      Varchar (50) NOT NULL ,
+        date_sujet Date NOT NULL ,
+        verouiller Bool NOT NULL ,
+        resolu     Bool NOT NULL ,
+        id_user    Int NOT NULL
+	,CONSTRAINT sujet_PK PRIMARY KEY (id_sujet)
+
+	,CONSTRAINT sujet_user_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: message
+#------------------------------------------------------------
+
+CREATE TABLE message(
+        id_message   Int  Auto_increment  NOT NULL ,
+        texte        Text NOT NULL ,
+        date_message Date NOT NULL ,
+        id_user      Int NOT NULL ,
+        id_sujet     Int NOT NULL
+	,CONSTRAINT message_PK PRIMARY KEY (id_message)
+
+	,CONSTRAINT message_user_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
+	,CONSTRAINT message_sujet0_FK FOREIGN KEY (id_sujet) REFERENCES sujet(id_sujet)
+)ENGINE=InnoDB;
+
