@@ -1,14 +1,20 @@
-find all sujet
+findAll()
 
-SELECT titre, date_sujet, pseudo
+SELECT titre, date_sujet, pseudo, resolu
 FROM sujet s, utilisateur u
 WHERE s.id_utilisateur  = u.id_utilisateur 
 ORDER BY date_sujet DESC 
 
 
 
-Liste des messages + titre par date de création
+Liste des messages + titre par date de création [findAllByTitle($id)]
 
+SELECT titre, texte, pseudo, date_message, date_sujet
+FROM sujet s, message m, utilisateur u
+WHERE s.id_sujet = m.id_sujet
+AND s.id_sujet = :id
+AND u.id_utilisateur = m.id_utilisateur
+---------------------------------------------up
 SELECT titre, date_sujet, texte, date_message, pseudo
 FROM sujet s, utilisateur u, message m
 WHERE m.id_utilisateur = u.id_utilisateur
@@ -18,22 +24,75 @@ AND s.id_sujet = :id
 ++count nb msg
 
 
-DELETE message
-DELETE FROM message WHERE id_message = :id";
+ADD un sujet
+INSERT INTO sujet (titre, id_utilisateur)
+VALUES (:titre, :id_utilisateur)
 
 DELETE sujet
 sql1 = DELETE FROM message m WHERE m.id_sujet = :id";
 sql2 = DELETE FROM sujet s WHERE s.id_sujet = :id";
 
+
+ADD un message
+INSERT INTO message (texte, id_utilisateur, id_sujet)
+VALUE (:texte, :id_utilisateur, :id_sujet)
+
+DELETE message
+DELETE FROM message WHERE id_message = :id";
+
+EDIT Message
+UPDATE message
+SET texte = :texte
+WHERE id_message = :id
+
 INFO user
 SELECT pseudo, mail, mdp
-FROM utilisateur u 
+FROM utilisateur u
+
+ADD user 
+INSERT INTO utilisateur (pseudo, mail, mdp)
+VALUE (:pseudo, :mail, :mdp)
+
+DELETE user
+DELETE FROM user u WHERE u.id_utilisateur = :id
+
+EDIT MAIL
+UPDATE  utilisateur 
+SET mail = :mail
+WHERE id_utilisateur = :id
+
+EDIT MDP
+UPDATE utilisateur 
+SET mdp = :mdp
+WHERE id_utilisateur = :id
 
 
-MESSAGE d'un user
-SELECT titre, date_sujet, texte, date_message
+ALL SUJET d'un user (findOneByID($id))
+SELECT titre, date_sujet, texte
 FROM sujet s, utilisateur u, message m
 WHERE m.id_utilisateur = u.id_utilisateur
 AND m.id_sujet = s.id_sujet
 AND s.id_utilisateur = u.id_utilisateur
 AND u.id_utilisateur = :id
+----------------------------
+EDIT SUJET d'un user
+UPDATE message
+SET titre = :titre
+WHERE id_sujet = :id
+-----------------------------
+
+
+ALL MESSAGE d'un user  (findOneByID($id))
+SELECT titre, date_sujet, texte
+FROM sujet s, utilisateur u, message m
+WHERE m.id_utilisateur = u.id_utilisateur
+AND m.id_sujet = s.id_sujet
+AND m.id_utilisateur = u.id_utilisateur
+AND u.id_utilisateur = :id
+
+----------------------------
+EDIT MESSAGE d'un user
+UPDATE message
+SET texte = :texte
+WHERE id_message = :id
+-----------------------------
