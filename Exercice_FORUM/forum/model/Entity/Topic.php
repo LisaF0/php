@@ -1,20 +1,19 @@
 <?php
+namespace Modele\Entity;
 
-class Sujet{
-    private $id_sujet;
-    private $titre;
-    private $date_sujet;
-    private $verouiller;
-    private $resolu;
-    private $id_utilisateur;
+use App\AbstractEntity;
 
-    public function __construct(null, string $titre, null, int $verouiller, int $resolu, int $id_utilisateur){
-        $this->id_sujet = $id_sujet;
-        $this->titre = $titre;
-        $this->date_sujet = $date_sujet;
-        $this->verouiller = $verouiller;
-        $this->resolu = $resolu;
-        $this->id_utilisateur = $id_utilisateur;
+class Topic extends AbstractEntity{
+    private $id;
+    private $title;
+    private $creationdate;
+    private $closed
+    private $resolved;
+    private $user;
+
+    public function __construct($data){
+        parent::hydrate($data, $this);
+    }
 
 
         /**

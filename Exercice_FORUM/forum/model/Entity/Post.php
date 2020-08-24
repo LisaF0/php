@@ -1,18 +1,20 @@
 <?php
 
-class Message{
+namespace Model\Entity;
+
+use App\AbstractEntity;
+
+class Post extends AbstractEntity{
     private $id_message;
     private $texte;
     private $date_message;
-    private $id_utilisateur;
-    private $id_sujet;
+    private $user_id;
+    private $topic_id;
 
-    public function __construct(int $id_message, string $texte, string $date_message, int $id_utilisateur, int $id_sujet)
-        $this->id_message = $id_message;
-        $this->texte = $texte;
-        $this->date_message = $date_message;
-        $this->id_utilisateur = $id_utilisateur;
-        $this->id_sujet = $id_sujet;
+    public function __construct($data){
+        parent::hydrate($data, $this);
+    }
+        
 
         /**
          * Get the value of id_message

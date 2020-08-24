@@ -1,6 +1,9 @@
 <?php
+namespace Modele\Entity;
 
-class Utilisateur{
+use App\AbstractEntity;
+
+class User{
     private $id_utilisateur;
     private $pseudo;
     private $mail;
@@ -8,13 +11,8 @@ class Utilisateur{
     private $date_inscription;
     private $role;
 
-    public function __construct(int $id_utilisateur, string $pseudo, string $mail, string $mdp, string $date_inscription, string $role){
-        $this->id_utilisateur = $id_utilisateur;
-        $this->pseudo = $pseudo;
-        $this->mail = $mail;
-        $this->mdp = $mdp;
-        $this->date_inscription = $date_inscription;
-        $this->role = $role;
+    public function __construct($data){
+        parent::hydrate($data, $this);
     }
   
 
