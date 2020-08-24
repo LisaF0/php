@@ -1,25 +1,31 @@
 <?php
+    namespace App;
 
-class DAO {
-    private $bdd;
+    abstract class DAO {
+        
+        const DB_HOST = "127.0.0.1:3306";
+        const DB_NAME = "forum";
+        const DB_USER = "root";
+        const DB_PASS = "";
 
-    public function __construct()
-    {
-        $this->bdd = new PDO('mysql:host=localhost;dbname=forum;charset=utf8', 'root','');
-    }
+        public static function getConnection(){
 
-    function getBDD(){
-        return $this->bdd;
-    }
-
-    public function executerRequete($sql, $params = null){
-        if ($params == null){
-            $resultat = $this->bdd->query($sql);
+            //connexion à la BDD
+            try{
+                $pdo = new \PDO(
+                    'mysql:host='.self::DB_HOST.';dbname='.self::DB_NAME.';charset=utf8',
+                    self::DB_USER,
+                    self::DB_PASS,
+                    [
+                        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                    ]
+                );
+                return $pdo;
+            }
+            catch(Exception $e){
+                echo $e->getMessage();
+                die();
+            }
         }
-        else {
-            $resultat = $this->bdd->prepare($sql);
-            $resultat->execute($params);
-        }
-        return $resultat;
     }
-}

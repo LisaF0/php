@@ -1,14 +1,14 @@
 <?php
-namespace Modele\Entity;
+namespace Model\Entity;
 
 use App\AbstractEntity;
 
-class User{
-    private $id_utilisateur;
+class User extends AbstractEntity{
+    private $id;
     private $pseudo;
     private $mail;
-    private $mdp;
-    private $date_inscription;
+    private $password;
+    private $crationdate;
     private $role;
 
     public function __construct($data){
@@ -18,21 +18,21 @@ class User{
 
 
         /**
-         * Get the value of id_utilisateur
+         * Get the value of id
          */ 
-        public function getId_utilisateur()
+        public function getId()
         {
-                return $this->id_utilisateur;
+                return $this->id;
         }
 
         /**
-         * Set the value of id_utilisateur
+         * Set the value of id
          *
          * @return  self
          */ 
-        public function setId_utilisateur($id_utilisateur)
+        public function setId($id)
         {
-                $this->id_utilisateur = $id_utilisateur;
+                $this->id = $id;
 
                 return $this;
         }
@@ -78,41 +78,41 @@ class User{
         }
 
         /**
-         * Get the value of mdp
+         * Get the value of password
          */ 
-        public function getMdp()
+        public function getPassword()
         {
-                return $this->mdp;
+                return $this->password;
         }
 
         /**
-         * Set the value of mdp
+         * Set the value of password
          *
          * @return  self
          */ 
-        public function setMdp($mdp)
+        public function setPassword($password)
         {
-                $this->mdp = $mdp;
+                $this->password = $password;
 
                 return $this;
         }
 
         /**
-         * Get the value of date_inscription
+         * Get the value of creationdate
          */ 
-        public function getDate_inscription()
+        public function getCreationdate()
         {
-                return $this->date_inscription;
+                return $this->creationdate;
         }
 
         /**
-         * Set the value of date_inscription
+         * Set the value of creationdate
          *
          * @return  self
          */ 
-        public function setDate_inscription($date_inscription)
+        public function setCreationdate($creationdate)
         {
-                $this->date_inscription = $date_inscription;
+                $this->creationdate = $creationdate;
 
                 return $this;
         }

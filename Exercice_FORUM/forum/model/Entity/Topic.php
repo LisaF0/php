@@ -1,5 +1,5 @@
 <?php
-namespace Modele\Entity;
+namespace Model\Entity;
 
 use App\AbstractEntity;
 
@@ -7,7 +7,7 @@ class Topic extends AbstractEntity{
     private $id;
     private $title;
     private $creationdate;
-    private $closed
+    private $closed;
     private $resolved;
     private $user;
 
@@ -17,126 +17,127 @@ class Topic extends AbstractEntity{
 
 
         /**
-         * Get the value of id_sujet
+         * Get the value of id
          */ 
-        public function getId_sujet()
+        public function getId()
         {
-                return $this->id_sujet;
+                return $this->id;
         }
 
         /**
-         * Set the value of id_sujet
+         * Set the value of id
          *
          * @return  self
          */ 
-        public function setId_sujet($id_sujet)
+        public function setId($id)
         {
-                $this->id_sujet = $id_sujet;
+                $this->id = $id;
 
                 return $this;
         }
 
         /**
-         * Get the value of titre
+         * Get the value of title
          */ 
-        public function getTitre()
+        public function getTitle()
         {
-                return $this->titre;
+                return $this->title;
         }
 
         /**
-         * Set the value of titre
+         * Set the value of title
          *
          * @return  self
          */ 
-        public function setTitre($titre)
+        public function setTitle($title)
         {
-                $this->titre = $titre;
+                $this->title = $title;
 
                 return $this;
         }
 
         /**
-         * Get the value of date_sujet
+         * Get the value of creationdate
          */ 
-        public function getDate_sujet()
+        public function getCreationdate()
         {
-                return $this->date_sujet;
+                setLocale(LC_ALL, 'fr_FR.utf-8');
+                return strftime("%d/%m/%Y", strtotime($this->creationdate));
         }
 
         /**
-         * Set the value of date_sujet
+         * Set the value of creationdate
          *
          * @return  self
          */ 
-        public function setDate_sujet($date_sujet)
+        public function setCreationdate($creationdate)
         {
-                $this->date_sujet = $date_sujet;
+                $this->creationdate = $creationdate;
 
                 return $this;
         }
 
         /**
-         * Get the value of verouiller
+         * Get the value of closed
          */ 
-        public function getVerouiller()
+        public function getClosed()
         {
-                return $this->verouiller;
+                return $this->closed;
         }
 
         /**
-         * Set the value of verouiller
+         * Set the value of closed
          *
          * @return  self
          */ 
-        public function setVerouiller($verouiller)
+        public function setClosed($closed)
         {
-                $this->verouiller = $verouiller;
+                $this->closed = $closed;
 
                 return $this;
         }
 
         /**
-         * Get the value of resolu
+         * Get the value of resolved
          */ 
-        public function getResolu()
+        public function getResolved()
         {
-                return $this->resolu;
+                return $this->resolved;
         }
 
         /**
-         * Set the value of resolu
+         * Set the value of resolved
          *
          * @return  self
          */ 
-        public function setResolu($resolu)
+        public function setResolved($resolved)
         {
-                $this->resolu = $resolu;
+                $this->resolved = $resolved;
 
                 return $this;
         }
 
         /**
-         * Get the value of id_utilisateur
+         * Get the value of user
          */ 
-        public function getId_utilisateur()
+        public function getUser()
         {
-                return $this->id_utilisateur;
+                return $this->user;
         }
 
         /**
-         * Set the value of id_utilisateur
+         * Set the value of user
          *
          * @return  self
          */ 
-        public function setId_utilisateur($id_utilisateur)
+        public function setUser($user)
         {
-                $this->id_utilisateur = $id_utilisateur;
+                $this->user = $user;
 
                 return $this;
         }
 
         public function __toString(){
-            return $this->getTitre();
+            return $this->getTitle();
         }
 }

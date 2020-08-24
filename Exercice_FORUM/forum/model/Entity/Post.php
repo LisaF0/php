@@ -5,11 +5,11 @@ namespace Model\Entity;
 use App\AbstractEntity;
 
 class Post extends AbstractEntity{
-    private $id_message;
-    private $texte;
-    private $date_message;
-    private $user_id;
-    private $topic_id;
+    private $id;
+    private $text;
+    private $creationdate;
+    private $user;
+    private $topic;
 
     public function __construct($data){
         parent::hydrate($data, $this);
@@ -17,106 +17,106 @@ class Post extends AbstractEntity{
         
 
         /**
-         * Get the value of id_message
+         * Get the value of id
          */ 
-        public function getId_message()
+        public function getId()
         {
-                return $this->id_message;
+                return $this->id;
         }
 
         /**
-         * Set the value of id_message
+         * Set the value of id
          *
          * @return  self
          */ 
-        public function setId_message($id_message)
+        public function setId($id)
         {
-                $this->id_message = $id_message;
+                $this->id = $id;
 
                 return $this;
         }
 
         /**
-         * Get the value of texte
+         * Get the value of text
          */ 
-        public function getTexte()
+        public function getText()
         {
-                return $this->texte;
+                return $this->text;
         }
 
         /**
-         * Set the value of texte
+         * Set the value of text
          *
          * @return  self
          */ 
-        public function setTexte($texte)
+        public function setText($text)
         {
-                $this->texte = $texte;
+                $this->text = $text;
 
                 return $this;
         }
 
         /**
-         * Get the value of date_message
+         * Get the value of creationdate
          */ 
-        public function getDate_message()
+        public function getCreationdate()
         {
-                return $this->date_message;
+                return $this->creationdate;
         }
 
         /**
-         * Set the value of date_message
+         * Set the value of creationdate
          *
          * @return  self
          */ 
-        public function setDate_message($date_message)
+        public function setCreationdate($creationdate)
         {
-                $this->date_message = $date_message;
+                $this->creationdate = $creationdate;
 
                 return $this;
         }
 
         /**
-         * Get the value of id_utilisateur
+         * Get the value of user
          */ 
-        public function getId_utilisateur()
+        public function getUser()
         {
-                return $this->id_utilisateur;
+                return $this->user;
         }
 
         /**
-         * Set the value of id_utilisateur
+         * Set the value of user
          *
          * @return  self
          */ 
-        public function setId_utilisateur($id_utilisateur)
+        public function setUser($user)
         {
-                $this->id_utilisateur = $id_utilisateur;
+                $this->user = $user;
 
                 return $this;
         }
 
         /**
-         * Get the value of id_sujet
+         * Get the value of topic
          */ 
-        public function getId_sujet()
+        public function getTopic()
         {
-                return $this->id_sujet;
+                return $this->topic;
         }
 
         /**
-         * Set the value of id_sujet
+         * Set the value of topic
          *
          * @return  self
          */ 
-        public function setId_sujet($id_sujet)
+        public function setTopic($topic)
         {
-                $this->id_sujet = $id_sujet;
+                $this->topic = $topic;
 
                 return $this;
         }
 
         public function __toString(){
-            return $this->getTexte();
+            return $this->getText();
         }
 }
