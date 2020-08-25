@@ -32,7 +32,7 @@
         /**
          * Afficher les posts d'un topic
          */
-        public function show(){
+        public function show($id){
 
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
             $manTopic = new TopicManager();

@@ -18,7 +18,7 @@
     define('CTRL_PATH', ROOT_DIR.'controller'.DS); // "./controller/"
     define('VIEW_PATH', ROOT_DIR.'view'.DS); // "./view/"
 
-    define('ADMIN_MAIL', "admin@forummvc.com"); //mail de l'administrateur
+    define('ADMIN_MAIL', "admin@forum.com"); //mail de l'administrateur
 
     require SERVICE_PATH."Router.php"; // require "./app/Router.php"
 

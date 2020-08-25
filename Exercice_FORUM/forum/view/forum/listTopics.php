@@ -21,13 +21,13 @@ var_dump($data['topics']);
 foreach($data['topics'] as $topic){?> 
     <tr>
             <td>
-                <?=  $topic->getTitle(); ?>
+                <a href="?ctrl=forum&method=show&id=<?= $topic->getId() ?>"><?= $topic->getTitle(); ?></a>
             </td>
             <td>
-                <?=  $topic->getUser(); ?>
+                <?= $topic->getUser(); ?>
             </td>
             <td>
-                <?=  $topic->getCreationdate();?>
+                <?= $topic->getCreationdate();?>
             </td>
             <td>
                 <?= $topic->getClosed() == '1' ? "vérouillé" : "" ?>
