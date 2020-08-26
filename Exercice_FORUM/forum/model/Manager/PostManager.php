@@ -40,18 +40,21 @@
         }
 
         public function findByTopic($id){
-            $sql = "SELECT title, text, pseudo, p.creationdate, t.creationdate
-                    FROM topic t, post p, user u
-                    WHERE t.id = p.id
-                    AND t.id = :id
-                    AND u.id = p.id";
+            $sql = "SELECT *
+                    FROM post
+                    WHERE topic_id = :id";
             return self::getResults(
                 self::select($sql,
                     ["id" => $id],
-                    false
+                    true
                 ),
                 self::$classname
             );
         }
 
     }
+
+    // SELECT title, msg, pseudo, p.creationdate, p.user_id, p.topic_id
+    //                 FROM post p , topic t, user u
+    //                 WHERE p.topic_id = t.id
+    //                 AND p.topic_id = :id

@@ -1,4 +1,5 @@
 <h2>LISTE DES SUJETS</h2>
+<a class="uk-button uk-button-primary" href="?ctrl=forum&method=formAddTopic">Nouveau Sujet</a>
 
 <table class="uk-table uk-table-striped">
     <thead>
@@ -6,18 +7,16 @@
             <th>Titre</th>
             <th>Auteur</th>
             <th>Date de création</th>
+            <th>Nb message</th>
             <th>Vérouillé</th>
             <th>Résolu</th>
+            <th>Action</th>
 
         </tr>
     </thead>
     <tbody>
-
+        
 <?php
-var_dump($data['topics']);
-
-
-
 foreach($data['topics'] as $topic){?> 
     <tr>
             <td>
@@ -29,12 +28,19 @@ foreach($data['topics'] as $topic){?>
             <td>
                 <?= $topic->getCreationdate();?>
             </td>
+            <td> <span uk-icon="comment"><?= $topic->getNBmsg(); ?></span></td>
             <td>
-                <?= $topic->getClosed() == '1' ? "vérouillé" : "" ?>
+                <?= $topic->getClosed() == '1' ? '<span uk-icon="icon: lock"></span>' : '<span uk-icon="icon: unlock"></span>' ?>
             </td>
             <td>
-                <?= $topic->getResolved() == '0' ? "résolu" : "" ?>
+                <?= $topic->getResolved() == '1' ? '<span uk-icon="icon: check"></span>' : "" ?>
+            </td>
+            <td>
+                <button class="uk-button uk-button-danger">DELETE</button>
             </td>
     </tr>
 
-<?php }
+<?php } ?>
+
+    </tbody>
+<table>

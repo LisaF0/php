@@ -50,4 +50,25 @@
                 "titrePage" => "FORUM | ".$topic
             ];
         }
+
+        /**
+         * Afficher le form d'add topic
+         */
+        public function formAddTopic(){
+
+            return [
+                "view" => "forum/newPost.php",
+                "titrePage" => "FORUM | Nouveau sujet"
+            ];
+        }
+
+        public function addTopic(){
+            
+            return [
+                "view" => "forum/newPost.php",
+                "titrePage" => "FORUM | Nouveau sujet"
+            ];
+        }
+
+
     }

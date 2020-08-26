@@ -6,7 +6,7 @@ use App\AbstractEntity;
 
 class Post extends AbstractEntity{
     private $id;
-    private $text;
+    private $msg;
     private $creationdate;
     private $user;
     private $topic;
@@ -37,21 +37,21 @@ class Post extends AbstractEntity{
         }
 
         /**
-         * Get the value of text
+         * Get the value of msg
          */ 
-        public function getText()
+        public function getMsg()
         {
-                return $this->text;
+                return $this->msg;
         }
 
         /**
-         * Set the value of text
+         * Set the value of msg
          *
          * @return  self
          */ 
-        public function setText($text)
+        public function setMsg($msg)
         {
-                $this->text = $text;
+                $this->msg = $msg;
 
                 return $this;
         }
@@ -61,7 +61,9 @@ class Post extends AbstractEntity{
          */ 
         public function getCreationdate()
         {
-                return $this->creationdate;
+                setLocale(LC_ALL, 'fr_FR.utf-8');
+                return strftime("%d/%m/%Y %H:%M:%S", strtotime($this->creationdate));
+                
         }
 
         /**

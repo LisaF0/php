@@ -10,6 +10,7 @@ class Topic extends AbstractEntity{
     private $closed;
     private $resolved;
     private $user;
+    private $NBmsg;
 
     public function __construct($data){
         parent::hydrate($data, $this);
@@ -62,7 +63,7 @@ class Topic extends AbstractEntity{
         public function getCreationdate()
         {
                 setLocale(LC_ALL, 'fr_FR.utf-8');
-                return strftime("%d/%m/%Y", strtotime($this->creationdate));
+                return strftime("%d/%m/%Y %H:%M:%S", strtotime($this->creationdate));
         }
 
         /**
@@ -140,4 +141,24 @@ class Topic extends AbstractEntity{
         public function __toString(){
             return $this->getTitle();
         }
+
+    /**
+     * Get the value of NBmsg
+     */ 
+    public function getNBmsg()
+    {
+        return $this->NBmsg;
+    }
+
+    /**
+     * Set the value of NBmsg
+     *
+     * @return  self
+     */ 
+    public function setNBmsg($NBmsg)
+    {
+        $this->NBmsg = $NBmsg;
+
+        return $this;
+    }
 }

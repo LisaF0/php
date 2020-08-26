@@ -13,9 +13,11 @@
 
         public function findAll(){
 
-            $sql = "SELECT t.id, title, t.creationdate, closed, resolved, t.user_id
-                    FROM topic t
-                    ORDER BY creationdate DESC";
+            $sql = "SELECT t.id, title, t.creationdate, closed, resolved, t.user_id, COUNT(msg) AS NBmsg
+            FROM topic t, post p
+            WHERE t.id = p.topic_id
+            GROUP BY t.id
+            ORDER BY creationdate DESC";
 
             return self::getResults(
                 self::select($sql,
@@ -28,8 +30,8 @@
 
         public function findOneById($id){
             $sql = "SELECT * 
-                        FROM topic 
-                        WHERE id = :id";
+                    FROM topic 
+                    WHERE id = :id";
             return self::getOneOrNullResult(
                 self::select($sql, 
                     ["id" => $id], 
