@@ -41,4 +41,20 @@
             );
         }
 
+        public function addTopic($array){
+            
+            $title = filter_var($array["nom_acteur"], FILTER_SANITIZE_STRING);
+
+
+
+            $sql = "INSERT INTO topic(title, user_id) 
+                    VALUES(:title, :user_id)
+                    ";
+                    
+            
+            return self::create($sql, ["title" => $title,
+                                        "user_id" => 4]
+            );
+        }
+
     }

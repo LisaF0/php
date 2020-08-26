@@ -63,9 +63,16 @@
         }
 
         public function addTopic(){
-            
+
+        
+            $newTopic = new TopicManager();
+            $topic = $newTopic->addTopic($_POST);
+
             return [
-                "view" => "forum/newPost.php",
+                
+                "data" => [
+                    "topic" => $topic
+                ],
                 "titrePage" => "FORUM | Nouveau sujet"
             ];
         }

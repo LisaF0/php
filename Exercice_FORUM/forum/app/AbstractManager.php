@@ -38,4 +38,21 @@
             }
             return $stmt->fetch();
         }
+
+        protected static function create($sql, $params){
+            $stmt = self::$connection->prepare($sql);
+            
+            return $stmt->execute($params);
+        }
+
+        // protected static function lastInsertId(){
+        //     return $lastID = $dao->getBDD()->lastInsertID();
+        // }
+
+        protected static function delete($sql, $params){
+            $stmt = self::$connection->prepare($sql);
+
+            return $stmt->execute($params);
+        }
+
     }

@@ -46,11 +46,14 @@ foreach($data['posts'] as $post){?>
                 </article>
             </li>
 <?php } ?>
-
         </ul>
     </li>
 </ul>
- 
 
-
-
+<h3>Nouveau Message</h3>
+<form action="?ctrl=forum&method=addTopic" method="POST">
+    <div class="uk-margin">
+            <textarea class="uk-textarea" rows="5" placeholder="Répondre"></textarea>
+    </div>
+    <button class="uk-button uk-button-default">Envoyer</button>
+</form>
