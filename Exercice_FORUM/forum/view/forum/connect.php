@@ -18,7 +18,7 @@
     </div>
 
     <button class="uk-button uk-button-default">SIGN IN</button>
-    <p><a href="?ctrl=home&method=inscription">Not a menber yet?</a></p>
+    <p><a href="?ctrl=home&method=inscription">Not a member yet?</a></p>
 
 
 </form>
