@@ -45,9 +45,9 @@
             return $stmt->execute($params);
         }
 
-        // protected static function lastInsertId(){
-        //     return $lastID = $dao->getBDD()->lastInsertID();
-        // }
+        protected static function lastInsertId(){
+            return $lastID = self::$connection->lastInsertID();
+        }
 
         protected static function delete($sql, $params){
             $stmt = self::$connection->prepare($sql);

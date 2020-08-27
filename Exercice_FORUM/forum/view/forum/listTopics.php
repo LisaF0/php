@@ -40,7 +40,8 @@ foreach($data['topics'] as $topic){?>
             </td>
     </tr>
 
-<?php } ?>
+<?php } 
+var_dump($data['topics'])?>
 
     </tbody>
 <table>

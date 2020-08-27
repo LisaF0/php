@@ -41,10 +41,9 @@
             );
         }
 
-        public function addTopic($array){
+        public function addTopic($title){
             
-            $title = filter_var($array["nom_acteur"], FILTER_SANITIZE_STRING);
-
+            // $title = filter_var($array["title"], FILTER_SANITIZE_STRING);
 
 
             $sql = "INSERT INTO topic(title, user_id) 
@@ -52,9 +51,23 @@
                     ";
                     
             
-            return self::create($sql, ["title" => $title,
-                                        "user_id" => 4]
-            );
+                self::create($sql, [
+                    "title" => $title,
+                    "user_id" => 4
+            ]);
+
+            // $lastID = self::lastInsertId();
+
+            // $sql2 = "INSERT INTO post(msg, user_id, topic_id)
+            //         VALUES(:msgn :user_id, :topic_id)
+            //         ";
+
+            //     self::create($sql2,[
+            //         "msg" => $msg,
+            //         "user_id" => 4,
+            //         "topic_id" => $lastID
+
+            //     ]);
         }
 
     }

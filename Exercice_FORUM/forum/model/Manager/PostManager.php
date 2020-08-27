@@ -52,9 +52,17 @@
             );
         }
 
+        public function addPost($msg, $id){
+            $sql = "INSERT INTO post(msg, user_id, topic_id) 
+                    VALUES(:title, :user_id, :topic_id)
+                    ";
+            return self::create($sql, [
+                "title" => $title,
+                "user_id" => 4,
+                "topic_id" => $id
+            ]);
+        }
+
     }
 
-    // SELECT title, msg, pseudo, p.creationdate, p.user_id, p.topic_id
-    //                 FROM post p , topic t, user u
-    //                 WHERE p.topic_id = t.id
-    //                 AND p.topic_id = :id
+   

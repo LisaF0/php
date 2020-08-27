@@ -64,18 +64,25 @@
 
         public function addTopic(){
 
-        
+            $titre = (isset($_POST["title"])) ? $_POST["title"] : null;
+            
             $newTopic = new TopicManager();
-            $topic = $newTopic->addTopic($_POST);
+            $topic = $newTopic->addTopic($title);
+
+            $lastID = self::lastInsertId();
+
+            $newPost = new PostManager();
+            $post = $newPost->addPost($msg, $id);            
+
+
+
+            // Router::redirectTo("Forum", "allTopics");
 
             return [
-                
-                "data" => [
-                    "topic" => $topic
-                ],
-                "titrePage" => "FORUM | Nouveau sujet"
+                "data" => null
             ];
         }
 
+        
 
     }
