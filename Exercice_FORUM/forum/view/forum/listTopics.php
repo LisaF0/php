@@ -36,12 +36,12 @@ foreach($data['topics'] as $topic){?>
                 <?= $topic->getResolved() == '1' ? '<span uk-icon="icon: check"></span>' : "" ?>
             </td>
             <td>
-                <button class="uk-button uk-button-danger">DELETE</button>
+                <a href="?ctrl=forum&method=deleteTopic" class="uk-button uk-button-danger">DELETE</a>
             </td>
     </tr>
 
 <?php } 
-var_dump($data['topics'])?>
+?>
 
     </tbody>
 <table>

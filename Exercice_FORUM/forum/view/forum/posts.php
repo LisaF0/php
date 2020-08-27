@@ -7,7 +7,7 @@
             <header class="uk-comment-header uk-position-relative">
                 <div class="uk-grid-medium uk-flex-middle" uk-grid>
                     <div class="uk-width-auto">
-                        <img class="uk-comment-avatar" src="https://fr.seaicons.com/wp-content/uploads/2015/11/Users-User-icon.png" width="80" height="80" alt="">
+                        <img class="uk-comment-avatar" src="" width="80" height="80" alt="">
                     </div>
                     <div class="uk-width-expand">
                         <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><?= $data['topic']->getUser(); ?></a></h4>
@@ -29,7 +29,7 @@ foreach($data['posts'] as $post){?>
                     <header class="uk-comment-header">
                             <div class="uk-grid-medium uk-flex-middle" uk-grid>
                                 <div class="uk-width-auto">
-                                    <img class="uk-comment-avatar" src="https://fr.seaicons.com/wp-content/uploads/2015/11/Users-User-icon.png" width="80" height="80" alt="">
+                                     <img class="uk-comment-avatar" src="" width="80" height="80" alt="">
                                 </div>
                                 <div class="uk-width-expand">
                                     <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><?= $post->getUser()->getPseudo();?></a></h4>
@@ -50,10 +50,10 @@ foreach($data['posts'] as $post){?>
     </li>
 </ul>
 
-<h3>Nouveau Message</h3>
-<form action="?ctrl=forum&method=addTopic" method="POST">
+
+<form action="?ctrl=forum&method=addPost&id=<?= $data['topic']->getId() ?>" method="POST">
     <div class="uk-margin">
-            <textarea class="uk-textarea" rows="5" name="msg" id="msg" placeholder="Répondre"></textarea>
+            <textarea class="uk-textarea" rows="5" name="msg" id="msg" placeholder="Répondre" required></textarea>
     </div>
-    <button class="uk-button uk-button-default">Envoyer</button>
+    <input type="submit" class="uk-button uk-button-default" value="Envoyer">
 </form>

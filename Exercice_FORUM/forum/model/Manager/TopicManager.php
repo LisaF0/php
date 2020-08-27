@@ -41,15 +41,23 @@
             );
         }
 
+        public function findOneByTitle($title){
+            $sql = "SELECT * 
+                    FROM topic 
+                    WHERE title = :title";
+            return self::getOneOrNullResult(
+                self::select($sql, 
+                    ["title" => $title], 
+                    false
+                ), 
+                self::$classname
+            );
+        }
+
         public function addTopic($title){
-            
-            // $title = filter_var($array["title"], FILTER_SANITIZE_STRING);
-
-
             $sql = "INSERT INTO topic(title, user_id) 
                     VALUES(:title, :user_id)
                     ";
-                    
             
                 self::create($sql, [
                     "title" => $title,

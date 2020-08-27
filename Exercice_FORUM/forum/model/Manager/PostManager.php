@@ -53,16 +53,18 @@
         }
 
         public function addPost($msg, $id){
+
             $sql = "INSERT INTO post(msg, user_id, topic_id) 
-                    VALUES(:title, :user_id, :topic_id)
+                    VALUES(:msg, :user_id, :topic_id)
                     ";
             return self::create($sql, [
-                "title" => $title,
+                "msg" => $msg,
                 "user_id" => 4,
                 "topic_id" => $id
             ]);
         }
-
     }
+
+
 
    

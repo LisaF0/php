@@ -1,16 +1,17 @@
 <h2>Nouveau Sujet</h2>
 
-<form>
-    <div class="uk-margin" action="?ctrl=forum&method=addTopic" method="POST">
-        <input class="uk-input" type="text" name="title" id="title" placeholder="Titre">
+<form action="?ctrl=forum&method=addTopic" method="POST">
+    <div class="uk-margin">
+        <input class="uk-input" type="text" name="title" id="title" placeholder="Titre" required>
     </div>
 
     <div class="uk-margin">
-            <textarea class="uk-textarea" rows="5" placeholder="Message" name="msg" id="msg"></textarea>
+            <textarea class="uk-textarea" rows="5" placeholder="Message" name="msg" id="msg" required></textarea>
     </div>
-    <button class="uk-button uk-button-default">Créer un nouveau sujet</button>
+    <input type="submit" class="uk-button uk-button-default" value="Créer un nouveau sujet">
 </form>
 
 <?php
-//  var_dump($data["topic"]);
+
+
 

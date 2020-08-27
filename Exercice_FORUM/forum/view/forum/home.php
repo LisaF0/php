@@ -7,3 +7,5 @@
 </p>    
     
 <p><a class="uk-button uk-button-default" href="?ctrl=forum&method=allTopics">Accéder aux sujets</a></p>
+
+<?php

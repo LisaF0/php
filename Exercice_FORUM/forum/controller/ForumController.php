@@ -64,23 +64,45 @@
 
         public function addTopic(){
 
-            $titre = (isset($_POST["title"])) ? $_POST["title"] : null;
-            
+            $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_STRING);
+            $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
+
             $newTopic = new TopicManager();
             $topic = $newTopic->addTopic($title);
 
-            $lastID = self::lastInsertId();
+            // if(!$newTopic->findOneByTitle($_POST['title'])){
+            //     $topic = $newTopic->addTopic($_POST['title']);
+            // }
 
             $newPost = new PostManager();
-            $post = $newPost->addPost($msg, $id);            
+            $currentTopic = $newTopic->findOneByTitle($title);
+            $post = $newPost->addPost($msg, $currentTopic->getId());            
 
 
-
-            // Router::redirectTo("Forum", "allTopics");
+            Router::redirectTo("Forum", "allTopics");
 
             return [
-                "data" => null
+                "data" => [
+                    "topic" => $topic,
+                    "posts" => $posts,
+                ]
             ];
+        }
+
+        public function addPost(){
+
+            $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+
+            $newPost = new PostManager();
+            $post = $newPost->addPost($msg, $id);
+
+            Router::redirectTo("Forum", "show", $id);
+        }
+
+        public function deleteTopic(){
+
+            
         }
 
         
