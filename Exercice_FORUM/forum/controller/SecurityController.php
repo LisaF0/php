@@ -40,18 +40,17 @@
             if(!empty($_POST)){
                 $mail = filter_input(INPUT_POST, 'mail', FILTER_VALIDATE_EMAIL);
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
                 if($mail && $password){
                     $manUser = new UserManager();
-                    
                     $user = $manUser->login($mail, $password);
+
                     var_dump($password);
                     var_dump($user);
 
                     if(password_verify($password, $user['password'])){
-                        echo "connecté";
-
-                    }
-                    echo "pas connecté";
+                        var_dump($user);
+                    } else echo "pas connecté";
 
                 }
             }
