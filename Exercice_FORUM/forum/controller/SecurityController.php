@@ -36,12 +36,23 @@
         }
 
         public function login(){
+            var_dump($_POST);
             if(!empty($_POST)){
-                $user = filter_input(INPUT_POST, 'user', FILTER_SANITIZE_STRING);
+                $mail = filter_input(INPUT_POST, 'mail', FILTER_VALIDATE_EMAIL);
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-                if($user && $password){
-                    $user = new UserManager();
-                    $user->login();
+                if($mail && $password){
+                    $manUser = new UserManager();
+                    
+                    $user = $manUser->login($mail, $password);
+                    var_dump($password);
+                    var_dump($user);
+
+                    if(password_verify($password, $user['password'])){
+                        echo "connecté";
+
+                    }
+                    echo "pas connecté";
+
                 }
             }
         }

@@ -84,7 +84,7 @@
             return [
                 "data" => [
                     "topic" => $topic,
-                    "posts" => $posts,
+                    "posts" => $post,
                 ]
             ];
         }

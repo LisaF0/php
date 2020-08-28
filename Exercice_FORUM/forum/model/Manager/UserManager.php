@@ -13,7 +13,7 @@
 
         public function findAll(){
 
-            $sql = "SELECT pseudo, mail
+            $sql = "SELECT *
                     FROM user";
 
             return self::getResults(
@@ -65,12 +65,15 @@
     // }
 
 
-    public function login($user){
-        $sql = "SELECT pseudo, mail, password
+    public function login($mail, $password){
+        $sql = "SELECT mail, password
                 FROM user
-                WHERE mail = :user
-                OR user = :mail
                 ";
-        self::create($sql, ['user' => $user])
+        return self::select($sql,[
+                'mail' => $mail,
+                'password' => $password
+                ], 
+                false
+                );
     }
 }
