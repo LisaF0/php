@@ -19,6 +19,7 @@
                 header("Location: index.php");
                 die();
             }
+           
             else $_SESSION['error'] = "Le nom d'utilisateur ou le mot de passe est incorrect !";
         }
         else $_SESSION['error'] = "Les champs obligatoires ne sont pas tous remplis !";

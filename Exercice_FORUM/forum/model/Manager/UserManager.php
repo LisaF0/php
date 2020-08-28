@@ -13,7 +13,8 @@
 
         public function findAll(){
 
-            $sql = "";
+            $sql = "SELECT pseudo, mail
+                    FROM user";
 
             return self::getResults(
                 self::select($sql,
@@ -37,46 +38,39 @@
             );
         }
 
-        public function addUser($pseudo, $password, $mail){
-            if(!empty($_POST)){
-                $pseudo = filter_input(INPUT_POST, 'peusdo', FILTER_VALIDATE_REGEXP, ["options" => ["regexp" => "/^[a-zA-Z0-9]{4,32}/"]]);
-                $mail = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-                $password_r = filter_input(INPUT_POST, 'password_r', FILTER_SANITIZE_STRING);
-            
-
-                if($peudo && $mail && $password){
-                    if($password === $password_r){
+        public function addUser($pseudo, $mail, $password){
+        
+            $sql = "INSERT INTO user (pseudo, password, mail)
+                    VALUES (:pseudo, :password, :mail)";
+            return self::create($sql, [
+                        ":pseudo" => strtolower($pseudo), 
+                        ":password" => password_hash($password, PASSWORD_ARGON2I), 
+                        ":mail" => $mail
+                        ]);
                         
-                        try{
-                            $sql = "INSERT INTO user (pseudo, password, mail)
-                                    VALUES (:pseudo, :password, :mail)";
-                                    self::create($sql, [
-                                        ":pseudo" => strtolower($pseudo), 
-                                        ":password" => password_hash($password, PASSWORD_ARGON2I), 
-                                        ":mail" => $mail
-                                        ]);
-                        
-                        $_SESSION['success'] = "Inscription réussie, connectez-vous !";
-                            header("Location:connect.php");
-                            die();
-                        }
-                        catch(Exception $e){
-                        echo $e->getMessage();
-                        }
-                }
-                else $_SESSION['error'] = "Les mots de passe ne correspondent pas !";
-            }
-            else $_SESSION['error'] = "Vous devez remplir TOUS les champs obligatoires !";
+                        // $_SESSION['success'] = "Inscription réussie, connectez-vous !";
+                        //     header("Location:connect.php");
+                        //     die();
+                        // }
+                        // catch(Exception $e){
+                        // echo $e->getMessage();
+                        // }
         }
-        else $_SESSION['error'] = "Vous n'avez pas soumis le formulaire, petit malin !";
+    //             else $_SESSION['error'] = "Les mots de passe ne correspondent pas !";
+    //         }
+    //         else $_SESSION['error'] = "Vous devez remplir TOUS les champs obligatoires !";
+    //     }
+    //     else $_SESSION['error'] = "Vous n'avez pas soumis le formulaire, petit malin !";
 
-    header("Location:inscription.php");
-    die();
+    // }
 
+
+    public function login($user){
+        $sql = "SELECT pseudo, mail, password
+                FROM user
+                WHERE mail = :user
+                OR user = :mail
+                ";
+        self::create($sql, ['user' => $user])
     }
-
-
-
-
-    }
+}
