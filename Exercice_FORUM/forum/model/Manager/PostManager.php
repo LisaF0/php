@@ -63,8 +63,10 @@
                 "topic_id" => $id
             ]);
         }
+
+
+        public function deletePost($id){
+            $sql = "DELETE FROM post WHERE id = :id";
+            return self::delete($sql,[":id" => $id]);
+        }
     }
-
-
-
-   

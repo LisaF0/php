@@ -100,11 +100,31 @@
             Router::redirectTo("Forum", "show", $id);
         }
 
-        public function deleteTopic(){
+        // public function deleteTopic($id){
+        //     $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+
+        //     $currentTopic = new TopicManager();
+        //     $currentTopic->deleteTopic($id);
+
+        //     Router::redirectTo("Forum", "allTopics");
+
+
+        // }
+
+        public function deletePost(){
 
             
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            var_dump($id);
+            
+            $manPost = new PostManager();
+            $currentPost = $manPost->findOneById($id);
+            $idtopic = $currentPost->getTopic()->getId();
+            var_dump($idtopic);
+
+            $post = $manPost->deletePost($id);
+            var_dump($idtopic);
+
+            Router::redirectTo("Forum", "show", $idtopic);
         }
-
-        
-
     }

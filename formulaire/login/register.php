@@ -14,6 +14,7 @@
 
         if($username && $email && $password && $cgu){
             if($password === $password_r){
+                
 
                 $pdo = connect();
                 try{
@@ -44,6 +45,4 @@
 
     header("Location:form_register.php");
     die();
-    
-    
     

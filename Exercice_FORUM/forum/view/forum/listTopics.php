@@ -36,7 +36,7 @@ foreach($data['topics'] as $topic){?>
                 <?= $topic->getResolved() == '1' ? '<span uk-icon="icon: check"></span>' : "" ?>
             </td>
             <td>
-                <a href="?ctrl=forum&method=deleteTopic" class="uk-button uk-button-danger">DELETE</a>
+                <a href="?ctrl=forum&method=deleteTopic&id=<?= $topic->getId() ?>" class="uk-button uk-button-danger">DELETE</a>
             </td>
     </tr>
 

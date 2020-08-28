@@ -78,4 +78,13 @@
             //     ]);
         }
 
+        public function deleteTopic($id){
+
+            $sql1 = "DELETE FROM post WHERE topic_id = :id";
+                    self::delete($sql1,[":id" => $id]);
+
+            $sql2 = "DELETE FROM topic WHERE id = :id";
+                    self::delete($sql2,[":id" => $id]);
+        }
+
     }

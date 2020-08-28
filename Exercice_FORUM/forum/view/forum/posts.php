@@ -1,4 +1,3 @@
-
 <h2><?= $data['topic']->getTitle(); ?></h2>
 
 <ul class="uk-comment-list">
@@ -44,6 +43,7 @@ foreach($data['posts'] as $post){?>
                         <p><?= $post->getMsg(); ?></p>
                     </div>
                 </article>
+                <a href="?ctrl=forum&method=deletePost&id=<?= $post->getId() ?>" class="uk-button uk-button-danger">DELETE MESSAGE</a>
             </li>
 <?php } ?>
         </ul>

@@ -1,7 +1,7 @@
 <h2>Sign In</h2>
 
 
-<form>
+<form action="?ctrl=forum&method=login" method="POST">
 
     <div class="uk-margin">
         <div class="uk-inline">
