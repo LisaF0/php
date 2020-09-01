@@ -6,9 +6,10 @@
 
     class SecurityController{
 
+        private $folder = "security".DS;
+
         public function register(){
 
-            var_dump($_POST);
             if(!empty($_POST)){
                 $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_VALIDATE_REGEXP, 
                         ["options" => ["regexp" => "/^[a-zA-Z0-9]{4,32}/"]]);
@@ -26,7 +27,7 @@
                         $user = $newUser->addUser($pseudo, $mail, $password);
                         
                         return [
-                            "view" => "forum/connect.php",
+                            "view" => $this->folder."login.php",
                             "data" => ["user" => $user],
                             "titrePage" => "Forum | Connexion"
                         ];
@@ -36,24 +37,39 @@
         }
 
         public function login(){
-            var_dump($_POST);
+            
             if(!empty($_POST)){
                 $mail = filter_input(INPUT_POST, 'mail', FILTER_VALIDATE_EMAIL);
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
                 if($mail && $password){
                     $manUser = new UserManager();
-                    $user = $manUser->login($mail, $password);
+                    if($user = $manUser->login($mail)){
+                        if(password_verify($password, $user['password'])){
 
-                    var_dump($password);
-                    var_dump($user);
-
-                    if(password_verify($password, $user['password'])){
-                        var_dump($user);
-                    } else echo "pas connecté";
-
-                }
+                        }
+                        var_dump($password);
+                    }     
+                } 
             }
+            return ['view' => $this->folder.'login.php'];
+            
         }
 
+
+        public function connect(){
+            return [
+                "view" => $this->folder."login.php",
+                "data" => null,
+                "titrePage" => "FORUM | Connexion"
+            ];
+        }
+
+        public function inscription(){
+            return [
+                "view" => $this->folder."inscription.php",
+                "data" => null,
+                "titrePage" => "Forum | Inscription"
+            ];
+        }
     }

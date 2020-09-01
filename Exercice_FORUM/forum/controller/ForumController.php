@@ -95,7 +95,7 @@
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
 
             $newPost = new PostManager();
-            $post = $newPost->addPost($msg, $id);
+            $newPost->addPost($msg, $id);
 
             Router::redirectTo("Forum", "show", $id);
         }

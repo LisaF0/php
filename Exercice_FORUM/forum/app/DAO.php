@@ -23,7 +23,7 @@
                 );
                 return $pdo;
             }
-            catch(Exception $e){
+            catch(\Exception $e){
                 echo $e->getMessage();
                 die();
             }

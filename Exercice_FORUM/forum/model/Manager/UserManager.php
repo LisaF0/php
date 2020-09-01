@@ -65,13 +65,12 @@
     // }
 
 
-    public function login($mail, $password){
-        $sql = "SELECT mail, password
+    public function login($mail){
+        $sql = 'SELECT mail, password
                 FROM user
-                ";
+                WHERE mail = :mail';
         return self::select($sql,[
                 'mail' => $mail,
-                'password' => $password
                 ], 
                 false
                 );

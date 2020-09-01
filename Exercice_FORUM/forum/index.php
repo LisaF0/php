@@ -23,7 +23,7 @@
     require SERVICE_PATH."Router.php"; // require "./app/Router.php"
 
     /* ------------------ TEMPORISATION DE SORTIE ------------------ */
-    \ob_start();
+    ob_start();
     
     $result = Router::handleRequest($_GET);
     
@@ -34,6 +34,6 @@
     }
 
     $page = ob_get_contents();
-    \ob_end_clean();
+    ob_end_clean();
 
     require VIEW_PATH."layout.php"; // require "./view/layout.php"

@@ -21,7 +21,7 @@
             <ul class="uk-navbar-nav">
                 <li><a href="?ctrl=home&method=index"><span uk-icon='home'></span>&nbsp;Accueil</a></li>
                 <li><a href="?ctrl=home&method=index"><span uk-icon='user'></span>&nbsp;Profil</a></li>
-                <li><a href="?ctrl=home&method=connect"><span uk-icon='sign-in'></span>&nbsp;Connexion</a></li>
+                <li><a href="?ctrl=security&method=connect"><span uk-icon='sign-in'></span>&nbsp;Connexion</a></li>
             </ul>
         </div>
     </nav>
