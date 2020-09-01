@@ -20,7 +20,7 @@
 
     define('ADMIN_MAIL', "admin@forum.com"); //mail de l'administrateur
 
-    require SERVICE_PATH."Router.php"; // require "./app/Router.php"
+    require SERVICE_PATH."Router.php"; // require "./app/Router.php" après les define constante si besoin dans le router
 
     /* ------------------ TEMPORISATION DE SORTIE ------------------ */
     ob_start();

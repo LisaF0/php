@@ -8,7 +8,7 @@
             <th>Auteur</th>
             <th>Date de création</th>
             <th>Nb message</th>
-            <th>Vérouillé</th>
+            <th>Vérrouiller</th>
             <th>Résolu</th>
             <th>Action</th>
 
