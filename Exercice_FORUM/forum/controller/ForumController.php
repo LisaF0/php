@@ -89,6 +89,19 @@
             ];
         }
 
+        public function deleteTopic(){
+
+            
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            var_dump($id);
+            
+            $manTopic = new TopicManager();
+            $manTopic->deleteTopic($id);
+            
+            Router::redirectTo("Forum", "allTopics");
+        }
+
+
         public function addPost(){
 
             $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
@@ -111,9 +124,11 @@
 
         // }
 
-        public function deletePost(){
 
-            
+
+        // 1 fonction newPost de base qui sera appelé par add topic  et addpost
+
+        public function deletePost(){
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
             var_dump($id);
             
@@ -127,4 +142,15 @@
 
             Router::redirectTo("Forum", "show", $idtopic);
         }
+
+        public function showProfil(){
+
+            return [
+                "view" => "forum/profil.php",
+                "titrePage" => "FORUM | Profil"
+            ];
+        }
+
+      
+
     }

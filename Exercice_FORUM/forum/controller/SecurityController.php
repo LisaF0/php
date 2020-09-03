@@ -1,6 +1,7 @@
 <?php
     namespace Controller;
 
+    use App\Session;
     use App\Router;
     use Model\Manager\UserManager;
 
@@ -26,6 +27,7 @@
                         $newUser = new UserManager();
                         $user = $newUser->addUser($pseudo, $mail, $password);
                         
+                        
                         return [
                             "view" => $this->folder."login.php",
                             "data" => ["user" => $user],
@@ -46,15 +48,22 @@
                     $manUser = new UserManager();
                     if($user = $manUser->login($mail)){
                         if(password_verify($password, $user['password'])){
-
+                            
+                            Session::getUser($user['pseudo']);
+                            //Router::redirectTo("Home", "index");
+                            Session::addMess('success', $user['pseudo']." est connecté(e) ");                            
+                        } else {
+                            Session::addMess('error', "erreur dans l'email ou le mdp");
                         }
-                        var_dump($password);
+                        
                     }     
                 } 
             }
             return ['view' => $this->folder.'login.php'];
             
         }
+
+     
 
 
         public function connect(){

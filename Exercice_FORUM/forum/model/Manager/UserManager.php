@@ -66,7 +66,7 @@
 
 
     public function login($mail){
-        $sql = 'SELECT mail, password
+        $sql = 'SELECT mail, password, pseudo
                 FROM user
                 WHERE mail = :mail';
         return self::select($sql,[

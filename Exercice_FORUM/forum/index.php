@@ -22,6 +22,7 @@
 
     require SERVICE_PATH."Router.php"; // require "./app/Router.php" après les define constante si besoin dans le router
 
+    session_start();
     /* ------------------ TEMPORISATION DE SORTIE ------------------ */
     ob_start();
     

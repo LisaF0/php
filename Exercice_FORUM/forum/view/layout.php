@@ -20,8 +20,9 @@
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li><a href="?ctrl=home&method=index"><span uk-icon='home'></span>&nbsp;Accueil</a></li>
-                <li><a href="?ctrl=home&method=index"><span uk-icon='user'></span>&nbsp;Profil</a></li>
+                <li><a href="?ctrl=forum&method=showProfil"><span uk-icon='user'></span>&nbsp;Profil</a></li>
                 <li><a href="?ctrl=security&method=connect"><span uk-icon='sign-in'></span>&nbsp;Connexion</a></li>
+                <!-- if $_SESSION['user'] = null  afficher connexion else deconnexion-->
             </ul>
         </div>
     </nav>
@@ -31,6 +32,17 @@
         <div id="mainPage">
             <main>
                 <h1>FORUM</h1><hr>
+                <?php
+                    if(App\Session::hasMess())  {
+                        foreach(App\Session::getMess("success") as $msg){
+                            echo $msg."<br>";
+                        }
+                        foreach(App\Session::getMess("error") as $msg){
+                            echo $msg."<br>";
+                        }
+                    }
+
+                ?>
                 <div id="page">
                     <?= $page ?>
                 </div>
