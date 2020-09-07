@@ -35,6 +35,9 @@ foreach($data['topics'] as $topic){?>
             <td>
                 <?= $topic->getResolved() == '1' ? '<span uk-icon="icon: check"></span>' : "" ?>
             </td>
+            <?php 
+                // if role == admin alors afficher le bouton sinon rien
+            ?>
             <td>
                 <a href="?ctrl=forum&method=deleteTopic&id=<?= $topic->getId() ?>" class="uk-button uk-button-danger">DELETE</a>
             </td>

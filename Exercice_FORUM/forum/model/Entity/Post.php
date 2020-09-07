@@ -119,6 +119,6 @@ class Post extends AbstractEntity{
         }
 
         public function __toString(){
-            return $this->getText();
+            return $this->getMsg();
         }
 }

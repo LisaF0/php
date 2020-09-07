@@ -5,6 +5,7 @@
     use App\Router;
     use Model\Manager\TopicManager;
     use Model\Manager\PostManager;
+    use Model\Manager\UserManager;
 
     class ForumController {
 
@@ -110,7 +111,6 @@
             $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
             $user = Session::getUser()->getId();
-            // var_dump($user['id']);
 
 
             $newPost = new PostManager();
@@ -140,8 +140,9 @@
             
             $manPost = new PostManager();
             $currentPost = $manPost->findOneById($id);
+            var_dump($currentPost);
             $idtopic = $currentPost->getTopic()->getId();
-            var_dump($idtopic);
+            
 
             $post = $manPost->deletePost($id);
             var_dump($idtopic);
@@ -150,12 +151,31 @@
         }
 
         public function showProfil(){
-
-            return [
-                "view" => "forum/profil.php",
-                "titrePage" => "FORUM | Profil"
-            ];
+            
+            if(!Session::getUser() == null){
+                $id = Session::getUser()->getId();
+                
+                $manPost = new PostManager();
+                $posts = $manPost->findAllPostsByIdUser($id);
+                
+                return [
+                    "view" => "forum/profil.php",
+                    "data" => [
+                        "posts" => $posts
+                    ],
+                    "titrePage" => "FORUM | Profil"
+                ];   
+            } else {
+                Session::addMess('error', 'Veuillez vous connecter pour accéder à votre profil !');
+                return [
+                    "view" => "security/login.php",
+                    "titrePage" => "FORUM | Se connecter"
+                ];
+            }
+            
         }
+
+        
 
       
 

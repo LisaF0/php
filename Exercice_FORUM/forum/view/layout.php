@@ -20,6 +20,7 @@
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li><a href="?ctrl=home&method=index"><span uk-icon='home'></span>&nbsp;Accueil</a></li>
+                <li><a href="?ctrl=forum&method=allTopics"><span uk-icon='star'></span>&nbsp;Topics</a></li>
                 <?php
                 
                     if(App\Session::getUser() === null){ ?>

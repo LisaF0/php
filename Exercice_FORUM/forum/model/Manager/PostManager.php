@@ -69,4 +69,21 @@
             $sql = "DELETE FROM post WHERE id = :id";
             return self::delete($sql,[":id" => $id]);
         }
+
+        public function findAllPostsByIdUser($id){
+
+            $sql = "SELECT msg, p.creationdate, t.title, t.creationdate, u.pseudo, p.topic_id 
+                    FROM post p, topic t, user u
+                    WHERE p.user_id = :id
+                    AND p.topic_id = t.id
+                    AND t.user_id = u.id
+                    ";
+            return self::getResults(
+                self::select($sql,
+                    ['id' => $id], 
+                    true
+                ), 
+                self::$classname
+            );
+        }
     }

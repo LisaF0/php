@@ -25,6 +25,7 @@
                     if($password == $password_r){
                         $newUser = new UserManager();
                         $user = $newUser->addUser($pseudo, $mail, $password);
+                        Session::addMess('success', 'Inscription réussie, veuillez vous connecter');
                         
                         return [
                             "view" => $this->folder."login.php",

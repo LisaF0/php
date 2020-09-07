@@ -30,21 +30,31 @@
     </div>
 </form>
 
-<!-- <table class="uk-table uk-table-striped">
+<h3>Liste de vos messages</h3>
+<table class="uk-table uk-table-striped">
     <thead>
         <tr>
             <th>Titre</th>
             <th>Auteur</th>
-            <th>Date de création</th>
-            <th>Nb message</th>
-            <th>Vérrouiller</th>
-            <th>Résolu</th>
-            <th>Action</th>
-
+            <th>Date du topic</th>
+            <th>Message</th>
+            <th>Date du message</th>
         </tr>
     </thead>
     <tbody>
+<?php 
+
+foreach($data['posts'] as $post){ ?>
+    <tr>
+        <td><a href="?ctrl=forum&method=show&id=<?= $post->getTopic()->getId() ?>"><?= $post->getTopic()->getTitle() ?></a></td>
+        <td><?= $post->getTopic()->getUser()->getPseudo() ?></td>
+        <td><?= $post->getTopic()->getCreationdate() ?></td>
+        <td><?= $post->getMsg() ?></td>
+        <td><?= $post->getCreationdate() ?></td>
+    </tr>
+<?php }
+?>
 
     </tbody>
-<table> -->
+<table>
         

@@ -43,17 +43,36 @@ foreach($data['posts'] as $post){?>
                         <p><?= $post->getMsg(); ?></p>
                     </div>
                 </article>
-                <a href="?ctrl=forum&method=deletePost&id=<?= $post->getId() ?>" class="uk-button uk-button-danger">DELETE MESSAGE</a>
+                <?php 
+                // un user peu éditer et delete un de ses post
+                    if(!App\Session::getUser() == null){
+                        if(App\Session::getUser()->getId() == $post->getUser()->getId()){
+                        ?>
+                            <a href="?ctrl=forum&method=editPost&id=<?= $post->getId() ?>" class="uk-button uk-button-primary">EDIT MESSAGE</a>
+                            <a href="?ctrl=forum&method=deletePost&id=<?= $post->getId() ?>" class="uk-button uk-button-danger">DELETE MESSAGE</a>
+                        <?php
+                        }
+                    }   ?>
+
             </li>
 <?php } ?>
         </ul>
     </li>
 </ul>
 
+<?php
+// Si Session is null alors on affiche pas le form, obliger de se connecter pour poster un msg
+    if(App\Session::getUser() == null){
+        App\Session::addMess('error', '<h2> Veuillez vous connecter pour poster un message </h2>');
+    } else { ?>
+        <form action="?ctrl=forum&method=addPost&id=<?= $data['topic']->getId() ?>" method="POST">
+            <div class="uk-margin">
+                    <textarea class="uk-textarea" rows="5" name="msg" id="msg" placeholder="Répondre" required></textarea>
+            </div>
+            <input type="submit" class="uk-button uk-button-default" value="Envoyer">
+        </form>  
+<?php 
+    }
+?>
 
-<form action="?ctrl=forum&method=addPost&id=<?= $data['topic']->getId() ?>" method="POST">
-    <div class="uk-margin">
-            <textarea class="uk-textarea" rows="5" name="msg" id="msg" placeholder="Répondre" required></textarea>
-    </div>
-    <input type="submit" class="uk-button uk-button-default" value="Envoyer">
-</form>
+
