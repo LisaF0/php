@@ -20,7 +20,8 @@
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li><a href="?ctrl=home&method=index"><span uk-icon='home'></span>&nbsp;Accueil</a></li>
-                <?php 
+                <?php
+                
                     if(App\Session::getUser() === null){ ?>
                         <li><a href="?ctrl=forum&method=showProfil"><span uk-icon='user'></span>&nbsp;Profil</a></li>    
                     <?php } else { ?>

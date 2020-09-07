@@ -61,7 +61,7 @@
             
                 self::create($sql, [
                     "title" => $title,
-                    "user_id" => $user['id']
+                    "user_id" => $user
             ]);
 
             // $lastID = self::lastInsertId();

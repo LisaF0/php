@@ -1,6 +1,5 @@
 <h2>Sign In</h2>
 
-
 <form action="?ctrl=security&method=login" method="POST">
 
     <div class="uk-margin">
@@ -19,6 +18,4 @@
 
     <button class="uk-button uk-button-default">SIGN IN</button>
     <p><a href="?ctrl=security&method=inscription">Not a member yet?</a></p>
-
-
 </form>

@@ -59,7 +59,7 @@
                     ";
             return self::create($sql, [
                 "msg" => $msg,
-                "user_id" => $user['id'],
+                "user_id" => $user,
                 "topic_id" => $id
             ]);
         }

@@ -49,18 +49,46 @@
                         ]);              
         }
 
+    public function getUser($mail){
+        $sql = 'SELECT mail, pseudo, id, role
+                FROM user
+                WHERE mail = :mail';
+
+        return self::getOneOrNullResult(
+            self::select($sql, 
+                ["mail" => $mail], 
+                false
+            ), 
+            self::$classname
+        );
+    }
+
 
     public function login($mail){
         $sql = 'SELECT mail, password, pseudo, id
                 FROM user
                 WHERE mail = :mail';
 
-        $infoUser = self::select($sql,[
-                'mail' => $mail,
-                ], 
+        return self::getOneOrNullResult(
+            self::select($sql, 
+                ["mail" => $mail], 
                 false
-                );
-        return $infoUser;
-        
+            ), 
+            self::$classname
+        );
+    }
+
+    public function editMail($id, $mail){
+        $sql = "UPDATE user
+                SET mail = :mail
+                WHERE id = :id";
+        return self::select($sql,
+                ["mail" => $mail,
+                "id" => $id],
+                false);
+    }
+
+    public function editPassword(){
+
     }
 }

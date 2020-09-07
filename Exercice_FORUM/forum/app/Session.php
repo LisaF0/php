@@ -24,18 +24,31 @@
         }
 
         public static function getUser(){
-            return isset($_SESSION['user']) ? $_SESSION['user'] : null;
-            //return info user ou  []
+           return isset($_SESSION['user']) ? $_SESSION['user'] : null;
         }
 
         public static function addUser($user){
-            if(!isset($_SESSION['user'])){
-                $_SESSION['user'] = [];
-            }
-            $_SESSION['user'] = $user;
+                $_SESSION['user'] = $user;
         }
 
         public static function removeUser(){
             unset($_SESSION["user"]);
         }
     }
+        // public static function getUser(){
+        //     if(isset($_SESSION['user'])){
+        //         $infoUser = $_SESSION['user'];
+        //         return $infoUser;
+        //     } 
+        //     else return [];
+ 
+        // }
+
+        // public static function addUser($user){
+        //     if(!isset($_SESSION['user'])){
+        //         $_SESSION['user'] = [];
+        //     }
+        //     $_SESSION['user'] = $user;
+        // }
+
+

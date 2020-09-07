@@ -33,7 +33,4 @@
     </div>
 
     <input type="submit" class="uk-button uk-button-default" value="REGISTER">
-    
-
-
 </form>

@@ -66,7 +66,9 @@
 
             $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_STRING);
             $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
-            $user = Session::getUser();
+            $user = Session::getUser()->getId();
+            var_dump($_SESSION);
+
 
             $newTopic = new TopicManager();
             $topic = $newTopic->addTopic($title, $user);
@@ -82,12 +84,12 @@
 
             Router::redirectTo("Forum", "allTopics");
 
-            return [
-                "data" => [
-                    "topic" => $topic,
-                    "posts" => $post,
-                ]
-            ];
+            // return [
+            //     "data" => [
+            //         "topic" => $topic,
+            //         "posts" => $post,
+            //     ]
+            // ];
         }
 
         public function deleteTopic(){
@@ -107,8 +109,8 @@
 
             $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
-            $user = Session::getUser();
-            var_dump($user['id']);
+            $user = Session::getUser()->getId();
+            // var_dump($user['id']);
 
 
             $newPost = new PostManager();
