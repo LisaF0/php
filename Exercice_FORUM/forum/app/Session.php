@@ -25,6 +25,7 @@
 
         public static function getUser(){
             return isset($_SESSION['user']) ? $_SESSION['user'] : null;
+            //return info user ou  []
         }
 
         public static function addUser($user){
