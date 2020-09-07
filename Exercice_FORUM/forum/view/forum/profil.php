@@ -1,6 +1,8 @@
 <h2>PROFIL</h2>
 
 
+
+
 <!-- <table class="uk-table uk-table-striped">
     <thead>
         <tr>

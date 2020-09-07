@@ -66,9 +66,10 @@
 
             $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_STRING);
             $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
+            $user = Session::getUser();
 
             $newTopic = new TopicManager();
-            $topic = $newTopic->addTopic($title);
+            $topic = $newTopic->addTopic($title, $user);
 
             // if(!$newTopic->findOneByTitle($_POST['title'])){
             //     $topic = $newTopic->addTopic($_POST['title']);
@@ -76,7 +77,7 @@
 
             $newPost = new PostManager();
             $currentTopic = $newTopic->findOneByTitle($title);
-            $post = $newPost->addPost($msg, $currentTopic->getId());            
+            $post = $newPost->addPost($msg, $currentTopic->getId(), $user);            
 
 
             Router::redirectTo("Forum", "allTopics");
@@ -106,9 +107,12 @@
 
             $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            $user = Session::getUser();
+            var_dump($user['id']);
+
 
             $newPost = new PostManager();
-            $newPost->addPost($msg, $id);
+            $newPost->addPost($msg, $id, $user);
 
             Router::redirectTo("Forum", "show", $id);
         }

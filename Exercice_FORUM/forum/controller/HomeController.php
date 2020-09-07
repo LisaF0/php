@@ -39,19 +39,4 @@
             ];
         }
 
-        // public function connect(){
-        //     return [
-        //         "view" => "forum/connect.php",
-        //         "data" => null,
-        //         "titrePage" => "FORUM | Connexion"
-        //     ];
-        // }
-
-        // public function inscription(){
-        //     return [
-        //         "view" => "forum/inscription.php",
-        //         "data" => null,
-        //         "titrePage" => "Forum | Inscription"
-        //     ];
-        // }
     }

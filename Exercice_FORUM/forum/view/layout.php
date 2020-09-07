@@ -20,9 +20,23 @@
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li><a href="?ctrl=home&method=index"><span uk-icon='home'></span>&nbsp;Accueil</a></li>
-                <li><a href="?ctrl=forum&method=showProfil"><span uk-icon='user'></span>&nbsp;Profil</a></li>
-                <li><a href="?ctrl=security&method=connect"><span uk-icon='sign-in'></span>&nbsp;Connexion</a></li>
-                <!-- if $_SESSION['user'] = null  afficher connexion else deconnexion-->
+                <?php 
+                    if(App\Session::getUser() === null){ ?>
+                        <li><a href="?ctrl=forum&method=showProfil"><span uk-icon='user'></span>&nbsp;Profil</a></li>    
+                    <?php } else { ?>
+                        <li><a href="?ctrl=forum&method=showProfil"><span uk-icon='user'></span>&nbsp;<?= App\Session::getUser()->getPseudo() ?></a></li>
+                        
+                    <?php } ?> 
+                
+                
+                <?php 
+                    if(App\Session::getUser() === null){ ?>
+                        <li><a href="?ctrl=security&method=connect"><span uk-icon='sign-in'></span>&nbsp;Connexion</a></li>
+                    <?php } else { ?>
+                        <li><a href="?ctrl=security&method=disconnect"><span uk-icon='sign-in'></span>&nbsp;Déconnexion</a></li>
+                    <?php } ?> 
+                
+               
             </ul>
         </div>
     </nav>
@@ -32,6 +46,7 @@
         <div id="mainPage">
             <main>
                 <h1>FORUM</h1><hr>
+                
                 <?php
                     if(App\Session::hasMess())  {
                         foreach(App\Session::getMess("success") as $msg){

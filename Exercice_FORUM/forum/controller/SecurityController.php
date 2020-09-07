@@ -48,10 +48,11 @@
                     $manUser = new UserManager();
                     if($user = $manUser->login($mail)){
                         if(password_verify($password, $user['password'])){
-                            
-                            Session::getUser($user['pseudo']);
-                            //Router::redirectTo("Home", "index");
-                            Session::addMess('success', $user['pseudo']." est connecté(e) ");                            
+
+                            Session::addUser($user);
+                            Session::getUser();
+                            Session::addMess('success', $user['pseudo']." est connecté(e) ");
+                            Router::redirectTo("Home", "index");                            
                         } else {
                             Session::addMess('error', "erreur dans l'email ou le mdp");
                         }
@@ -60,11 +61,7 @@
                 } 
             }
             return ['view' => $this->folder.'login.php'];
-            
         }
-
-     
-
 
         public function connect(){
             return [
@@ -80,5 +77,12 @@
                 "data" => null,
                 "titrePage" => "Forum | Inscription"
             ];
+        }
+
+        public function disconnect(){
+            Session::removeUser();
+            Session::addMess('error', "Vous êtes déconnecté(e)");
+            Router::redirectTo("Forum", "allTopics");
+            
         }
     }

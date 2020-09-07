@@ -13,7 +13,7 @@
     <div class="uk-margin">
         <div class="uk-inline">
             <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-            <input class="uk-input" name="password" id="password" type="text" placeholder="Password">
+            <input class="uk-input" name="password" id="password" type="password" placeholder="Password">
         </div>
     </div>
 

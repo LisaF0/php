@@ -46,33 +46,21 @@
                         ":pseudo" => strtolower($pseudo), 
                         ":password" => password_hash($password, PASSWORD_ARGON2I), 
                         ":mail" => $mail
-                        ]);
-                        
-                        // $_SESSION['success'] = "Inscription réussie, connectez-vous !";
-                        //     header("Location:connect.php");
-                        //     die();
-                        // }
-                        // catch(Exception $e){
-                        // echo $e->getMessage();
-                        // }
+                        ]);              
         }
-    //             else $_SESSION['error'] = "Les mots de passe ne correspondent pas !";
-    //         }
-    //         else $_SESSION['error'] = "Vous devez remplir TOUS les champs obligatoires !";
-    //     }
-    //     else $_SESSION['error'] = "Vous n'avez pas soumis le formulaire, petit malin !";
-
-    // }
 
 
     public function login($mail){
-        $sql = 'SELECT mail, password, pseudo
+        $sql = 'SELECT mail, password, pseudo, id
                 FROM user
                 WHERE mail = :mail';
-        return self::select($sql,[
+
+        $infoUser = self::select($sql,[
                 'mail' => $mail,
                 ], 
                 false
                 );
+        return $infoUser;
+        
     }
 }

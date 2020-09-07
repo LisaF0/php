@@ -54,14 +54,14 @@
             );
         }
 
-        public function addTopic($title){
+        public function addTopic($title, $user){
             $sql = "INSERT INTO topic(title, user_id) 
                     VALUES(:title, :user_id)
                     ";
             
                 self::create($sql, [
                     "title" => $title,
-                    "user_id" => 4
+                    "user_id" => $user['id']
             ]);
 
             // $lastID = self::lastInsertId();

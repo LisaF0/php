@@ -23,11 +23,18 @@
             else return [];           
         }
 
-        public static function getUser($user){
+        public static function getUser(){
+            return isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        }
+
+        public static function addUser($user){
+            if(!isset($_SESSION['user'])){
+                $_SESSION['user'] = [];
+            }
             $_SESSION['user'] = $user;
         }
 
-        public function removeUser(){
+        public static function removeUser(){
             unset($_SESSION["user"]);
         }
     }
