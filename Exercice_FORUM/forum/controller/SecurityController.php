@@ -48,7 +48,7 @@
                     $userPass = $manUser->login($mail);
                     // if($user = $manUser->login($mail)){
                         if(password_verify($password, $userPass->getPassword())){
-
+                            
                             $user = $manUser->getUser($mail);
                             Session::addUser($user);
                             // Session::getUser();
@@ -95,6 +95,20 @@
         }
 
         public function editMail(){
+            if(!empty($_POST)){
+                $oldMail = filter_input(INPUT_POST, 'oldMail', FILTER_VALIDATE_EMAIL);
+                $newMail = filter_input(INPUT_POST, 'newMail', FILTER_VALIDATE_EMAIL);
+                $verifMail = filter_input(INPUT_POST, 'verifMail', FILTER_VALIDATE_EMAIL);
+                
+                if($oldMail == Session::getUser()->getMail()){
+                    if($newMail === $verifMail){
+                        $manUser = new UserManager();
+                        $manUser->editMail(Session::getUser()->getId(),$newMail);
+                        Router::redirectTo('Forum', 'showProfil');
+                    }
+                }
+
+            }
             //si oldmail == mailuser, and new mail == verifmail alors set mail by newmail
         }
 
@@ -107,6 +121,17 @@
         }
 
         public function EditPassword(){
+            if(!empty($_POST)){
+                $oldPassword = filter_input(INPUT_POST, 'oldPassword', FILTER_SANITIZE_STRING);
+                $newPassword = filter_input(INPUT_POST, 'newPassword', FILTER_SANITIZE_STRING);
+                $verifPassword = filter_input(INPUT_POST, 'verifPassword', FILTER_SANITIZE_STRING);
+                
+                $id = Session::getUser()->getId();
+                $manUser = new UserManager();
+                $currentUser = $manUser->getPass($id);
+                if(password_verify($oldPassword, $currentUser->getPassword())){
 
+                }
+            }
         }
     }

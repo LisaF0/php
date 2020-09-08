@@ -70,6 +70,17 @@
             return self::delete($sql,[":id" => $id]);
         }
 
+        public function editPost($id, $msg){
+            $sql = "UPDATE post
+                    SET msg = :msg
+                    WHERE id = :id
+                    ";
+            return self::update($sql, [
+                    "msg" => $msg,
+                    "id" => $id
+            ]);
+        }
+
         public function findAllPostsByIdUser($id){
 
             $sql = "SELECT msg, p.creationdate, t.title, t.creationdate, u.pseudo, p.topic_id 

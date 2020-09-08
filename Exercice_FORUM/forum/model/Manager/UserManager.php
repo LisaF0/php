@@ -82,14 +82,34 @@
         $sql = "UPDATE user
                 SET mail = :mail
                 WHERE id = :id";
-        return self::select($sql,
+        return self::update($sql,
                 ["mail" => $mail,
-                "id" => $id],
-                false);
+                "id" => $id]
+                );
     }
 
-    public function editPassword(){
+    public function editPassword($id, $password){
+        $sql = "UPDATE user
+                SET password = :password
+                WHERE id = :id";
+        return self::update($sql,
+                ["password" => $password,
+                "id" => $id]
+                );
+    }
 
+    public function getPass($id){
+        $sql = 'SELECT mail, password, pseudo, id
+                FROM user
+                WHERE id = :id';
+        
+        return self::getOneOrNullResult(
+            self::select($sql, 
+                ["id" => $id], 
+                false
+            ), 
+            self::$classname
+        );
     }
 
 

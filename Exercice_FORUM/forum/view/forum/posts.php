@@ -48,7 +48,7 @@ foreach($data['posts'] as $post){?>
                     if(!App\Session::getUser() == null){
                         if(App\Session::getUser()->getId() == $post->getUser()->getId()){
                         ?>
-                            <a href="?ctrl=forum&method=editPost&id=<?= $post->getId() ?>" class="uk-button uk-button-primary">EDIT MESSAGE</a>
+                            <a href="?ctrl=forum&method=formEditPost&id=<?= $post->getId() ?>" class="uk-button uk-button-primary">EDIT MESSAGE</a>
                             <a href="?ctrl=forum&method=deletePost&id=<?= $post->getId() ?>" class="uk-button uk-button-danger">DELETE MESSAGE</a>
                         <?php
                         }

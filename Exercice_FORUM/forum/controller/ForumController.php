@@ -74,10 +74,6 @@
             $newTopic = new TopicManager();
             $topic = $newTopic->addTopic($title, $user);
 
-            // if(!$newTopic->findOneByTitle($_POST['title'])){
-            //     $topic = $newTopic->addTopic($_POST['title']);
-            // }
-
             $newPost = new PostManager();
             $currentTopic = $newTopic->findOneByTitle($title);
             $post = $newPost->addPost($msg, $currentTopic->getId(), $user);            
@@ -85,12 +81,6 @@
 
             Router::redirectTo("Forum", "allTopics");
 
-            // return [
-            //     "data" => [
-            //         "topic" => $topic,
-            //         "posts" => $post,
-            //     ]
-            // ];
         }
 
         public function deleteTopic(){
@@ -140,12 +130,38 @@
             
             $manPost = new PostManager();
             $currentPost = $manPost->findOneById($id);
-            var_dump($currentPost);
+            
             $idtopic = $currentPost->getTopic()->getId();
             
-
             $post = $manPost->deletePost($id);
-            var_dump($idtopic);
+            
+
+            Router::redirectTo("Forum", "show", $idtopic);
+        }
+
+        public function formEditPost(){
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            $manPost = new PostManager();
+            $post = $manPost->findOneById($id);
+            return [
+                "view" => "forum/editPost.php",
+                "data" => [
+                    "post" => $post
+                ],
+                "titrePage" => "FORUM | Edit Post"
+            ];  
+        }
+
+        public function editPost(){
+            $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING); 
+            
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            var_dump($id);
+            $manPost = new PostManager();
+            $currentPost = $manPost->findOneById($id);
+            $idtopic = $currentPost->getTopic()->getId();
+            $manPost->editPost($id, $msg);
+            
 
             Router::redirectTo("Forum", "show", $idtopic);
         }
@@ -172,11 +188,5 @@
                     "titrePage" => "FORUM | Se connecter"
                 ];
             }
-            
         }
-
-        
-
-      
-
     }
