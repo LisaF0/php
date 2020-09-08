@@ -93,7 +93,7 @@
                 SET password = :password
                 WHERE id = :id";
         return self::update($sql,
-                ["password" => $password,
+                [":password" => password_hash($password, PASSWORD_ARGON2I),
                 "id" => $id]
                 );
     }

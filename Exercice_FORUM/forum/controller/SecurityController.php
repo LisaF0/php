@@ -46,9 +46,8 @@
                 if($mail && $password){
                     $manUser = new UserManager();
                     $userPass = $manUser->login($mail);
-                    // if($user = $manUser->login($mail)){
+                    if($user = $userPass){
                         if(password_verify($password, $userPass->getPassword())){
-                            
                             $user = $manUser->getUser($mail);
                             Session::addUser($user);
                             // Session::getUser();
@@ -57,8 +56,7 @@
                         } else {
                             Session::addMess('error', "erreur dans l'email ou le mdp");
                         }
-                        
-                    // }     
+                    } Session::addMess('error', "erreur dans l'email ou le mdp");     
                 } 
             }
             return ['view' => $this->folder.'login.php'];
@@ -88,7 +86,7 @@
 
         public function formEditMail(){
             return [
-                "view" => "forum/editMail.php",
+                "view" => $this->folder."editMail.php",
                 "data" => null,
                 "titrePage" => "Forum | Edit Mail"
             ];
@@ -104,6 +102,7 @@
                     if($newMail === $verifMail){
                         $manUser = new UserManager();
                         $manUser->editMail(Session::getUser()->getId(),$newMail);
+                        // Session::addUser($manUser);
                         Router::redirectTo('Forum', 'showProfil');
                     }
                 }
@@ -114,24 +113,29 @@
 
         public function formEditPassword(){
             return [
-                "view" => "forum/editPassword.php",
+                "view" => $this->folder."editPassword.php",
                 "data" => null,
                 "titrePage" => "Forum | Edit Password"
             ];
         }
 
-        public function EditPassword(){
+        public function editPassword(){
             if(!empty($_POST)){
                 $oldPassword = filter_input(INPUT_POST, 'oldPassword', FILTER_SANITIZE_STRING);
                 $newPassword = filter_input(INPUT_POST, 'newPassword', FILTER_SANITIZE_STRING);
                 $verifPassword = filter_input(INPUT_POST, 'verifPassword', FILTER_SANITIZE_STRING);
                 
                 $id = Session::getUser()->getId();
+                var_dump($id);
                 $manUser = new UserManager();
                 $currentUser = $manUser->getPass($id);
                 if(password_verify($oldPassword, $currentUser->getPassword())){
-
-                }
+                    if($newPassword == $verifPassword){
+                        $manUser->editPassword($id, $newPassword);
+                        Router::redirectTo('Forum', 'showProfil');
+                    }Session::addMess('error', "Les password ne correspondent pas"); 
+                }Session::addMess('error', "L'ancien password ne correspond pas"); 
             }
+            return ['view' => $this->folder.'editPassword.php'];
         }
     }
