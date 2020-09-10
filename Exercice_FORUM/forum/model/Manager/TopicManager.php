@@ -87,4 +87,30 @@
                     self::delete($sql2,[":id" => $id]);
         }
 
+        public function resolved($id){
+            $sql = "SELECT resolved
+                    FROM topic t
+                    WHERE id = :id
+                    ";
+            $status = self::select($sql,[
+                "id" => $id
+            ]);
+
+            if($status){
+                $resolved = 0;
+            } else {
+                $resolved = 1;
+            }
+
+            $sql2 = "UPDATE topic
+                    SET resolved = :resolved
+                    WHERE id = :id
+                    ";
+            return self::update($sql2, [
+                "id" => $id,
+                "resolved" => $resolved
+            ]);
+
+        }
+
     }

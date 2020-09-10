@@ -82,10 +82,12 @@
         $sql = "UPDATE user
                 SET mail = :mail
                 WHERE id = :id";
-        return self::update($sql,
+        
+        self::update($sql,
                 ["mail" => $mail,
                 "id" => $id]
                 );
+        return $this->getUser($id);
     }
 
     public function editPassword($id, $password){

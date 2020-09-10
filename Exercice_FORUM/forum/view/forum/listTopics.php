@@ -1,6 +1,10 @@
 <h2>LISTE DES SUJETS</h2>
-<a class="uk-button uk-button-primary" href="?ctrl=forum&method=formAddTopic">Nouveau Sujet</a>
-
+<?php
+    if(!App\Session::getUser() == null){?>
+    <a class="uk-button uk-button-primary" href="?ctrl=forum&method=formAddTopic">Nouveau Sujet</a>
+<?php
+    }
+?>
 <table class="uk-table uk-table-striped">
     <thead>
         <tr>

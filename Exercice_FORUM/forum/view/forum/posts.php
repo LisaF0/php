@@ -1,5 +1,28 @@
 <h2><?= $data['topic']->getTitle(); ?></h2>
 
+<?php 
+if($data['topic']->getClosed() == 0){ ?>
+    <a href="" class="uk-button uk-button-primary">Dévérouiller</a>
+<?php
+} else { ?>
+    <a href="" class="uk-button uk-button-primary">Vérouiller</a>
+<?php
+}
+?>
+
+<?php 
+if($data['topic']->getResolved() == 0){ ?>
+    <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Non Résolu</a>
+<?php
+} else { ?>
+    <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Résolu</a>
+<?php
+}
+?>
+
+
+
+
 <ul class="uk-comment-list">
     <li>
         <article class="uk-comment uk-visible-toggle" tabindex="-1">

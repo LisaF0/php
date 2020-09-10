@@ -52,7 +52,8 @@ foreach($data['posts'] as $post){ ?>
         <td><?= $post->getMsg() ?></td>
         <td><?= $post->getCreationdate() ?></td>
     </tr>
-<?php }
+<?php 
+}
 ?>
 
     </tbody>

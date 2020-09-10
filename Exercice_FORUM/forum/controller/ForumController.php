@@ -167,8 +167,9 @@
         }
 
         public function showProfil(){
+                var_dump(Session::getUser());
             
-            if(!Session::getUser() == null){
+            if(Session::getUser() !== null){
                 $id = Session::getUser()->getId();
                 
                 $manPost = new PostManager();
@@ -182,11 +183,23 @@
                     "titrePage" => "FORUM | Profil"
                 ];   
             } else {
+
                 Session::addMess('error', 'Veuillez vous connecter pour accéder à votre profil !');
                 return [
                     "view" => "security/login.php",
                     "titrePage" => "FORUM | Se connecter"
                 ];
             }
+
+        }
+
+        public function resolved(){
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            var_dump($id);
+            $manTopic = new TopicManager();
+            $manTopic->resolved($id);
+            var_dump($manTopic);
+
+            //Router::redirectTo("Forum", "show", $id);
         }
     }

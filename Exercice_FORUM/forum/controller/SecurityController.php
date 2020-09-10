@@ -85,30 +85,32 @@
         }
 
         public function formEditMail(){
+            var_dump(Session::getUser());
             return [
                 "view" => $this->folder."editMail.php",
-                "data" => null,
                 "titrePage" => "Forum | Edit Mail"
             ];
         }
 
         public function editMail(){
+            
             if(!empty($_POST)){
                 $oldMail = filter_input(INPUT_POST, 'oldMail', FILTER_VALIDATE_EMAIL);
                 $newMail = filter_input(INPUT_POST, 'newMail', FILTER_VALIDATE_EMAIL);
                 $verifMail = filter_input(INPUT_POST, 'verifMail', FILTER_VALIDATE_EMAIL);
-                
+   
                 if($oldMail == Session::getUser()->getMail()){
                     if($newMail === $verifMail){
                         $manUser = new UserManager();
-                        $manUser->editMail(Session::getUser()->getId(),$newMail);
-                        // Session::addUser($manUser);
-                        Router::redirectTo('Forum', 'showProfil');
+                        $test = $manUser->editMail(Session::getUser()->getId(),$newMail);
+                        //Session::addUser($test);
+                        var_dump(Session::getUser());
                     }
                 }
-
+                
             }
             //si oldmail == mailuser, and new mail == verifmail alors set mail by newmail
+            Router::redirectTo('Forum', 'showProfil');
         }
 
         public function formEditPassword(){
