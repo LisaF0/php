@@ -167,7 +167,6 @@
         }
 
         public function showProfil(){
-                var_dump(Session::getUser());
             
             if(Session::getUser() !== null){
                 $id = Session::getUser()->getId();
@@ -195,11 +194,10 @@
 
         public function resolved(){
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
-            var_dump($id);
+            
             $manTopic = new TopicManager();
-            $manTopic->resolved($id);
-            var_dump($manTopic);
+            $currentTopic = $manTopic->resolved($id);
 
-            //Router::redirectTo("Forum", "show", $id);
+            Router::redirectTo("Forum", "show", $id);
         }
     }

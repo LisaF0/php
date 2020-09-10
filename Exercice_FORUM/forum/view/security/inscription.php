@@ -17,7 +17,7 @@
         </div>
         <div class="uk-inline">
             <span class="uk-form-icon" uk-icon="icon: user"></span>
-            <input class="uk-input"  name="verifMail" id="verifMail" type="email" placeholder="Vérification Email" required>
+            <input class="uk-input"  name="mail_r" id="mail_r" type="email" placeholder="Vérification Email" required>
         </div>
     </div>
 

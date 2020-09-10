@@ -11,6 +11,7 @@ if($data['topic']->getClosed() == 0){ ?>
 ?>
 
 <?php 
+
 if($data['topic']->getResolved() == 0){ ?>
     <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Non Résolu</a>
 <?php
