@@ -88,29 +88,26 @@
         }
 
         public function resolved($id, $resolved){
-            // $sql = "SELECT resolved
-            //         FROM topic t
-            //         WHERE id = :id
-            //         ";
-            // $status = self::select($sql,[
-            //     "id" => $id
-            // ]);
-
-            // if($status){
-            //     $resolved = 0;
-            // } else {
-            //     $resolved = 1;
-            // }
-
-            $sql2 = "UPDATE topic
+            $sql = "UPDATE topic
                     SET resolved = :resolved
                     WHERE id = :id
                     ";
-            return self::update($sql2, [
+            return self::update($sql, [
                 "id" => $id,
                 "resolved" => $resolved
             ]);
 
         }
 
+        public function closed($id, $closed){
+            $sql = "UPDATE topic
+                    SET closed = :closed
+                    WHERE id = :id
+                    ";
+            return self::update($sql, [
+                "id" => $id,
+                "closed" => $closed
+            ]);
+
+        }
     }

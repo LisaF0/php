@@ -33,7 +33,12 @@
             <th>Nb message</th>
             <th>Vérrouiller</th>
             <th>Résolu</th>
-            <th>Action</th>
+            <?php 
+                if(App\Session::getUser() && App\Session::hasRole("role_admin")){ ?>
+                <th>Action</th>
+            <?php
+                }
+            ?>
 
         </tr>
     </thead>
@@ -61,9 +66,15 @@ foreach($data['topics'] as $topic){?>
             <?php 
                 // if role == admin alors afficher le bouton sinon rien
             ?>
+            <?php 
+                if(App\Session::getUser() && App\Session::hasRole("role_admin")){ ?>
             <td>
                 <a href="?ctrl=forum&method=deleteTopic&id=<?= $topic->getId() ?>" class="uk-button uk-button-danger">DELETE</a>
             </td>
+            <?php
+                }
+            ?>
+
     </tr>
 
 <?php } 

@@ -6,7 +6,7 @@
     </div>
 
     <div class="uk-margin">
-            <textarea class="uk-textarea" rows="5" placeholder="Message" name="msg" id="msg" required></textarea>
+            <textarea class="uk-textarea tiny" rows="5" placeholder="Message" name="msg" id="msg" required></textarea>
     </div>
     <input type="submit" class="uk-button uk-button-default" value="Créer un nouveau sujet">
 </form>

@@ -1,6 +1,6 @@
-<h2>PROFIL</h2>
+<h2 class="center">Profil de <?= App\Session::getUser()->getPseudo() ?></h2>
 
-<form action="?ctrl=&method=" method="POST">
+<form action="?ctrl=&method=" method="POST" id="profil">
     <div class="uk-margin">
     <div class="uk-inline">
         <span class="uk-form-icon" uk-icon="icon: user"></span>
@@ -30,8 +30,8 @@
     </div>
 </form>
 
-<h3>Liste de vos messages</h3>
-<table class="uk-table uk-table-striped">
+<h3 class="center">Liste de vos messages</h3>
+<table class="uk-table uk-table-striped" id="tableMessage">
     <thead>
         <tr>
             <th>Titre</th>

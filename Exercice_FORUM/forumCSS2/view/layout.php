@@ -10,7 +10,22 @@
     <script src="uikit/dist/js/uikit-icons.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit-icons.min.js"></script>
-    
+    <script src="https://cdn.tiny.cloud/1/jtt4ldp5prwz5oh4r80swyigzmwuewsv87ysvoju3few86zf/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>tinymce.init({
+        selector:'.tiny',
+        setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+                protect: [
+                    /\<\/?(if|endif)\>/g,  // Protect <if> & </endif>
+                    /\<xsl\:[^>]+\>/g,  // Protect <xsl:...>
+                    /<\?php.*?\?>/g  // Protect php code
+                ]
+            });
+        }
+    });</script>
+
     <link rel="stylesheet" href="./public/css/style.css">
     <title><?= $titrePage ?></title>
 </head>
@@ -77,5 +92,7 @@
         </footer>
 
     </div>
+
+
 </body>
 </html>

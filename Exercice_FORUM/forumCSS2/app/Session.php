@@ -34,6 +34,11 @@
         public static function removeUser(){
             unset($_SESSION["user"]);
         }
+
+        public static function hasRole($role){
+            return in_array($role, json_decode($_SESSION['user']->getRole()));
+        }
+
     }
         // public static function getUser(){
         //     if(isset($_SESSION['user'])){

@@ -87,10 +87,12 @@
 
             
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
-            var_dump($id);
             
+            if(Session::getUser() && Session::getUser()->hasRole("role_admin")){
             $manTopic = new TopicManager();
-            $manTopic->deleteTopic($id);
+            $manTopic->deleteTopic($id); 
+            }
+
             
             Router::redirectTo("Forum", "allTopics");
         }
@@ -98,7 +100,7 @@
 
         public function addPost(){
 
-            $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING);
+            $msg = filter_input(INPUT_POST, "msg", FILTER_UNSAFE_RAW);
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
             $user = Session::getUser()->getId();
 
@@ -153,7 +155,7 @@
         }
 
         public function editPost(){
-            $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_STRING); 
+            $msg = filter_input(INPUT_POST, "msg", FILTER_UNSAFE_RAW); 
             
             $id = (isset($_GET['id'])) ? $_GET['id'] : null;
             var_dump($id);
@@ -197,8 +199,21 @@
             
             $manTopic = new TopicManager();
             $topic = $manTopic->findOneById($id);
+            
+            $resolveState = ($topic->getResolved() == 1) ? 0 : 1;
+            $manTopic->resolved($id, $resolveState);
+
+            Router::redirectTo("Forum", "show", $id);
+        }
+
+        public function closed(){
+            $id = (isset($_GET['id'])) ? $_GET['id'] : null;
+            
+            $manTopic = new TopicManager();
+            $topic = $manTopic->findOneById($id);
+            
             $closeState = ($topic->getClosed() == 1) ? 0 : 1;
-            $manTopic->resolved($id, $closeState);
+            $manTopic->closed($id, $closeState);
 
             Router::redirectTo("Forum", "show", $id);
         }

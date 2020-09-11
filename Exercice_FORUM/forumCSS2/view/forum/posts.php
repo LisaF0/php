@@ -1,26 +1,27 @@
 <h2><?= $data['topic']->getTitle(); ?></h2>
+<?php
+if(App\Session::getUser() && App\Session::hasRole("role_admin") || App\Session::getUser() && App\Session::getUser()->getId() == $data['topic']->getUser()->getId()){ ?>
+    <?php 
+    if($data['topic']->getClosed() == 0){ ?>
+        <a href="?ctrl=forum&method=closed&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Dévérouiller</a>
+    <?php
+    } else { ?>
+        <a href="?ctrl=forum&method=closed&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Vérouiller</a>
+    <?php
+    }
+    ?>
 
-<?php 
-if($data['topic']->getClosed() == 0){ ?>
-    <a href="" class="uk-button uk-button-primary">Dévérouiller</a>
-<?php
-} else { ?>
-    <a href="" class="uk-button uk-button-primary">Vérouiller</a>
-<?php
+    <?php 
+
+    if($data['topic']->getResolved() == 0){ ?>
+        <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Non Résolu</a>
+    <?php
+    } else { ?>
+        <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Résolu</a>
+    <?php
+    }
 }
 ?>
-
-<?php 
-
-if($data['topic']->getResolved() == 0){ ?>
-    <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Non Résolu</a>
-<?php
-} else { ?>
-    <a href="?ctrl=forum&method=resolved&id=<?= $data['topic']->getId() ?>" class="uk-button uk-button-primary">Résolu</a>
-<?php
-}
-?>
-
 
 
 
@@ -91,12 +92,17 @@ foreach($data['posts'] as $post){?>
     } else { ?>
         <form action="?ctrl=forum&method=addPost&id=<?= $data['topic']->getId() ?>" method="POST">
             <div class="uk-margin">
-                    <textarea class="uk-textarea" rows="5" name="msg" id="msg" placeholder="Répondre" required></textarea>
+                    <textarea name="msg" class="uk-textarea tiny" rows="5"  placeholder="Répondre" required></textarea>
             </div>
             <input type="submit" class="uk-button uk-button-default" value="Envoyer">
-        </form>  
+        </form>
+        <!-- <form action="" method="POST">
+            <textarea id="mytextarea" name="msg" placeholder="Répondre" required></textarea>
+            <input type="submit" class="uk-button uk-button-default" value="Envoyer">
+        </form> -->
 <?php 
     }
 ?>
+
 
 
