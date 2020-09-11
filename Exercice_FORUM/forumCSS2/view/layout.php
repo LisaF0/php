@@ -11,12 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit-icons.min.js"></script>
     
-    <link rel="stylesheet" href="<?= CSS_PATH ?>style.css">
+    <link rel="stylesheet" href="./public/css/style.css">
     <title><?= $titrePage ?></title>
 </head>
 <body>
     <!-- ------------------ NAV ------------------ -->
-    <nav id="nav" class="uk-navbar-container uk-background-secondary" uk-navbar>
+    <nav id="nav" class="uk-background-secondary" uk-sticky uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
                 <li><a href="?ctrl=home&method=index"><span uk-icon='home'></span>&nbsp;Accueil</a></li>
