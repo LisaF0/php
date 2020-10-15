@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+<body>
+    <h1>PIZZERIA ELAN</h1>
+    <main>
+        <div id="pizza"></div>
+    </main>
+    
+    <script type="text/babel">
+        // Obtain the root 
+        const rootElement1 = document.getElementById('pizza')
+    
+        class Phrase extends React.Component {
+
+            constructor(props){
+                super(props)//même chose que parent:: en PHP
+                this.state = {
+                    buttons : ["AMIS", "FAMILLES", "ENFANTS"],
+                    text : props.default,
+                    nbclick : 0
+                }
+            }
+            /*componentDidMount(){
+                //j'appelle en ajax le serveur pour récupérer le texte des boutons
+                fetch("http://localhost/reactfetch/data.php")
+                    .then((response) => response.json())
+                    .then((json) => {
+                        
+                        this.setState({
+                            ...this.state,
+                            buttons: json
+                        })
+                    })
+                
+            }*/
+
+            handleClick = (e) => {
+                let newText = e.target.innerText
+                let nbclick = this.state.nbclick + 1
+                
+                this.setState({
+                    ...this.state,
+                    text: newText,
+                    nbclick: nbclick
+                })
+            }
+            handleAddWord = () => {
+                let newButton = this.refs.addword.value
+                let buttons = this.state.buttons
+
+                buttons.push(newButton)
+                this.setState({
+                    ...this.state,
+                    buttons : buttons
+                })
+            }
+
+            render(){
+                return (
+
+                    <div>
+                        <h4>SALUT LES { this.state.text }</h4>
+                        <p>{ 
+                            this.state.buttons.map((text, index) => {
+                                return (
+                                    <button onClick={ this.handleClick }>{ text }</button>
+                                )
+                            })
+                            }
+                        </p>
+                        <p>Vous avez cliqué { this.state.nbclick } fois !</p>
+                        <p>
+                            <input type="text" ref="addword" />
+                            <button onClick={ this.handleAddWord }>Ajouter le mot</button>
+                        </p>
+                    </div>
+                )
+            }
+        }
+
+        function App(){
+            return (
+                <Phrase default="POULETS" />
+            )
+        }
+        
+        // Use the ReactDOM.render to show your component on the browser
+        ReactDOM.render(
+            <App />,
+            rootElement1
+        )
+        
+    </script>
+    
+</body>
+</html>

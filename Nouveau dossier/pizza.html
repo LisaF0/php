@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+<body>
+    <div id="pizza"></div>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById('pizza')
+
+        class Pizzeria extends React.Component{
+
+            constructor(){
+                this.state = {
+                    pizzas : ["pizza1", "pizza2", "pizza3"]
+                }
+            }
+
+            render(){
+                return (
+                    <div>
+                        <ul>
+                            {
+                            this.state.pizzas 
+                            }
+                        </ul>
+                    </div>
+                )
+            }
+        }
+
+
+        function App(){
+            return (
+                <Pizzeria />
+            )
+        }
+
+        ReactDom.render(
+            <App />,
+            rootElement
+        )
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="application/javascript" src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+    <script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+</head>
+<body>
+    <h1>PIZZERIA</h1>
+    <main>
+        <div id="pizza"></div>
+    </main>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById('pizza')
+
+        function Pizza(){
+            return <span>
+                        <strong>{props.name }</strong>
+                        - 
+                        <em>{props.price}</em>
+                    </span>
+        }
+
+        const pizzas = [
+            { name : "Chickenita", price : "14" },
+            { name : "Hawaienne", price : "12" },
+            { name : "Norvegienne", price : "9" },
+
+        ]
+
+        class Pizzeria extends React.Component{
+
+            constructor(){
+                super()
+                this.state = {
+                    pizzas : ["New Delhi", " Quatre Fromage", "Hawaienne", "Norvégienne"],
+                    order : []
+                }
+            }
+
+            handleSelectPizza = () => {
+                let pizza = this.refs.selectPizza.value
+                // let pizza = document.getElementById('selectPizza').value
+                console.log(pizza)
+                let order = this.state.order
+
+                // let item = order.find(element => {
+                //     return element.name === pizza
+                // })
+
+                // if(!item){
+                //     order.push(pizza)
+                // }
+
+
+
+
+                order.push(pizza)
+                this.setState({
+                    ...this.state,
+                    order : order
+                })
+            }
+
+            handleAddPizza = () => {
+                let newPizza = this.refs.addPizza.value
+                let pizzas = this.state.pizzas
+
+                pizzas.push(newPizza)
+                this.setState({
+                    ...this.state,
+                    pizzas:pizzas
+                })
+            }
+
+            render(){
+                return (
+                    <div>
+                        <ul>
+                            {
+                                this.state.order.map((pizzaOrder, index) => {
+                                    return (
+                                        <li>{ pizzaOrder }</li>
+                                    )
+                                })
+                            }
+                        </ul>
+                        <select name="" id="" ref="selectPizza">
+                            {
+                                this.state.pizzas.map((pizza, index) => {
+                                    return (
+                                        <option key={ index } value={ pizza }>{ pizza }</option>
+                                    )
+                                })
+                            }
+                        </select>
+                        <button onClick={ this.handleSelectPizza }>Valider</button>
+                        <p>
+                            <input type="text" ref="addPizza" />
+                            <button onClick={ this.handleAddPizza }>Ajouter le mot</button>
+                        </p>
+                    </div>
+                )
+            }
+        }
+
+
+        function App(){
+            return (
+                <Pizzeria />
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            rootElement
+        )
+    </script>
+    
+</body>
+</html>
